@@ -26,23 +26,13 @@ enum ToolStatus {
   Deleted
 }
 
-enum StackType {
-  Tool
-  SaaS
-  Cloud
-  ETL
-  Analytics
-  Language
-  DB
-  CI
-  Framework
-  Hosting
+enum PricingType {
+  Free
+  Freemium
+  Paid
+  FreeTrial
+  OpenSource
   API
-  Storage
-  Monitoring
-  Messaging
-  App
-  Network
 }
 
 enum ReportType {
@@ -165,6 +155,7 @@ model Tool {
   hostingUrl      String?
   discountCode    String?
   discountAmount  String?
+  pricingType     PricingType?
   firstCommitDate DateTime?
   lastCommitDate  DateTime?
   pageviews       Int?                     @default(0)
@@ -178,7 +169,6 @@ model Tool {
   alternatives Alternative[]
   categories   Category[]
   topics       Topic[]
-  stacks       Stack[]
   license      License?      @relation(fields: [licenseId], references: [id])
   licenseId    String?
   likes        Like[]
@@ -265,23 +255,6 @@ model License {
   @@index([slug])
 }
 
-model Stack {
-  id          String    @id @default(cuid())
-  name        String    @db.Citext
-  slug        String    @unique
-  type        StackType @default(Language)
-  description String?
-  website     String?
-  faviconUrl  String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-
-  // Relations
-  tools Tool[]
-
-  // Indexes
-  @@index([slug])
-}
 
 model Report {
   id        String     @id @default(cuid())

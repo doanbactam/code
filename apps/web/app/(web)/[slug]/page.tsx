@@ -15,7 +15,6 @@ import { Markdown } from "~/components/web/markdown"
 import { OverlayImage } from "~/components/web/overlay-image"
 import { RepositoryDetails } from "~/components/web/repository-details"
 import { ShareButtons } from "~/components/web/share-buttons"
-import { StackList } from "~/components/web/stacks/stack-list"
 import { ToolActions } from "~/components/web/tools/tool-actions"
 import { ToolAlternatives } from "~/components/web/tools/tool-alternatives"
 import { ToolListSkeleton } from "~/components/web/tools/tool-list"
@@ -173,14 +172,14 @@ export default async function ToolPage(props: PageProps) {
 
           {tool.content && <Markdown code={tool.content} className="max-md:order-5" />}
 
-          {/* Stacks */}
+          {/* Stacks
           {!!tool.stacks.length && (
             <Stack size="lg" direction="column" className="w-full max-md:order-6 md:gap-y-6">
               <H4 as="strong">Technical Stack:</H4>
 
               <StackList stacks={tool.stacks} />
             </Stack>
-          )}
+          )} */}
 
           {/* Categories */}
           {!!tool.categories.length && (

@@ -73,11 +73,11 @@ const nextConfig: NextConfig = {
         destination: "/topics/letter/a",
         permanent: true,
       },
-      {
-        source: "/languages/:path*",
-        destination: "/stacks/:path*",
-        permanent: true,
-      },
+      // {
+      //   source: "/languages/:path*",
+      //   destination: "/stacks/:path*",
+      //   permanent: true,
+      // },
       {
         source: "/licenses/:path*/tools",
         destination: "/licenses/:path*",

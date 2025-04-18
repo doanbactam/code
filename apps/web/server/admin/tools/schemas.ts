@@ -1,4 +1,4 @@
-import { type Tool, ToolStatus } from "@openalternative/db/client"
+import { type Tool, ToolStatus, PricingType } from "@openalternative/db/client"
 import {
   createSearchParamsCache,
   parseAsArrayOf,
@@ -43,6 +43,7 @@ export const toolSchema = z.object({
   hostingUrl: z.string().url().optional().or(z.literal("")),
   discountCode: z.string().optional(),
   discountAmount: z.string().optional(),
+  pricingType: z.nativeEnum(PricingType).optional(),
   publishedAt: z.coerce.date().nullish(),
   status: z.nativeEnum(ToolStatus).default("Draft"),
   alternatives: z.array(z.string()).optional(),

@@ -11,7 +11,7 @@ _Chứa trạng thái hiện tại của quy trình làm việc._
 
 Phase: BLUEPRINT # Giai đoạn quy trình hiện tại (ANALYZE, BLUEPRINT, CONSTRUCT, VALIDATE, BLUEPRINT_REVISE)
 Status: NEEDS_PLAN_APPROVAL # Trạng thái hiện tại (READY, IN_PROGRESS, BLOCKED_*, NEEDS_*, COMPLETED, COMPLETED_ITERATION)
-CurrentTaskID: ai-tools-website # Định danh cho nhiệm vụ chính đang được thực hiện
+CurrentTaskID: github-integration-analysis # Định danh cho nhiệm vụ chính đang được thực hiện
 CurrentStep: 1 # Định danh cho bước cụ thể trong kế hoạch đang được thực hiện
 CurrentItem: null # Định danh cho mục hiện đang được xử lý trong quá trình lặp
 
@@ -21,119 +21,43 @@ CurrentItem: null # Định danh cho mục hiện đang được xử lý trong 
 
 _Chứa kế hoạch thực hiện từng bước được tạo ra trong giai đoạn BLUEPRINT._
 
-### Tối ưu hóa bố cục UI/UX cho website chia sẻ công cụ AI
+### Phân tích chi tiết chức năng GitHub đối với mã nguồn
 
-#### 1. Phân tích bố cục hiện tại
-- **1.1. Đánh giá bố cục trang chủ**
-  - Phân tích cấu trúc điều hướng và vị trí các thành phần chính
-  - Xác định các khu vực tương tác chính và mức độ nổi bật
-  - Đánh giá tính nhất quán và phân cấp thông tin
+Sau khi phân tích codebase, dưới đây là chức năng của tích hợp GitHub trong dự án:
 
-- **1.2. Phân tích bố cục trang danh sách công cụ**
-  - Đánh giá hiệu quả của lưới/danh sách hiển thị công cụ
-  - Phân tích cấu trúc của card công cụ và thứ tự thông tin
-  - Xác định khu vực bộ lọc và khả năng sử dụng
+1. **Cấu trúc thư viện GitHub**
+   - Package `@openalternative/github` chứa các module xử lý tương tác với GitHub API
+   - Sử dụng GraphQL API của GitHub thông qua thư viện `@octokit/graphql`
+   - Thư viện được tổ chức theo các module: client, queries, types, utils
 
-- **1.3. Phân tích bố cục trang chi tiết công cụ**
-  - Đánh giá thứ tự thông tin và mức độ ưu tiên
-  - Phân tích vị trí các thành phần tương tác (đánh giá, bình luận)
-  - Xác định hiệu quả của khu vực trình diễn (demo) công cụ
+2. **Thu thập thông tin GitHub Repository**
+   - Lấy thông tin cơ bản: tên, mô tả, URL, URL trang chủ
+   - Lấy số liệu thống kê: stars, forks, contributors, watchers
+   - Lấy thông tin thời gian: ngày tạo, ngày cập nhật gần nhất
+   - Lấy thông tin giấy phép (license) và các chủ đề (topics)
 
-#### 2. Đề xuất tối ưu hóa bố cục trang chủ
-- **2.1. Cấu trúc thành phần F-Pattern**
-  - Thiết kế header với logo, tìm kiếm và điều hướng chính tuân theo mẫu F
-  - Tổ chức banner chính với trợ lý AI tìm kiếm ở vị trí nổi bật nhất
-  - Sắp xếp các danh mục công cụ nổi bật theo mẫu F-pattern
+3. **Xử lý dữ liệu GitHub**
+   - Chuyển đổi dữ liệu thô từ API sang định dạng sử dụng trong ứng dụng
+   - Tính toán điểm sức khỏe (health score) dựa trên các chỉ số như stars, forks, thời gian hoạt động
+   - Xử lý thông tin topics, license và chuẩn hóa dữ liệu
 
-- **2.2. Phân vùng nội dung theo ưu tiên**
-  - Tổ chức công cụ nổi bật/mới trong khung hero với CTA rõ ràng
-  - Phân vùng danh mục theo nguyên tắc 60-30-10 để tạo tiêu điểm
-  - Thiết kế footer thông tin với điều hướng phụ và thông tin liên hệ
+4. **Tích hợp dữ liệu GitHub vào ứng dụng**
+   - Lưu trữ thông tin GitHub vào model Tool trong database
+   - Hiển thị thông tin như số stars, forks, last commit trên giao diện ToolCard
+   - Sử dụng thông tin topics để xác định các tính năng như self-hosted
 
-- **2.3. Tối ưu hóa điều hướng chính**
-  - Thiết kế thanh điều hướng cố định (sticky) khi cuộn
-  - Tổ chức mega menu theo nhóm chức năng và tác vụ
-  - Tích hợp chỉ báo vị trí hiện tại trong hệ thống điều hướng
+5. **Quản lý GitHub token**
+   - Token GitHub được lưu trong biến môi trường GITHUB_TOKEN
+   - Sử dụng token để xác thực với GitHub API và tránh giới hạn rate limiting
 
-#### 3. Đề xuất tối ưu hóa bố cục trang danh sách công cụ
-- **3.1. Thiết kế lưới công cụ linh hoạt**
-  - Triển khai lưới thẻ công cụ đáp ứng (3 cột desktop, 2 cột tablet, 1 cột mobile)
-  - Tối ưu khoảng cách và padding giữa các thẻ công cụ
-  - Thiết kế chế độ xem thay thế (dạng danh sách/lưới) với thông tin khác nhau
+6. **Phân tích URL GitHub**
+   - Sử dụng regex để trích xuất thông tin owner/name từ URL GitHub
+   - Kiểm tra tính hợp lệ của URL GitHub trong quá trình xác thực dữ liệu
 
-- **3.2. Cải thiện khung thẻ công cụ (Card)**
-  - Thiết kế card theo mẫu Z-pattern với logo/hình ảnh, tên, mô tả ngắn
-  - Tối ưu hiển thị thông tin quan trọng (giá, đánh giá, thẻ phân loại)
-  - Thêm chỉ báo trực quan cho trạng thái (mới, phổ biến, miễn phí)
-
-- **3.3. Tối ưu hóa bộ lọc và sắp xếp**
-  - Thiết kế bộ lọc nhanh chính nổi bật ở đầu trang (nhóm công cụ phổ biến)
-  - Tạo sidebar bộ lọc nâng cao có thể mở/đóng (hoặc drawer trên mobile)
-  - Lưu trữ trạng thái bộ lọc trong URL để dễ chia sẻ và bookmark
-
-#### 4. Đề xuất tối ưu hóa bố cục trang chi tiết công cụ
-- **4.1. Cấu trúc thông tin theo mẫu F-pattern**
-  - Thiết kế banner chính với logo, tên, đánh giá và CTA chính
-  - Tổ chức các phần thông tin theo thứ tự: mô tả, demo, đặc điểm, đánh giá
-  - Hiển thị các công cụ liên quan ở cuối trang theo dạng lưới
-
-- **4.2. Tối ưu khu vực trình diễn (demo)**
-  - Thiết kế khu vực demo linh hoạt với tabs cho các chức năng
-  - Tạo toggle để chuyển đổi giữa chế độ xem và chế độ tương tác
-  - Tự động điều chỉnh kích thước khu vực demo theo thiết bị
-
-- **4.3. Thiết kế khu vực đánh giá và feedback**
-  - Tối ưu hiển thị đánh giá với biểu đồ tóm tắt và chỉ báo trực quan
-  - Thiết kế hệ thống bình luận theo cấu trúc phân cấp với các hành động
-  - Tạo sidebar hiển thị thông tin bổ sung và thống kê sử dụng
-
-#### 5. Thiết kế các thành phần UI chung
-- **5.1. Hệ thống tìm kiếm trợ lý AI**
-  - Thiết kế giao diện tìm kiếm nổi bật với input lớn và gợi ý thực tế
-  - Tạo bố cục kết quả tìm kiếm theo dạng thẻ với điểm nhấn trực quan
-  - Thiết kế giao diện hội thoại cho trợ lý AI với trạng thái loading
-
-- **5.2. Hệ thống so sánh công cụ**
-  - Tối ưu bố cục so sánh dạng bảng với cột cố định đầu tiên
-  - Thiết kế chế độ xem biểu đồ radar trong modal hoặc tab riêng
-  - Tạo giao diện lưu và chia sẻ kết quả so sánh với thumbnail
-
-- **5.3. Các thành phần UI tuân thủ design system**
-  - Thiết kế các thành phần UI theo design system nhất quán
-  - Tạo thư viện các icon và biểu tượng chức năng chuyên biệt cho AI
-  - Xây dựng bảng màu và kiểu typography phù hợp với tính chất AI
-
-#### 6. Tối ưu hóa trải nghiệm mobile
-- **6.1. Điều hướng trên mobile**
-  - Thiết kế thanh điều hướng dạng bottom navigation với icon chính
-  - Tối ưu menu hamburger với cấu trúc phân cấp rõ ràng
-  - Xây dựng trải nghiệm back/forward nhất quán
-
-- **6.2. Tối ưu hiển thị nội dung**
-  - Ưu tiên hiển thị thông tin quan trọng đầu tiên trên mobile
-  - Thiết kế các thành phần collapsible để tiết kiệm không gian
-  - Tự động điều chỉnh kích thước hình ảnh và media
-
-- **6.3. Tối ưu các thao tác chạm và cử chỉ**
-  - Thiết kế các nút hành động với kích thước tối thiểu 48px
-  - Tích hợp cử chỉ vuốt để thực hiện các hành động nhanh
-  - Cải thiện feedback trực quan khi tương tác
-
-#### 7. Cải thiện khả năng tiếp cận (accessibility)
-- **7.1. Cấu trúc HTML ngữ nghĩa**
-  - Sử dụng các thẻ HTML5 semantic phù hợp với nội dung
-  - Thiết kế cấu trúc heading (h1-h6) hợp lý và nhất quán
-  - Tối ưu tab order và keyboard navigation
-
-- **7.2. Tương phản và khả năng đọc**
-  - Đảm bảo tương phản màu sắc đạt WCAG AA (tỷ lệ 4.5:1)
-  - Sử dụng font size tối thiểu 16px cho nội dung chính
-  - Thiết kế chế độ tối (dark mode) với tương phản phù hợp
-
-- **7.3. Hỗ trợ công nghệ trợ năng**
-  - Cung cấp các thuộc tính aria phù hợp cho các thành phần tương tác
-  - Thêm alt text mô tả cho hình ảnh và media
-  - Thiết kế thông báo và cảnh báo có thể tiếp cận
+7. **Hiển thị thông tin GitHub**
+   - Hiển thị số liệu thống kê (stars, forks, last commit) trong ToolCard
+   - Sử dụng icons và định dạng số phù hợp để hiển thị dữ liệu
+   - Đánh dấu công cụ là mới dựa trên thời gian tạo repository
 
 ---
 
@@ -207,29 +131,23 @@ _Một nhật ký theo thứ tự thời gian của các hành động, sự ki�
 _(Phần này sẽ được điền bởi AI trong quá trình hoạt động)_
 
 * `[2025-04-17 11:05:00] Initialized new session.`
-* `[2025-04-17 11:30:00] Bắt đầu phân tích mã nguồn dự án OpenAlternative.`
-* `[2025-04-17 12:15:00] Hoàn thành việc thu thập thông tin về cấu trúc dự án, công nghệ sử dụng và mô hình dữ liệu.`
-* `[2025-04-17 12:30:00] Tạo file Info.md để lưu trữ thông tin chi tiết về dự án OpenAlternative.`
-* `[2025-04-17 13:00:00] Bắt đầu giai đoạn BLUEPRINT để đề xuất đơn giản hóa nền tảng thành website chia sẻ công cụ AI.`
-* `[2025-04-17 13:15:00] Lập kế hoạch đơn giản hóa bao gồm loại bỏ tính năng phức tạp và thêm tính năng tập trung vào AI.`
-* `[2025-04-17 14:00:00] Bắt đầu giai đoạn CONSTRUCT để loại bỏ analyzer ra khỏi mã nguồn.`
-* `[2025-04-17 14:05:00] Xây dựng kế hoạch loại bỏ analyzer gồm 8 bước.`
-* `[2025-04-17 14:30:00] Xác định các tệp và thư mục liên quan đến analyzer.`
-* `[2025-04-17 14:35:00] Loại bỏ các biến môi trường liên quan đến analyzer trong turbo.json và env.ts.`
-* `[2025-04-17 14:40:00] Loại bỏ các tham chiếu đến analyzer trong lib/apis.ts và xóa lib/stack-analysis.ts.`
-* `[2025-04-17 14:45:00] Loại bỏ hàm analyzeToolStack và các tham chiếu trong admin/tools/actions.ts.`
-* `[2025-04-17 14:50:00] Loại bỏ bước analyze-repository-stack trong tool-scheduled.ts.`
-* `[2025-04-17 14:55:00] Xóa file cron.analyze-tools.ts.`
-* `[2025-04-17 15:00:00] Xóa thư mục apps/analyzer.`
-* `[2025-04-17 15:10:00] Cập nhật tài liệu để phản ánh việc loại bỏ analyzer.`
-* `[2025-04-17 15:15:00] Hoàn thành việc loại bỏ analyzer khỏi mã nguồn.`
-* `[2025-04-17 15:30:00] Bắt đầu giai đoạn CONSTRUCT mới để loại bỏ các UI liên quan đến analyzer.`
-* `[2025-04-17 15:35:00] Xây dựng kế hoạch loại bỏ UI analyzer gồm 5 bước.`
-* `[2025-04-23 10:00:00] Nhận yêu cầu mới: phân tích và đề xuất phù hợp cho website chia sẻ công cụ AI.`
-* `[2025-04-23 10:15:00] Thực hiện tìm kiếm thông tin về các trang web tương tự (Futurepedia, AIToolsDirectory, MeoAI).`
-* `[2025-04-23 10:45:00] Lập kế hoạch phát triển website chia sẻ công cụ AI với 7 phần chính.`
-* `[2025-04-23 11:00:00] Cập nhật workflow_state.md, đặt Phase thành BLUEPRINT và Status thành NEEDS_PLAN_APPROVAL.`
-* `[2025-04-24 09:00:00] Tạo kế hoạch chi tiết về tối ưu hóa bố cục UI/UX cho website chia sẻ công cụ AI.`
+* `[2025-04-17 11:35:00] Analyzed existing codebase to understand structure and patterns for PricingType implementation.`
+* `[2025-04-17 11:40:00] Created detailed plan for adding PricingType to the codebase.`
+* `[2025-04-17 11:45:00] Transitioned to CONSTRUCT phase to begin implementation.`
+* `[2025-04-18 00:56:00] Đã thêm enum PricingType vào schema Prisma.`
+* `[2025-04-18 00:57:00] Đã thêm trường pricingType vào model Tool.`
+* `[2025-04-18 00:58:00] Đã cập nhật export trong client.ts để bao gồm PricingType.`
+* `[2025-04-18 01:00:00] Đã cập nhật các payload trong server/web/tools/payloads.ts.`
+* `[2025-04-18 01:02:00] Đã cập nhật schema validation trong server/admin/tools/schemas.ts.`
+* `[2025-04-18 01:03:00] Đã cập nhật cấu hình tìm kiếm trong config/search.ts.`
+* `[2025-04-18 01:05:00] Đã tạo module queries cho pricingType.`
+* `[2025-04-18 01:07:00] Đã cập nhật action filters.ts.`
+* `[2025-04-18 01:08:00] Đã tạo migration add_pricing_type.`
+* `[2025-04-18 01:10:00] Đã cập nhật giao diện admin, thêm PricingType vào form.`
+* `[2025-04-18 01:15:00] Đã sửa lỗi truy cập undefined (filters.pricingType.length) bằng cách cập nhật filterParamsSchema.`
+* `[2025-04-18 01:20:00] Transitioned to BLUEPRINT phase for phân tích chức năng GitHub.`
+* `[2025-04-18 01:30:00] Đã phân tích codebase để tìm hiểu cách GitHub được tích hợp.`
+* `[2025-04-18 01:40:00] Đã tạo kế hoạch chi tiết phân tích chức năng GitHub đối với mã nguồn.`
 
 ---
 

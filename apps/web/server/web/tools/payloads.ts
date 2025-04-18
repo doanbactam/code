@@ -1,7 +1,6 @@
 import { Prisma } from "@openalternative/db/client"
 import { alternativeManyPayload } from "~/server/web/alternatives/payloads"
 import { categoryManyPayload } from "~/server/web/categories/payloads"
-import { stackManyPayload } from "~/server/web/stacks/payloads"
 import { topicManyPayload } from "~/server/web/topics/payloads"
 
 export const toolAlternativesPayload = Prisma.validator<Prisma.Tool$alternativesArgs>()({
@@ -19,10 +18,6 @@ export const toolTopicsPayload = Prisma.validator<Prisma.Tool$topicsArgs>()({
   orderBy: { slug: "asc" },
 })
 
-export const toolStackPayload = Prisma.validator<Prisma.Tool$stacksArgs>()({
-  select: stackManyPayload,
-  orderBy: [{ tools: { _count: "desc" } }, { slug: "asc" }],
-})
 
 export const toolOwnerPayload = Prisma.validator<Prisma.Tool$ownerArgs>()({
   select: { id: true },
@@ -46,6 +41,7 @@ export const toolOnePayload = Prisma.validator<Prisma.ToolSelect>()({
   hostingUrl: true,
   discountCode: true,
   discountAmount: true,
+  pricingType: true,
   firstCommitDate: true,
   lastCommitDate: true,
   status: true,
@@ -56,7 +52,6 @@ export const toolOnePayload = Prisma.validator<Prisma.ToolSelect>()({
   alternatives: toolAlternativesPayload,
   categories: toolCategoriesPayload,
   topics: toolTopicsPayload,
-  stacks: toolStackPayload,
 })
 
 export const toolManyPayload = Prisma.validator<Prisma.ToolSelect>()({
@@ -70,6 +65,7 @@ export const toolManyPayload = Prisma.validator<Prisma.ToolSelect>()({
   faviconUrl: true,
   discountCode: true,
   discountAmount: true,
+  pricingType: true,
   firstCommitDate: true,
   lastCommitDate: true,
   publishedAt: true,
@@ -89,6 +85,7 @@ export const toolManyExtendedPayload = Prisma.validator<Prisma.ToolSelect>()({
   screenshotUrl: true,
   discountCode: true,
   discountAmount: true,
+  pricingType: true,
   firstCommitDate: true,
   publishedAt: true,
   createdAt: true,

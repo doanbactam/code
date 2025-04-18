@@ -14,11 +14,7 @@ import {
 } from "~/components/common/dropdown-menu"
 import { Icon } from "~/components/common/icon"
 import { Link } from "~/components/common/link"
-import {
-  analyzeToolStack,
-  regenerateToolContent,
-  reuploadToolAssets,
-} from "~/server/admin/tools/actions"
+import { regenerateToolContent, reuploadToolAssets } from "~/server/admin/tools/actions"
 import type { DataTableRowAction } from "~/types"
 import { cx } from "~/utils/cva"
 
@@ -38,11 +34,6 @@ export const ToolActions = ({ className, tool, setRowAction, ...props }: ToolAct
       action: regenerateToolContent,
       label: "Regenerate Content",
       successMessage: "Tool content regenerated",
-    },
-    {
-      action: analyzeToolStack,
-      label: "Analyze Stack",
-      successMessage: "Tool stack analyzed",
     },
   ] as const
 

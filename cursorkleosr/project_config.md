@@ -41,9 +41,11 @@ AIToolsHub là một nền tảng đơn giản để khám phá, so sánh và d�
 
 ## Mô hình dữ liệu chính
 
-- **AITool:** Thông tin về công cụ AI (tên, mô tả, URL, API, khả năng, giá cả)
+- **AITool:** Thông tin về công cụ AI (tên, mô tả, URL, repository, giá cả, kiểu giá)
+- **PricingType:** Enum phân loại kiểu giá (Free, Freemium, Paid, FreeTrial, OpenSource, API)
 - **User:** Thông tin người dùng cơ bản (id, email, tên)
 - **Category:** Phân loại công cụ AI (id, tên, slug)
+- **Alternative:** Công cụ thay thế (id, tên, slug, mô tả)
 - **Rating:** Đánh giá của người dùng (điểm số, bình luận, người dùng, công cụ)
 - **Capability:** Khả năng của công cụ AI (tên, mô tả)
 
@@ -55,6 +57,7 @@ AIToolsHub là một nền tảng đơn giản để khám phá, so sánh và d�
 - **Khả năng tiếp cận:** Tuân thủ hướng dẫn WCAG cơ bản
 - **Đáp ứng di động:** Đảm bảo giao diện người dùng hoạt động tốt trên thiết bị di động
 - **Tích hợp API:** Giới hạn số lượng request API để tránh chi phí cao
+- **Bộ lọc thông minh:** Cho phép lọc công cụ theo nhiều tiêu chí, bao gồm kiểu giá
 
 ---
 

@@ -2,7 +2,7 @@
 
 import { slugify } from "@curiousleaf/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ToolStatus } from "@openalternative/db/client"
+import { ToolStatus, PricingType } from "@openalternative/db/client"
 import { formatDate } from "date-fns"
 import { redirect } from "next/navigation"
 import type { ComponentProps } from "react"
@@ -79,6 +79,7 @@ export function ToolForm({
       hostingUrl: tool?.hostingUrl ?? "",
       discountCode: tool?.discountCode ?? "",
       discountAmount: tool?.discountAmount ?? "",
+      pricingType: tool?.pricingType ?? undefined,
       status: tool?.status ?? ToolStatus.Draft,
       publishedAt: tool?.publishedAt ?? undefined,
       alternatives: tool?.alternatives.map(a => a.id) ?? [],
@@ -463,6 +464,36 @@ export function ToolForm({
               <FormLabel>Discount Amount</FormLabel>
               <FormControl>
                 <Input {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="pricingType"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Pricing Type</FormLabel>
+              <FormControl>
+                <Select 
+                  onValueChange={value => field.onChange(value === "none" ? undefined : value)} 
+                  value={field.value || "none"}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a pricing type" />
+                  </SelectTrigger>
+
+                  <SelectContent>
+                    <SelectItem value="none">None</SelectItem>
+                    {(Object.values(PricingType) as string[]).map(type => (
+                      <SelectItem key={type} value={type}>
+                        {type}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </FormControl>
               <FormMessage />
             </FormItem>

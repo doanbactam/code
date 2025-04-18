@@ -103,11 +103,6 @@ export const Header = ({ children, className, session, ...props }: HeaderProps) 
                 </NavLink>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <NavLink href="/stacks">
-                  <Icon name="lucide/blocks" className="shrink-0 size-4 opacity-75" /> Tech Stacks
-                </NavLink>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
                 <NavLink href="/topics">
                   <Icon name="lucide/tag" className="shrink-0 size-4 opacity-75" /> Topics
                 </NavLink>
@@ -182,9 +177,6 @@ export const Header = ({ children, className, session, ...props }: HeaderProps) 
         </NavLink>
         <NavLink href="/categories" className="text-base">
           Categories
-        </NavLink>
-        <NavLink href="/stacks" className="text-base">
-          Tech Stacks
         </NavLink>
         <NavLink href="/topics" className="text-base">
           Topics
