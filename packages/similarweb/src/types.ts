@@ -6,7 +6,7 @@ export interface WebsiteData {
   globalRank: number
   categoryRank: number
   monthlyVisits: number
-  lastWebUpdate: Date
+  lastUpdated: Date
 }
 
 export interface SimilarWebResponse {

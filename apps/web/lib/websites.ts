@@ -18,6 +18,6 @@ export const getToolWebsiteData = async (websiteUrl: string) => {
     globalRank: website.globalRank,
     categoryRank: website.categoryRank,
     monthlyVisits: website.monthlyVisits,
-    lastWebUpdate: website.lastWebUpdate,
+    lastUpdated: website.lastUpdated,
   } as unknown as Prisma.ToolUpdateInput
 }

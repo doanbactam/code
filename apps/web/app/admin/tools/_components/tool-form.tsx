@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { useServerAction } from "zsa-react"
 import { RelationSelector } from "~/components/admin/relation-selector"
+import { TopicSelector } from "~/components/admin/topic-selector"
 import { Button } from "~/components/common/button"
 import {
   Form,
@@ -42,8 +43,17 @@ import type { findToolBySlug } from "~/server/admin/tools/queries"
 import { toolSchema } from "~/server/admin/tools/schemas"
 import { cx } from "~/utils/cva"
 
+// Định nghĩa type cho Topic
+type Topic = {
+  slug: string
+}
+
+type ToolWithRelations = Awaited<ReturnType<typeof findToolBySlug>> & {
+  topics?: Topic[]
+}
+
 type ToolFormProps = ComponentProps<"form"> & {
-  tool?: Awaited<ReturnType<typeof findToolBySlug>>
+  tool?: ToolWithRelations
   alternatives: ReturnType<typeof findAlternativeList>
   categories: ReturnType<typeof findCategoryList>
 }
@@ -68,7 +78,6 @@ export function ToolForm({
       content: tool?.content ?? "",
       websiteUrl: tool?.websiteUrl ?? "",
       affiliateUrl: tool?.affiliateUrl ?? "",
-      repositoryUrl: tool?.repositoryUrl ?? "",
       faviconUrl: tool?.faviconUrl ?? "",
       screenshotUrl: tool?.screenshotUrl ?? "",
       isFeatured: tool?.isFeatured ?? false,
@@ -82,8 +91,9 @@ export function ToolForm({
       pricingType: tool?.pricingType ?? undefined,
       status: tool?.status ?? ToolStatus.Draft,
       publishedAt: tool?.publishedAt ?? undefined,
-      alternatives: tool?.alternatives.map(a => a.id) ?? [],
-      categories: tool?.categories.map(c => c.id) ?? [],
+      alternatives: tool?.alternatives?.map(a => a.id) ?? [],
+      categories: tool?.categories?.map(c => c.id) ?? [],
+      topics: tool?.topics?.map((t: Topic) => t.slug) ?? [],
     },
   })
 
@@ -490,26 +500,17 @@ export function ToolForm({
           control={form.control}
           name="alternatives"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="col-span-full">
               <FormLabel>Alternatives</FormLabel>
-              <RelationSelector
-                promise={alternatives}
-                selectedIds={field.value ?? []}
-                onChange={field.onChange}
-                maxSuggestions={10}
-                prompt={
-                  name &&
-                  description &&
-                  content &&
-                  `From the list of available alternative, proprietary software below, suggest relevant alternatives for this open source tool link: 
-                  
-                  - URL: ${websiteUrl}
-                  - Meta title: ${name}
-                  - Meta description: ${description}
-                  - Content: ${content}. 
-                  `
-                }
-              />
+              <FormControl>
+                <RelationSelector
+                  promise={alternatives}
+                  selectedIds={field.value}
+                  prompt={websiteUrl}
+                  onChange={field.onChange}
+                />
+              </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />
@@ -518,23 +519,35 @@ export function ToolForm({
           control={form.control}
           name="categories"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="col-span-full">
               <FormLabel>Categories</FormLabel>
-              <RelationSelector
-                promise={categories}
-                selectedIds={field.value ?? []}
-                onChange={field.onChange}
-                prompt={
-                  name &&
-                  description &&
-                  `From the list of available categories below, suggest relevant categories for this link: 
-                  
-                  - URL: ${websiteUrl}
-                  - Meta title: ${name}
-                  - Meta description: ${description}.
-                  `
-                }
-              />
+              <FormControl>
+                <RelationSelector
+                  promise={categories}
+                  selectedIds={field.value}
+                  prompt={`${name}\n${description}`}
+                  onChange={field.onChange}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="topics"
+          render={({ field }) => (
+            <FormItem className="col-span-full">
+              <FormLabel>Topics</FormLabel>
+              <FormControl>
+                <TopicSelector
+                  selectedSlugs={field.value}
+                  websiteUrl={websiteUrl}
+                  onChange={field.onChange}
+                />
+              </FormControl>
+              <FormMessage />
             </FormItem>
           )}
         />

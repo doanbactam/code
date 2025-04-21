@@ -4,7 +4,7 @@ import { config } from "~/config"
 import EmailToolExpediteReminder from "~/emails/tool-expedite-reminder"
 import EmailToolScheduled from "~/emails/tool-scheduled"
 import { sendEmails } from "~/lib/email"
-import { generateContentWithRelations } from "~/lib/generate-content"
+import { connectOrCreateTopics, generateContentWithRelations } from "~/lib/generate-content"
 import { uploadFavicon, uploadScreenshot } from "~/lib/media"
 import { getToolRepositoryData } from "~/lib/repositories"
 import { inngest } from "~/services/inngest"
@@ -22,10 +22,13 @@ export const toolScheduled = inngest.createFunction(
     // Run steps in parallel
     await Promise.all([
       step.run("generate-content", async () => {
-        const { categories, alternatives, ...content } = await generateContentWithRelations(
+        const { categories, alternatives, topics, ...content } = await generateContentWithRelations(
           tool.websiteUrl,
           tool.submitterNote ? `Suggested alternatives: ${tool.submitterNote}` : undefined,
         )
+
+        // Tạo hoặc kết nối topics
+        const topicConnections = await connectOrCreateTopics(topics)
 
         return await db.tool.update({
           where: { id: tool.id },
@@ -33,6 +36,7 @@ export const toolScheduled = inngest.createFunction(
             ...content,
             categories: { connect: categories.map(({ id }) => ({ id })) },
             alternatives: { connect: alternatives.map(({ id }) => ({ id })) },
+            topics: { connectOrCreate: topicConnections },
           },
         })
       }),
@@ -67,6 +71,7 @@ export const toolScheduled = inngest.createFunction(
     await step.run("revalidate-cache", async () => {
       revalidateTag("schedule")
       revalidateTag(`tool-${tool.slug}`)
+      revalidateTag("topics") // Revalidate topics khi có topic mới
     })
 
     // If no submitter email, return early

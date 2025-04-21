@@ -7,7 +7,7 @@ import { revalidatePath, revalidateTag } from "next/cache"
 import { after } from "next/server"
 import { z } from "zod"
 import { isProd } from "~/env"
-import { generateContent } from "~/lib/generate-content"
+import { generateContent, generateContentWithRelations, connectOrCreateTopics } from "~/lib/generate-content"
 import { removeS3Directories, uploadFavicon, uploadScreenshot } from "~/lib/media"
 import { adminProcedure } from "~/lib/safe-actions"
 import { toolSchema } from "~/server/admin/tools/schemas"
@@ -16,13 +16,17 @@ import { inngest } from "~/services/inngest"
 export const createTool = adminProcedure
   .createServerAction()
   .input(toolSchema)
-  .handler(async ({ input: { alternatives, categories, ...input } }) => {
+  .handler(async ({ input: { alternatives, categories, topics, ...input } }) => {
+    // Tạo hoặc kết nối topics
+    const topicConnections = topics ? await connectOrCreateTopics(topics) : undefined
+
     const tool = await db.tool.create({
       data: {
         ...input,
         slug: input.slug || slugify(input.name),
-        alternatives: { connect: alternatives?.map(id => ({ id })) },
-        categories: { connect: categories?.map(id => ({ id })) },
+        alternatives: alternatives?.length ? { connect: alternatives.map(id => ({ id })) } : undefined,
+        categories: categories?.length ? { connect: categories.map(id => ({ id })) } : undefined,
+        topics: topics?.length ? { connectOrCreate: topicConnections } : undefined,
       },
     })
 
@@ -37,18 +41,23 @@ export const createTool = adminProcedure
 export const updateTool = adminProcedure
   .createServerAction()
   .input(toolSchema.extend({ id: z.string() }))
-  .handler(async ({ input: { id, alternatives, categories, ...input } }) => {
+  .handler(async ({ input: { id, alternatives, categories, topics, ...input } }) => {
+    // Tạo hoặc cập nhật topics
+    const topicConnections = topics ? await connectOrCreateTopics(topics) : undefined
+
     const tool = await db.tool.update({
       where: { id },
       data: {
         ...input,
-        alternatives: { set: alternatives?.map(id => ({ id })) },
-        categories: { set: categories?.map(id => ({ id })) },
+        alternatives: alternatives ? { set: alternatives.map(id => ({ id })) } : undefined,
+        categories: categories ? { set: categories.map(id => ({ id })) } : undefined,
+        topics: topics ? { set: [], connectOrCreate: topicConnections } : undefined,
       },
     })
 
     revalidateTag("tools")
     revalidateTag(`tool-${tool.slug}`)
+    revalidateTag("topics")
 
     return tool
   })
@@ -122,15 +131,26 @@ export const regenerateToolContent = adminProcedure
   .input(z.object({ id: z.string() }))
   .handler(async ({ input: { id } }) => {
     const tool = await db.tool.findUniqueOrThrow({ where: { id } })
-    const data = await generateContent(tool.websiteUrl)
+    const { categories, alternatives, topics, ...content } = await generateContentWithRelations(
+      tool.websiteUrl
+    )
+
+    // Tạo hoặc kết nối topics
+    const topicConnections = await connectOrCreateTopics(topics)
 
     await db.tool.update({
       where: { id: tool.id },
-      data,
+      data: {
+        ...content,
+        categories: { connect: categories.map(({ id }) => ({ id })) },
+        alternatives: { connect: alternatives.map(({ id }) => ({ id })) },
+        topics: { connectOrCreate: topicConnections },
+      },
     })
 
     revalidateTag("tools")
     revalidateTag(`tool-${tool.slug}`)
+    revalidateTag("topics")
 
     return true
   })

@@ -232,31 +232,58 @@ export function CategoryForm({
               <FormControl>
                 <Select
                   disabled={!!category?.subcategories.length}
-                  onValueChange={field.onChange}
-                  value={field.value}
+                  onValueChange={(val) => {
+                    // Xử lý giá trị "_none" để đặt thành chuỗi rỗng
+                    form.setValue("parentId", val === "_none" ? "" : val);
+                  }}
+                  value={field.value || "_none"}
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="None (Top Level)" />
                   </SelectTrigger>
 
-                  <SelectContent>
-                    {Object.entries(groupedCategories).map(([parentId, categories]) => (
-                      <SelectGroup key={parentId} className="not-first:mt-2">
-                        <SelectItem value={parentId} className="font-semibold text-foreground">
-                          {parents.find(c => c.id === parentId)?.name}
-                        </SelectItem>
-
-                        {categories.map(parent => (
-                          <SelectItem key={parent.id} value={parent.id}>
-                            – {parent.name}
+                  <SelectContent className="max-h-[400px]">
+                    <SelectItem value="_none">
+                      <div className="flex items-center">
+                        <span className="font-medium">None (Top Level)</span>
+                      </div>
+                    </SelectItem>
+                    
+                    {/* Hiển thị các top-level categories */}
+                    {parents
+                      .filter(parent => !parent.parentId)
+                      .map(topParent => (
+                        <SelectGroup key={topParent.id} className="mt-2 border-t pt-2">
+                          <SelectItem value={topParent.id} className="font-semibold text-foreground">
+                            <div className="flex items-center">
+                              {topParent.name}
+                            </div>
                           </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    ))}
+
+                          {/* Hiển thị subcategories cấp 1 */}
+                          {parents
+                            .filter(cat => cat.parentId === topParent.id)
+                            .map(subCat => (
+                              <SelectItem key={subCat.id} value={subCat.id} disabled={subCat.id === category?.id}>
+                                <div className="flex items-center pl-6">
+                                  {subCat.name}
+                                  {subCat.id === category?.id && 
+                                    <span className="ml-2 text-xs text-muted-foreground italic">(current)</span>
+                                  }
+                                </div>
+                              </SelectItem>
+                            ))}
+                        </SelectGroup>
+                      ))}
                   </SelectContent>
                 </Select>
               </FormControl>
               <FormMessage />
+              {category?.subcategories?.length > 0 && (
+                <p className="text-sm text-muted-foreground mt-1">
+                  Cannot change parent because this category has {category.subcategories.length} subcategories
+                </p>
+              )}
             </FormItem>
           )}
         />
@@ -277,9 +304,19 @@ export function CategoryForm({
         />
 
         <div className="flex justify-between gap-4 col-span-full">
-          <Button size="md" variant="secondary" asChild>
-            <Link href="/admin/categories">Cancel</Link>
-          </Button>
+          <div className="flex gap-2">
+            <Button size="md" variant="secondary" asChild>
+              <Link href="/admin/categories">Cancel</Link>
+            </Button>
+            
+            {category && (
+              <Button size="md" variant="secondary" asChild>
+                <Link href="/admin/categories/new">
+                  Tạo mới
+                </Link>
+              </Button>
+            )}
+          </div>
 
           <Button size="md" variant="primary" isPending={isPending}>
             {category ? "Update category" : "Create category"}

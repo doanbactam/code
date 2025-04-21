@@ -26,63 +26,44 @@ CurrentItem: null # Identifier for the item currently being processed in iterati
 **Task: SummarizeItemsIteratively**
 ## Plan
 
-**Task: Chuyển đổi từ Radix UI + Tailwind sang shadcn/ui**
-
-* `[ ] Step 1: Thiết lập và cấu hình shadcn/ui`
-  * `[ ] Step 1.1: Cài đặt shadcn/ui CLI và dependencies cần thiết`
-  * `[ ] Step 1.2: Khởi tạo shadcn/ui trong dự án với cấu hình phù hợp`
-  * `[ ] Step 1.3: Cập nhật tailwind.config.mjs để hỗ trợ shadcn/ui`
-  * `[ ] Step 1.4: Cập nhật global CSS để tích hợp CSS variables của shadcn/ui`
-
-* `[ ] Step 2: Thêm các core components từ shadcn/ui`
-  * `[ ] Step 2.1: Thêm Button component và tùy chỉnh variants`
-  * `[ ] Step 2.2: Thêm Card component và các phần liên quan`
-  * `[ ] Step 2.3: Thêm các form controls: Input, Select`
-  * `[ ] Step 2.4: Thêm các utility components: Badge, Avatar, Tooltip`
-  * `[ ] Step 2.5: Thêm Skeleton component cho loading states`
-  * `[ ] Step 2.6: Thêm Dialog và Pagination components`
-
-* `[ ] Step 3: Tạo compatibility layer để hỗ trợ API hiện tại`
-  * `[ ] Step 3.1: Tạo Button wrapper component để hỗ trợ props như prefix, suffix, isPending`
-  * `[ ] Step 3.2: Tạo Card wrapper component để hỗ trợ props như asChild, hover, focus`
-  * `[ ] Step 3.3: Tạo Input wrapper component để hỗ trợ size props cũ`
-  * `[ ] Step 3.4: Tạo Select wrapper component để tương thích với API cũ`
-
-* `[ ] Step 4: Chuyển đổi một module thử nghiệm`
-  * `[ ] Step 4.1: Chọn một trang/module đơn giản để thử nghiệm (ví dụ: about page)`
-  * `[ ] Step 4.2: Refactor để sử dụng các shadcn/ui components`
-  * `[ ] Step 4.3: Kiểm tra visual và functional compatibility`
-  * `[ ] Step 4.4: Điều chỉnh các components và wrappers nếu cần`
-
-* `[ ] Step 5: Chuyển đổi domain components chính`
-  * `[ ] Step 5.1: Refactor ToolCard sử dụng shadcn/ui Card`
-  * `[ ] Step 5.2: Refactor ToolList sử dụng shadcn/ui components`
-  * `[ ] Step 5.3: Refactor ToolFilters sử dụng shadcn/ui Dropdown, Checkbox`
-  * `[ ] Step 5.4: Refactor ToolSearch sử dụng shadcn/ui Input và các components liên quan`
-
-* `[ ] Step 6: Chuyển đổi từng trang chính của ứng dụng`
-  * `[ ] Step 6.1: Chuyển đổi Homepage`
-  * `[ ] Step 6.2: Chuyển đổi Detail pages`
-  * `[ ] Step 6.3: Chuyển đổi Search results page`
-  * `[ ] Step 6.4: Chuyển đổi các Admin pages (nếu có)`
-
-* `[ ] Step 7: Kiểm thử và tinh chỉnh UI`
-  * `[ ] Step 7.1: Thực hiện visual regression testing`
-  * `[ ] Step 7.2: Kiểm tra responsive behavior trên nhiều kích thước màn hình`
-  * `[ ] Step 7.3: Kiểm tra accessibility (ARIA support, keyboard navigation)`
-  * `[ ] Step 7.4: Fix các visual bugs và glitches`
-
-* `[ ] Step 8: Tối ưu hóa và làm sạch codebase`
-  * `[ ] Step 8.1: Xóa các component cũ không còn sử dụng`
-  * `[ ] Step 8.2: Tối ưu hóa imports để giảm bundle size`
-  * `[ ] Step 8.3: Cập nhật tài liệu cho component system mới`
-  * `[ ] Step 8.4: Rà soát và cải thiện type definitions`
-
-* `[ ] Step 9: Triển khai và theo dõi`
-  * `[ ] Step 9.1: Triển khai lên staging environment`
-  * `[ ] Step 9.2: Thực hiện user acceptance testing`
-  * `[ ] Step 9.3: Triển khai lên production`
-  * `[ ] Step 9.4: Theo dõi metrics và phản hồi người dùng`
+[ ] Step 1: Cập nhật hệ thống sinh nội dung và trích xuất topic
+[ ] Step 1.1: Mở rộng hàm generateContent trong lib/generate-content.ts để hỗ trợ trích xuất topics
+[ ] Step 1.2: Cập nhật schema content để bao gồm trường topics cho các topic tags gợi ý
+[ ] Step 1.3: Cập nhật prompt cho ChatGPT để yêu cầu gợi ý topic tags liên quan đến công cụ
+[ ] Step 1.4: Thêm hàm xử lý chuẩn hóa topic tags từ nội dung trả về từ ChatGPT
+[ ] Step 2: Tạo logic kết nối topic với công cụ
+[ ] Step 2.1: Tạo hàm tiện ích tạo hoặc kết nối topic tags (connectOrCreateTopics)
+[ ] Step 2.2: Thêm xử lý chuẩn hóa slug cho topic tags (chuyển thành lowercase, thay thế khoảng trắng)
+[ ] Step 2.3: Thêm logic tự động kết nối công cụ với topic tags đã được gợi ý
+[ ] Step 2.4: Thêm tùy chọn sử dụng gợi ý hoặc cung cấp topic tags riêng
+[ ] Step 3: Cập nhật giao diện quản lý công cụ trong admin
+[ ] Step 3.1: Thêm phần hiển thị topic tags được gợi ý từ ChatGPT trong form thêm/sửa tool
+[ ] Step 3.2: Thêm component topic-suggestion.tsx để hiển thị các topic được gợi ý
+[ ] Step 3.3: Thêm tùy chọn áp dụng/bỏ qua từng topic tag gợi ý
+[ ] Step 3.4: Thêm trường input cho việc thêm topic tags thủ công
+[ ] Step 4: Tích hợp với quy trình đăng tool hiện tại
+[ ] Step 4.1: Cập nhật server action createTool để gọi hàm generateContent và trích xuất topics
+[ ] Step 4.2: Cập nhật server action updateTool để cập nhật topics
+[ ] Step 4.3: Thêm khả năng chỉnh sửa topics đã được gợi ý trước khi lưu
+[ ] Step 4.4: Thêm khả năng tạo mới topics không có trong gợi ý
+[ ] Step 5: Tối ưu hóa hiệu suất và trải nghiệm người dùng
+[ ] Step 5.1: Thêm trạng thái loading khi đang lấy topics từ ChatGPT
+[ ] Step 5.2: Caching kết quả gợi ý topics để tránh gọi API nhiều lần không cần thiết
+[ ] Step 5.3: Thêm timeout và retry logic khi gọi API ChatGPT
+[ ] Step 5.4: Đảm bảo fallback hợp lý khi không thể lấy được topics từ ChatGPT
+[ ] Step 6: Cải thiện cách hiển thị Topic trong giao diện admin
+[ ] Step 6.1: Hiển thị số lượng công cụ liên kết với mỗi topic tag trong bảng quản lý
+[ ] Step 6.2: Thêm khả năng lọc và sắp xếp topics theo số lượng công cụ liên kết
+[ ] Step 6.3: Thêm biểu đồ thống kê về phân bố các topic tags trên dashboard
+[ ] Step 7: Thêm tính năng quản lý topic nâng cao (tùy chọn)
+[ ] Step 7.1: Thêm khả năng nhập topic tags hàng loạt
+[ ] Step 7.2: Thêm chức năng gợi ý nhóm topic tags liên quan
+[ ] Step 7.3: Thêm chức năng tìm kiếm công cụ theo nhiều topic tags cùng lúc
+[ ] Step 8: Kiểm thử và tài liệu hóa
+[ ] Step 8.1: Kiểm tra toàn bộ quy trình từ đăng công cụ đến gợi ý và lưu topic tags
+[ ] Step 8.2: Kiểm tra độ chính xác của topic tags được gợi ý
+[ ] Step 8.3: Cập nhật tài liệu nội bộ về cách sử dụng tính năng này
+[ ] Step 8.4: Theo dõi hiệu suất của tính năng trong thực tế
 
 
 ---
