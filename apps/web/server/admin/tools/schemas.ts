@@ -8,7 +8,6 @@ import {
 } from "nuqs/server"
 import { z } from "zod"
 import { getSortingStateParser } from "~/lib/parsers"
-import { repositorySchema } from "~/server/web/shared/schemas"
 
 export const toolsTableParamsSchema = {
   name: parseAsString.withDefault(""),
@@ -29,7 +28,6 @@ export const toolSchema = z.object({
   slug: z.string().optional(),
   websiteUrl: z.string().min(1, "Website is required").url(),
   affiliateUrl: z.string().url().optional().or(z.literal("")),
-  repositoryUrl: repositorySchema,
   tagline: z.string().optional(),
   description: z.string().optional(),
   content: z.string().optional(),

@@ -33,7 +33,6 @@ export const env = createEnv({
     S3_SECRET_ACCESS_KEY: z.string().min(1),
     STRIPE_SECRET_KEY: z.string().min(1),
     STRIPE_WEBHOOK_SECRET: z.string().min(1),
-    GITHUB_TOKEN: z.string().min(1),
     SCREENSHOTONE_ACCESS_KEY: z.string().min(1),
     PLAUSIBLE_API_KEY: z.string().min(1),
     BEEHIIV_API_KEY: z.string().min(1),
@@ -49,6 +48,7 @@ export const env = createEnv({
     ANTHROPIC_API_KEY: z.string().min(1),
     FIRECRAWL_API_KEY: z.string().min(1),
     LOGTAIL_SOURCE_TOKEN: z.string().min(1),
+    SIMILARWEB_API_KEY: z.string().min(1),
   },
 
   /**
@@ -76,6 +76,7 @@ export const env = createEnv({
     NEXT_PUBLIC_PLAUSIBLE_URL: process.env.NEXT_PUBLIC_PLAUSIBLE_URL,
     NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
     NEXT_PUBLIC_POSTHOG_API_KEY: process.env.NEXT_PUBLIC_POSTHOG_API_KEY,
+    SIMILARWEB_API_KEY: process.env.SIMILARWEB_API_KEY,
   },
 
   /**

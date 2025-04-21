@@ -107,11 +107,6 @@ export const Header = ({ children, className, session, ...props }: HeaderProps) 
                   <Icon name="lucide/tag" className="shrink-0 size-4 opacity-75" /> Topics
                 </NavLink>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <NavLink href="/licenses">
-                  <Icon name="lucide/copyright" className="shrink-0 size-4 opacity-75" /> Licenses
-                </NavLink>
-              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 

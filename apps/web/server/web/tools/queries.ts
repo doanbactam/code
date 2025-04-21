@@ -1,7 +1,7 @@
 import { performance } from "node:perf_hooks"
 import { getRandomElement } from "@curiousleaf/utils"
 import { db } from "@openalternative/db"
-import { type Prisma, ToolStatus } from "@openalternative/db/client"
+import { type Prisma, ToolStatus, PricingType } from "@openalternative/db/client"
 import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from "next/cache"
 import type { FilterSchema } from "~/server/web/shared/schemas"
 import {
@@ -16,7 +16,7 @@ export const searchTools = async (search: FilterSchema, where?: Prisma.ToolWhere
   cacheTag("tools")
   cacheLife("max")
 
-  const { q, page, sort, perPage, alternative, category, stack, license } = search
+  const { q, page, sort, perPage, alternative, category, pricingType } = search
   const start = performance.now()
   const skip = (page - 1) * perPage
   const take = perPage
@@ -26,8 +26,7 @@ export const searchTools = async (search: FilterSchema, where?: Prisma.ToolWhere
     status: ToolStatus.Published,
     ...(!!alternative.length && { alternatives: { some: { slug: { in: alternative } } } }),
     ...(!!category.length && { categories: { some: { slug: { in: category } } } }),
-    ...(!!stack.length && { stacks: { some: { slug: { in: stack } } } }),
-    ...(!!license.length && { license: { slug: { in: license } } }),
+    ...(!!pricingType.length && { pricingType: { in: pricingType.map(p => p.toUpperCase() as PricingType) } }),
   }
 
   // Use full-text search when query exists
@@ -151,9 +150,11 @@ export const findTool = async ({ where, ...args }: Prisma.ToolFindFirstArgs = {}
   cacheTag("tool", `tool-${where?.slug}`)
   cacheLife("max")
 
-  return db.tool.findFirst({
+  const tool = await db.tool.findFirst({
     ...args,
     where: { status: { not: ToolStatus.Draft }, ...where },
     select: toolOnePayload,
   })
+
+  return tool
 }

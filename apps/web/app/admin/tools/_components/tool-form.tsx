@@ -202,20 +202,6 @@ export function ToolForm({
 
         <FormField
           control={form.control}
-          name="repositoryUrl"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Repository URL</FormLabel>
-              <FormControl>
-                <Input type="url" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
           name="tagline"
           render={({ field }) => (
             <FormItem>

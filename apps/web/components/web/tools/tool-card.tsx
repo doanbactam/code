@@ -25,21 +25,21 @@ type ToolCardProps = ComponentProps<typeof Card> & {
 
 const ToolCard = ({ className, tool, isRelated, ...props }: ToolCardProps) => {
   const hasMoreInfo = tool.description || !!tool.alternatives.length
-  const lastCommitDate =
-    tool.lastCommitDate && formatDistanceToNowStrict(tool.lastCommitDate, { addSuffix: true })
+  const lastUpdated =
+    tool.lastUpdated && formatDistanceToNowStrict(tool.lastUpdated, { addSuffix: true })
 
   const insights = [
     {
-      label: "Stars",
-      value: formatNumber(tool.stars, "standard"),
-      icon: <Icon name="lucide/star" />,
+      label: "Monthly visits",
+      value: typeof tool.monthlyVisits === 'number' ? formatNumber(tool.monthlyVisits, "standard") : "0",
+      icon: <Icon name="lucide/hash" />,
     },
     {
-      label: "Forks",
-      value: formatNumber(tool.forks, "standard"),
-      icon: <Icon name="lucide/git-fork" />,
+      label: "Global Rank",
+      value: tool.globalRank ? formatNumber(Number(tool.globalRank), "standard") : "0",
+      icon: <Icon name="lucide/globe" />,
     },
-    { label: "Last commit", value: lastCommitDate, icon: <Icon name="lucide/timer" /> },
+    { label: "Last update", value: lastUpdated, icon: <Icon name="lucide/timer" /> },
   ]
 
   return (
@@ -105,14 +105,14 @@ const ToolCard = ({ className, tool, isRelated, ...props }: ToolCardProps) => {
 
 const ToolCardSkeleton = () => {
   const insights = [
-    { label: "Stars", value: <Skeleton className="h-4 w-16" />, icon: <Icon name="lucide/star" /> },
+    { label: "Monthly visits", value: <Skeleton className="h-4 w-16" />, icon: <Icon name="lucide/hash" /> },
     {
-      label: "Forks",
+      label: "Global Rank",
       value: <Skeleton className="h-4 w-14" />,
-      icon: <Icon name="lucide/git-fork" />,
+      icon: <Icon name="lucide/globe" />,
     },
     {
-      label: "Last commit",
+      label: "Last update",
       value: <Skeleton className="h-4 w-20" />,
       icon: <Icon name="lucide/timer" />,
     },

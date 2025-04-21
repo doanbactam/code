@@ -1,8 +1,10 @@
 import { ReportType } from "@openalternative/db/client"
-import { githubRegex } from "@openalternative/github"
 import { createSearchParamsCache, parseAsArrayOf, parseAsInteger, parseAsString } from "nuqs/server"
 import { z } from "zod"
 import { config } from "~/config"
+
+// GitHub regex được định nghĩa trực tiếp thay vì import từ @openalternative/github
+const githubRegex = /^(?:https?:\/\/)?github\.com\/(?<owner>[^/]+)\/(?<n>[a-zA-Z0-9._-]+?)(?:[/?#]|$)/
 
 export const filterParamsSchema = {
   q: parseAsString.withDefault(""),
@@ -11,29 +13,18 @@ export const filterParamsSchema = {
   perPage: parseAsInteger.withDefault(35),
   alternative: parseAsArrayOf(parseAsString).withDefault([]),
   category: parseAsArrayOf(parseAsString).withDefault([]),
-  stack: parseAsArrayOf(parseAsString).withDefault([]),
-  license: parseAsArrayOf(parseAsString).withDefault([]),
   pricingType: parseAsArrayOf(parseAsString).withDefault([]),
 }
 
 export const filterParamsCache = createSearchParamsCache(filterParamsSchema)
 export type FilterSchema = Awaited<ReturnType<typeof filterParamsCache.parse>>
 
-const repositoryMessage =
-  "Please enter a valid GitHub repository URL (e.g. https://github.com/owner/name)"
-
-export const repositorySchema = z
-  .string()
-  .min(1, "Repository is required")
-  .url(repositoryMessage)
-  .trim()
-  .toLowerCase()
-  .regex(githubRegex, repositoryMessage)
+// const repositoryMessage = "Please enter a valid GitHub repository URL (e.g. https://github.com/owner/name)"
 
 export const submitToolSchema = z.object({
   name: z.string().min(1, "Name is required"),
   websiteUrl: z.string().min(1, "Website is required").url("Invalid URL").trim(),
-  repositoryUrl: repositorySchema,
+  repositoryUrl: z.string().url("Invalid URL").optional().or(z.literal("")),
   submitterName: z.string().min(1, "Your name is required"),
   submitterEmail: z.string().email("Please enter a valid email address"),
   submitterNote: z.string().max(200),

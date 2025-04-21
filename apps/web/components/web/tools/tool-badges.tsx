@@ -22,23 +22,23 @@ export const ToolBadges = ({ tool, children, className, ...props }: ToolBadgesPr
   const isFresh = publishedDiff !== null && publishedDiff <= 30 && publishedDiff >= 0
   const isScheduled = publishedAt !== null && publishedAt > new Date()
 
-  // Map pricingType to appropriate colors and icons
+  // Map pricingType to appropriate colors and badges
   const getPricingTypeDetails = () => {
     if (!pricingType) return null
     
     switch (pricingType) {
       case 'Free':
-        return { icon: 'lucide/tag', tooltip: 'Free', className: 'text-green-500' }
+        return { label: 'Free', variant: 'success' as const }
       case 'Freemium':
-        return { icon: 'lucide/tag', tooltip: 'Freemium', className: 'text-blue-500' }
+        return { label: 'Freemium', variant: 'info' as const }
       case 'Paid':
-        return { icon: 'lucide/credit-card', tooltip: 'Paid', className: 'text-purple-500' }
+        return { label: 'Paid', variant: 'primary' as const }
       case 'FreeTrial':
-        return { icon: 'lucide/clock', tooltip: 'Free Trial', className: 'text-amber-500' }
+        return { label: 'Free Trial', variant: 'warning' as const }
       case 'OpenSource':
-        return { icon: 'lucide/github', tooltip: 'Open Source', className: 'text-orange-500' }
+        return { label: 'Open Source', variant: 'soft' as const }
       case 'API':
-        return { icon: 'lucide/code', tooltip: 'API', className: 'text-cyan-500' }
+        return { label: 'API', variant: 'outline' as const }
       default:
         return null
     }
@@ -84,9 +84,9 @@ export const ToolBadges = ({ tool, children, className, ...props }: ToolBadgesPr
       )}
 
       {pricingTypeDetails && (
-        <Tooltip tooltip={pricingTypeDetails.tooltip}>
-          <Icon name={pricingTypeDetails.icon} className={cx("size-4", pricingTypeDetails.className)} />
-        </Tooltip>
+        <Badge size="sm" variant={pricingTypeDetails.variant}>
+          {pricingTypeDetails.label}
+        </Badge>
       )}
 
       {children}

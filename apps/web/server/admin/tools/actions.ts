@@ -135,3 +135,28 @@ export const regenerateToolContent = adminProcedure
     return true
   })
 
+export const fetchSimilarWebData = adminProcedure
+  .createServerAction()
+  .input(z.object({ id: z.string() }))
+  .handler(async ({ input: { id } }) => {
+    const tool = await db.tool.findUniqueOrThrow({ where: { id } })
+    
+    // Import needed here to avoid circular dependencies
+    const { getToolWebsiteData } = await import("~/lib/websites")
+    const data = await getToolWebsiteData(tool.websiteUrl)
+    
+    if (!data) {
+      throw new Error("Không thể lấy dữ liệu từ SimilarWeb")
+    }
+
+    await db.tool.update({
+      where: { id: tool.id },
+      data,
+    })
+
+    revalidateTag("tools")
+    revalidateTag(`tool-${tool.slug}`)
+
+    return true
+  })
+

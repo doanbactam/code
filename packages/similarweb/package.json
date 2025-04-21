@@ -1,13 +1,13 @@
 {
-  "name": "@openalternative/github",
+  "name": "@openalternative/similarweb",
   "version": "0.0.0",
   "exports": {
-    ".": "./index.ts",
-    "./client": "./client.ts"
+    ".": "./index.ts"
   },
   "dependencies": {
-    "@octokit/graphql": "^8.2.1",
-    "date-fns": "^4.1.0"
+    "axios": "^1.6.7",
+    "limiter": "^2.1.0",
+    "wretch": "^2.11.0"
   },
   "devDependencies": {
     "@types/node": "^22.13.9",

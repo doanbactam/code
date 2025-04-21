@@ -13,7 +13,7 @@ import { ExternalLink } from "~/components/web/external-link"
 import { Listing } from "~/components/web/listing"
 import { Markdown } from "~/components/web/markdown"
 import { OverlayImage } from "~/components/web/overlay-image"
-import { RepositoryDetails } from "~/components/web/repository-details"
+import { WebsiteDetails } from "~/components/web/website-details"
 import { ShareButtons } from "~/components/web/share-buttons"
 import { ToolActions } from "~/components/web/tools/tool-actions"
 import { ToolAlternatives } from "~/components/web/tools/tool-alternatives"
@@ -172,15 +172,6 @@ export default async function ToolPage(props: PageProps) {
 
           {tool.content && <Markdown code={tool.content} className="max-md:order-5" />}
 
-          {/* Stacks
-          {!!tool.stacks.length && (
-            <Stack size="lg" direction="column" className="w-full max-md:order-6 md:gap-y-6">
-              <H4 as="strong">Technical Stack:</H4>
-
-              <StackList stacks={tool.stacks} />
-            </Stack>
-          )} */}
-
           {/* Categories */}
           {!!tool.categories.length && (
             <Stack size="lg" direction="column" className="w-full max-md:order-7">
@@ -219,8 +210,7 @@ export default async function ToolPage(props: PageProps) {
         </Section.Content>
 
         <Section.Sidebar className="max-md:contents">
-          <RepositoryDetails tool={tool} className="max-md:order-3" />
-
+          <WebsiteDetails tool={tool} className="max-md:order-3" />
           {/* Advertisement */}
           <Suspense fallback={<AdCardSkeleton className="max-md:order-4" />}>
             <AdCard type="ToolPage" className="max-md:order-4" />

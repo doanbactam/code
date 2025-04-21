@@ -37,17 +37,6 @@ export const toolScheduled = inngest.createFunction(
         })
       }),
 
-      step.run("fetch-repository-data", async () => {
-        const data = await getToolRepositoryData(tool.repositoryUrl)
-
-        if (!data) return
-
-        return await db.tool.update({
-          where: { id: tool.id },
-          data,
-        })
-      }),
-
       step.run("upload-favicon", async () => {
         const { id, slug, websiteUrl } = tool
         const faviconUrl = await uploadFavicon(websiteUrl, `tools/${slug}/favicon`)

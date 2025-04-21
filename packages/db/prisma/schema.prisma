@@ -138,7 +138,6 @@ model Tool {
   slug            String                   @unique
   websiteUrl      String                   @unique
   affiliateUrl    String?
-  repositoryUrl   String                   @unique
   tagline         String?
   description     String?
   content         String?
@@ -160,6 +159,13 @@ model Tool {
   lastCommitDate  DateTime?
   pageviews       Int?                     @default(0)
   status          ToolStatus               @default(Draft)
+  globalRank      Int?         @default(0)
+  categoryRank    Int?         @default(0)
+  monthlyVisits   BigInt?              @default(0) @db.BigInt
+  lastUpdated     DateTime?    @default(now())
+
+  @@index([globalRank])
+  @@index([categoryRank])
   publishedAt     DateTime?
   createdAt       DateTime                 @default(now())
   updatedAt       DateTime                 @updatedAt

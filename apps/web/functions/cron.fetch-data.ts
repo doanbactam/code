@@ -27,42 +27,6 @@ export const fetchData = inngest.createFunction(
     ])
 
     await Promise.all([
-      // Fetch repository data and handle milestones
-      step.run("fetch-repository-data", async () => {
-        return await Promise.allSettled(
-          tools.map(async tool => {
-            const result = await tryCatch(getToolRepositoryData(tool.repositoryUrl))
-
-            if (result.error) {
-              logger.error(`Failed to fetch repository data for ${tool.name}`, {
-                error: result.error,
-                slug: tool.slug,
-              })
-
-              return null
-            }
-
-            if (!result.data) {
-              return null
-            }
-
-            if (isToolPublished(tool) && result.data.stars > tool.stars) {
-              const milestone = getMilestoneReached(tool.stars, result.data.stars)
-
-              if (milestone) {
-                const template = getPostMilestoneTemplate(tool, milestone)
-                await sendSocialPost(template, tool)
-              }
-            }
-
-            await db.tool.update({
-              where: { id: tool.id },
-              data: result.data,
-            })
-          }),
-        )
-      }),
-
       // Fetch tool analytics data
       step.run("fetch-tool-analytics-data", async () => {
         await fetchAnalyticsInBatches({

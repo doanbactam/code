@@ -3,7 +3,6 @@
 import { createServerAction } from "zsa"
 import { findAlternatives } from "~/server/web/alternatives/queries"
 import { findCategories } from "~/server/web/categories/queries"
-import { findLicenses } from "~/server/web/licenses/queries"
 import { findPricingTypes } from "~/server/web/pricing-types/queries"
 import type { FilterOption } from "~/types/search"
 
@@ -17,14 +16,13 @@ export const findFilterOptions = createServerAction().handler(async () => {
   const filters = await Promise.all([
     findAlternatives({}),
     findCategories({}),
-    findLicenses({}),
     findPricingTypes(),
   ])
 
   // Map the filters to the expected format
-  const [alternative, category, license, pricingType] = filters.map((r: FilterResult[]) =>
+  const [alternative, category, pricingType] = filters.map((r: FilterResult[]) =>
     r.map(({ slug, name, _count }): FilterOption => ({ slug, name, count: _count.tools })),
   )
 
-  return { alternative, category, license, pricingType } as const
+  return { alternative, category, pricingType } as const
 })

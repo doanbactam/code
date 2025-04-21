@@ -136,25 +136,6 @@ export const SubmitForm = ({ className, ...props }: ComponentProps<"form">) => {
 
         <FormField
           control={form.control}
-          name="repositoryUrl"
-          render={({ field }) => (
-            <FormItem className="col-span-full">
-              <FormLabel isRequired>Repository URL:</FormLabel>
-              <FormControl>
-                <Input
-                  type="url"
-                  size="lg"
-                  placeholder="https://github.com/posthog/posthog"
-                  {...field}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
           name="submitterNote"
           render={({ field }) => (
             <FormItem className="col-span-full">

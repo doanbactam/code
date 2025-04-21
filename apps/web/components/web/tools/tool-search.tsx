@@ -33,10 +33,10 @@ export const ToolSearch = ({ placeholder }: ToolSearchProps) => {
     { value: "pageviews.desc", label: "Most Popular" },
     { value: "name.asc", label: "Name (A to Z)" },
     { value: "name.desc", label: "Name (Z to A)" },
-    { value: "stars.desc", label: "Most Stars" },
-    { value: "forks.desc", label: "Most Forks" },
-    { value: "lastCommitDate.desc", label: "Last Commit" },
-    { value: "firstCommitDate.desc", label: "Repository Age" },
+    { value: "score.desc", label: "Most Popular" },
+    { value: "globalRank.desc", label: "GlobalRnak" },
+    { value: "lastUpdated.desc", label: "Last Updated" },
+    { value: "createdAt.desc", label: "Newest" },
   ]
 
   return (

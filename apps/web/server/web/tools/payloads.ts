@@ -23,12 +23,11 @@ export const toolOwnerPayload = Prisma.validator<Prisma.Tool$ownerArgs>()({
   select: { id: true },
 })
 
-export const toolOnePayload = Prisma.validator<Prisma.ToolSelect>()({
+export const toolOnePayload = {
   name: true,
   slug: true,
   websiteUrl: true,
   affiliateUrl: true,
-  repositoryUrl: true,
   tagline: true,
   description: true,
   content: true,
@@ -45,6 +44,11 @@ export const toolOnePayload = Prisma.validator<Prisma.ToolSelect>()({
   firstCommitDate: true,
   lastCommitDate: true,
   status: true,
+  // SimilarWeb data
+  globalRank: true,
+  monthlyVisits: true,
+  lastUpdated: true,
+  // Standard fields
   publishedAt: true,
   updatedAt: true,
   license: true,
@@ -52,7 +56,7 @@ export const toolOnePayload = Prisma.validator<Prisma.ToolSelect>()({
   alternatives: toolAlternativesPayload,
   categories: toolCategoriesPayload,
   topics: toolTopicsPayload,
-})
+}
 
 export const toolManyPayload = Prisma.validator<Prisma.ToolSelect>()({
   name: true,
@@ -60,6 +64,8 @@ export const toolManyPayload = Prisma.validator<Prisma.ToolSelect>()({
   websiteUrl: true,
   tagline: true,
   description: true,
+  monthlyVisits: true,
+  globalRank: true,
   stars: true,
   forks: true,
   faviconUrl: true,
@@ -68,6 +74,7 @@ export const toolManyPayload = Prisma.validator<Prisma.ToolSelect>()({
   pricingType: true,
   firstCommitDate: true,
   lastCommitDate: true,
+  lastUpdated : true,
   publishedAt: true,
   createdAt: true,
   updatedAt: true,
@@ -93,6 +100,8 @@ export const toolManyExtendedPayload = Prisma.validator<Prisma.ToolSelect>()({
   owner: toolOwnerPayload,
   categories: toolCategoriesPayload,
 })
+
+
 
 export type ToolOne = Prisma.ToolGetPayload<{ select: typeof toolOnePayload }>
 export type ToolMany = Prisma.ToolGetPayload<{ select: typeof toolManyPayload }>
