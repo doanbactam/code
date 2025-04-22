@@ -155,7 +155,7 @@ export function CategoryForm({
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel>Tên</FormLabel>
                 <FormControl>
                   <Input data-1p-ignore {...field} />
                 </FormControl>
@@ -184,7 +184,7 @@ export function CategoryForm({
           name="label"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Label</FormLabel>
+              <FormLabel>Nhãn</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -198,7 +198,7 @@ export function CategoryForm({
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel>Mô tả</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -213,7 +213,7 @@ export function CategoryForm({
           render={({ field }) => (
             <FormItem className="items-stretch">
               <Stack className="justify-between">
-                <FormLabel>Parent Category</FormLabel>
+                <FormLabel>Danh mục cha</FormLabel>
 
                 {field.value && (
                   <Button
@@ -224,7 +224,7 @@ export function CategoryForm({
                     prefix={<Icon name="lucide/x" />}
                     className="-my-1"
                   >
-                    Clear
+                    Xóa
                   </Button>
                 )}
               </Stack>
@@ -239,13 +239,13 @@ export function CategoryForm({
                   value={field.value || "_none"}
                 >
                   <SelectTrigger>
-                    <SelectValue placeholder="None (Top Level)" />
+                    <SelectValue placeholder="Không (Cấp cao nhất)" />
                   </SelectTrigger>
 
                   <SelectContent className="max-h-[400px]">
                     <SelectItem value="_none">
                       <div className="flex items-center">
-                        <span className="font-medium">None (Top Level)</span>
+                        <span className="font-medium">Không (Cấp cao nhất)</span>
                       </div>
                     </SelectItem>
                     
@@ -268,7 +268,7 @@ export function CategoryForm({
                                 <div className="flex items-center pl-6">
                                   {subCat.name}
                                   {subCat.id === category?.id && 
-                                    <span className="ml-2 text-xs text-muted-foreground italic">(current)</span>
+                                    <span className="ml-2 text-xs text-muted-foreground italic">(hiện tại)</span>
                                   }
                                 </div>
                               </SelectItem>
@@ -281,7 +281,7 @@ export function CategoryForm({
               <FormMessage />
               {category?.subcategories?.length > 0 && (
                 <p className="text-sm text-muted-foreground mt-1">
-                  Cannot change parent because this category has {category.subcategories.length} subcategories
+                  Không thể thay đổi danh mục cha vì danh mục này có {category.subcategories.length} danh mục con
                 </p>
               )}
             </FormItem>
@@ -293,7 +293,7 @@ export function CategoryForm({
           name="tools"
           render={({ field }) => (
             <FormItem className="col-span-full">
-              <FormLabel>Tools</FormLabel>
+              <FormLabel>Công cụ</FormLabel>
               <RelationSelector
                 promise={tools}
                 selectedIds={field.value ?? []}
@@ -306,7 +306,7 @@ export function CategoryForm({
         <div className="flex justify-between gap-4 col-span-full">
           <div className="flex gap-2">
             <Button size="md" variant="secondary" asChild>
-              <Link href="/admin/categories">Cancel</Link>
+              <Link href="/admin/categories">Hủy</Link>
             </Button>
             
             {category && (
@@ -319,7 +319,7 @@ export function CategoryForm({
           </div>
 
           <Button size="md" variant="primary" isPending={isPending}>
-            {category ? "Update category" : "Create category"}
+            {category ? "Cập nhật danh mục" : "Tạo danh mục"}
           </Button>
         </div>
       </form>

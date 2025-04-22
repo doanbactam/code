@@ -1,7 +1,7 @@
 "use server"
 
-import { db } from "@openalternative/db"
-import { ReportType } from "@openalternative/db/client"
+import { db } from "@m4v/db"
+import { ReportType } from "@m4v/db/client"
 import { headers } from "next/headers"
 import { z } from "zod"
 import { createServerAction } from "zsa"

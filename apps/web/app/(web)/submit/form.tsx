@@ -1,7 +1,7 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ToolStatus } from "@openalternative/db/client"
+import { ToolStatus } from "@m4v/db/client"
 import { useRouter } from "next/navigation"
 import { posthog } from "posthog-js"
 import type { ComponentProps } from "react"
@@ -52,7 +52,7 @@ export const SubmitForm = ({ className, ...props }: ComponentProps<"form">) => {
 
       if (data.status === ToolStatus.Published) {
         if (data.isFeatured) {
-          toast.info(`${data.name} has already been published.`)
+          toast.info(`${data.name} đã được xuất bản trước đó.`)
         } else {
           toast.custom(t => <FeatureNudge tool={data} t={t} />, {
             duration: Number.POSITIVE_INFINITY,
@@ -60,7 +60,7 @@ export const SubmitForm = ({ className, ...props }: ComponentProps<"form">) => {
         }
         router.push(`/${data.slug}`)
       } else {
-        toast.success(`${data.name} has been submitted.`)
+        toast.success(`${data.name} đã được gửi thành công.`)
         router.push(`/submit/${data.slug}`)
       }
     },
@@ -81,9 +81,9 @@ export const SubmitForm = ({ className, ...props }: ComponentProps<"form">) => {
               name="submitterName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel isRequired>Your Name:</FormLabel>
+                  <FormLabel isRequired>Tên của bạn:</FormLabel>
                   <FormControl>
-                    <Input type="text" size="lg" placeholder="John Doe" {...field} />
+                    <Input type="text" size="lg" placeholder="Nguyễn Văn A" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -95,9 +95,9 @@ export const SubmitForm = ({ className, ...props }: ComponentProps<"form">) => {
               name="submitterEmail"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel isRequired>Your Email:</FormLabel>
+                  <FormLabel isRequired>Email của bạn:</FormLabel>
                   <FormControl>
-                    <Input type="email" size="lg" placeholder="john@doe.com" {...field} />
+                    <Input type="email" size="lg" placeholder="nguyenvana@example.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -111,9 +111,9 @@ export const SubmitForm = ({ className, ...props }: ComponentProps<"form">) => {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel isRequired>Name:</FormLabel>
+              <FormLabel isRequired>Tên công cụ AI:</FormLabel>
               <FormControl>
-                <Input type="text" size="lg" placeholder="PostHog" data-1p-ignore {...field} />
+                <Input type="text" size="lg" placeholder="ChatGPT" data-1p-ignore {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -125,9 +125,23 @@ export const SubmitForm = ({ className, ...props }: ComponentProps<"form">) => {
           name="websiteUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel isRequired>Website URL:</FormLabel>
+              <FormLabel isRequired>URL Website:</FormLabel>
               <FormControl>
-                <Input type="url" size="lg" placeholder="https://posthog.com" {...field} />
+                <Input type="url" size="lg" placeholder="https://chat.openai.com" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="repositoryUrl"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel isRequired>URL Hướng dẫn sử dụng:</FormLabel>
+              <FormControl>
+                <Input type="url" size="lg" placeholder="https://help.openai.com/en/collections/3742473-chatgpt" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -139,12 +153,12 @@ export const SubmitForm = ({ className, ...props }: ComponentProps<"form">) => {
           name="submitterNote"
           render={({ field }) => (
             <FormItem className="col-span-full">
-              <FormLabel>Suggest an alternative:</FormLabel>
+              <FormLabel>Mô tả khả năng:</FormLabel>
               <FormControl>
                 <Input
                   type="text"
                   size="lg"
-                  placeholder="Which well-known tool is this an alternative to?"
+                  placeholder="Công cụ này có thể làm gì? Nó phù hợp với loại công việc nào?"
                   {...field}
                 />
               </FormControl>
@@ -161,7 +175,7 @@ export const SubmitForm = ({ className, ...props }: ComponentProps<"form">) => {
               <FormControl>
                 <Checkbox checked={field.value} onCheckedChange={field.onChange} />
               </FormControl>
-              <FormLabel className="font-normal">I'd like to receive free email updates</FormLabel>
+              <FormLabel className="font-normal">Tôi muốn nhận các cập nhật về công cụ AI mới qua email</FormLabel>
               <FormMessage />
             </FormItem>
           )}
@@ -169,7 +183,7 @@ export const SubmitForm = ({ className, ...props }: ComponentProps<"form">) => {
 
         <div className="col-span-full">
           <Button variant="primary" isPending={isPending} className="flex min-w-32">
-            Submit
+            Gửi
           </Button>
         </div>
 

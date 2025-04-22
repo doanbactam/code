@@ -10,15 +10,15 @@ export default function NotFound() {
 
   return (
     <Intro>
-      <IntroTitle>404 Not Found</IntroTitle>
+      <IntroTitle>404 Không Tìm Thấy</IntroTitle>
 
       <IntroDescription className="max-w-xl">
-        We're sorry, but the page {pathname} could not be found. You may have mistyped the address
-        or the page may have moved.
+        Chúng tôi rất tiếc, nhưng trang {pathname} không thể được tìm thấy. Có thể bạn đã nhập sai địa chỉ
+        hoặc trang đã được di chuyển.
       </IntroDescription>
 
       <Button size="lg" className="mt-4" asChild>
-        <Link href="/">Go back home</Link>
+        <Link href="/">Trở về trang chủ</Link>
       </Button>
     </Intro>
   )

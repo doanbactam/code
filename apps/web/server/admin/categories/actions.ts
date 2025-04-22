@@ -1,7 +1,7 @@
 "use server"
 
 import { getRandomString, slugify } from "@curiousleaf/utils"
-import { db } from "@openalternative/db"
+import { db } from "@m4v/db"
 import { revalidatePath, revalidateTag } from "next/cache"
 import { z } from "zod"
 import { getCategoryPath } from "~/lib/categories"

@@ -8,8 +8,8 @@ import { config } from "~/config"
 import { metadataConfig } from "~/config/metadata"
 
 export const metadata: Metadata = {
-  title: "About Us",
-  description: `${config.site.name} is a community driven list of open source alternatives to proprietary software and applications.`,
+  title: "Về Chúng Tôi",
+  description: `${config.site.name} là danh sách các công cụ AI chất lượng để giúp bạn tăng hiệu suất công việc và cuộc sống hàng ngày.`,
   openGraph: { ...metadataConfig.openGraph, url: "/about" },
   alternates: { ...metadataConfig.alternates, canonical: "/about" },
 }
@@ -25,97 +25,48 @@ export default function AboutPage() {
       <Featured />
 
       <Prose>
-        <h3 id="what-is-it">What is {config.site.name}?</h3>
+        <h3 id="what-is-it">{config.site.name} là gì?</h3>
 
         <p>
           <Link href="/" title={config.site.tagline}>
             {config.site.name}
           </Link>{" "}
-          is a community driven list of{" "}
-          <strong>open source alternatives to proprietary software</strong> and applications. The
-          goal of the site is to be your first stop when searching for open source services. It will
-          help you find alternatives to the products you already use.
+          là danh sách các{" "}
+          <strong>công cụ AI chất lượng để giúp bạn tăng hiệu suất công việc và cuộc sống hàng ngày</strong> được cộng đồng đóng góp. Mục tiêu của trang web là trở thành điểm dừng đầu tiên của bạn khi tìm kiếm các công cụ AI hữu ích. Nó sẽ giúp bạn tìm các công cụ AI phù hợp với nhu cầu của bạn.
         </p>
 
-        <h3 id="how-did-it-get-started">How did {config.site.name} get started?</h3>
+        <h3 id="how-did-it-get-started">{config.site.name} bắt đầu như thế nào?</h3>
 
         <p>
-          The project started as a weekend project to learn a new technology and try something new
-          and fun from scratch. It gained a lot of traction early on (
-          <a href="https://kulp.in/launch" target="_blank" rel="noreferrer">
-            100k unique visitors
-          </a>{" "}
-          in one week,{" "}
-          <a
-            href="https://news.ycombinator.com/item?id=39639386"
-            target="_blank"
-            rel="nofollow noreferrer"
-          >
-            #1 on Hacker News
-          </a>
-          ) so it was clear that there was a need for a site like this.
+          Dự án bắt đầu khi chúng tôi nhận thấy có quá nhiều công cụ AI mới xuất hiện mỗi ngày và người dùng cần một nơi để dễ dàng tìm kiếm những công cụ phù hợp với nhu cầu của họ. Nó đã thu hút được nhiều sự chú ý ngay từ đầu và rõ ràng là có nhu cầu cho một trang web như thế này.
         </p>
 
         <p>
-          I've always been a fan of open source software and I've always wanted to contribute to the
-          community in some way. I thought that creating a list of open source alternatives to
-          proprietary software and applications would be a great way to give back to the community.
+          Chúng tôi luôn là người hâm mộ công nghệ AI và muốn đóng góp cho cộng đồng bằng cách giúp mọi người khám phá các công cụ AI hữu ích có thể tăng năng suất và sáng tạo trong công việc hàng ngày của họ.
         </p>
 
-        <h3 id="how-are-rankings-calculated">How are rankings calculated?</h3>
+        <h3 id="how-are-rankings-calculated">Xếp hạng được tính toán như thế nào?</h3>
 
         <p>
-          {config.site.name} uses a sophisticated algorithm to calculate the health score of each
-          open source project, which determines its ranking. The score is based on several factors:
+          {config.site.name} sử dụng một thuật toán để tính toán điểm hữu ích của từng công cụ AI, điều này quyết định thứ hạng của nó. Điểm số dựa trên một số yếu tố:
         </p>
 
         <ol>
           <li>
-            <strong>GitHub Metrics</strong>: We consider stars, forks, watchers, and contributors,
-            with each metric weighted differently.
+            <strong>Đánh giá người dùng</strong>: Chúng tôi xem xét đánh giá và phản hồi từ người dùng thực tế.
           </li>
           <li>
-            <strong>Project Age</strong>: Newer projects get a slight boost to balance out the
-            advantage of older, more established projects.
+            <strong>Tính mới</strong>: Các công cụ mới hơn được cập nhật thường xuyên được đánh giá cao hơn.
           </li>
           <li>
-            <strong>Recent Activity</strong>: Projects with recent commits are ranked higher to
-            ensure we're showcasing actively maintained alternatives.
+            <strong>Tính năng và khả năng</strong>: Chúng tôi đánh giá các công cụ dựa trên tính năng, độ chính xác và khả năng giải quyết vấn đề.
           </li>
           <li>
-            <strong>Manual Adjustments</strong>: In some cases, we may apply a small manual
-            adjustment to account for factors our algorithm can't capture.
+            <strong>Điều chỉnh thủ công</strong>: Trong một số trường hợp, chúng tôi có thể áp dụng một điều chỉnh thủ công để tính đến các yếu tố mà thuật toán của chúng tôi không thể nắm bắt được.
           </li>
         </ol>
 
-        <p>Here's a breakdown of how the score is calculated:</p>
-
-        <ul>
-          <li>
-            Stars, forks, and watchers each contribute 25% of their value to the score, adjusted for
-            the project's age.
-          </li>
-          <li>
-            The number of contributors has a higher impact, contributing 50% of its value to the
-            score.
-          </li>
-          <li>
-            We apply a penalty for projects that haven't been updated recently, with the penalty
-            increasing for up to 90 days of inactivity.
-          </li>
-          <li>
-            The project's age is factored in to give newer projects a fair chance. Very new projects
-            get a full score, while older projects (5+ years) get about half the score for each
-            metric.
-          </li>
-        </ul>
-
-        <p>
-          This approach helps us balance between popular, well-established projects and promising
-          newcomers in the open source community.
-        </p>
-
-        <h3 id="tools-used">Tools Used</h3>
+        <h3 id="tools-used">Công cụ được sử dụng</h3>
 
         <ul>
           {config.links.toolsUsed.map(link => (
@@ -128,37 +79,31 @@ export default function AboutPage() {
           ))}
         </ul>
 
-        <h3 id="contribute">Contribute</h3>
+        <h3 id="contribute">Đóng góp</h3>
 
         <p>
-          If you have any suggestions for open source alternatives to proprietary software and
-          applications, feel free to contribute to the list. You can also contribute by suggesting
-          new categories or improving the website. The source code is available on{" "}
+          Nếu bạn biết về công cụ AI tuyệt vời nào đó, vui lòng đóng góp vào danh sách. Bạn cũng có thể đóng góp bằng cách đề xuất các danh mục mới hoặc cải thiện trang web. Mã nguồn có sẵn trên{" "}
           <a href={config.links.github} target="_blank" rel="nofollow noreferrer">
             GitHub
           </a>
           .
         </p>
 
-        <p>Enjoy and feel free to contribute!</p>
+        <p>Hãy tận hưởng và đừng ngần ngại đóng góp!</p>
 
-        <h3 id="affiliate-links">Affiliate links</h3>
-
-        <p>
-          The site participates in affiliate programs with select service providers, where some
-          links are automatically tracked as affiliate links. I try to make sure that these services
-          are not given preferential treatment.
-        </p>
-
-        <h3 id="about-the-author">About the Author</h3>
+        <h3 id="affiliate-links">Liên kết liên kết</h3>
 
         <p>
-          I'm a software developer and entrepreneur. I've been building web applications for over 15
-          years. I'm passionate about software development and I love to contribute to the community
-          in any way I can.
+          Trang web tham gia vào các chương trình liên kết với các nhà cung cấp dịch vụ được chọn, nơi một số liên kết được tự động theo dõi như liên kết liên kết. Chúng tôi cố gắng đảm bảo rằng các dịch vụ này không được đối xử ưu đãi.
         </p>
 
-        <p>Some of my other projects:</p>
+        <h3 id="about-the-author">Về chúng tôi</h3>
+
+        <p>
+          Chúng tôi là một nhóm các nhà phát triển và người đam mê AI. Chúng tôi đã làm việc với các công nghệ AI trong nhiều năm và muốn chia sẻ kiến thức của mình với cộng đồng.
+        </p>
+
+        <p>Một số dự án khác của chúng tôi:</p>
 
         <ul>
           {config.links.family.map(({ href, title, description }) => (
@@ -172,15 +117,7 @@ export default function AboutPage() {
         </ul>
 
         <p>
-          I'm always looking for new projects to work on and new people to collaborate with. Feel
-          free to reach out to me if you have any questions or suggestions.
-        </p>
-
-        <p>
-          –{" "}
-          <ExternalLink href={config.links.author} doFollow>
-            Piotr Kulpinski
-          </ExternalLink>
+          Chúng tôi luôn tìm kiếm các dự án mới để làm việc và những người mới để hợp tác. Hãy liên hệ với chúng tôi nếu bạn có bất kỳ câu hỏi hoặc đề xuất nào.
         </p>
       </Prose>
     </>

@@ -25,7 +25,7 @@ const ToolList = ({ tools, showAd = true, ...props }: ToolListProps) => {
         </Fragment>
       ))}
 
-      {!tools.length && <EmptyList>No tools found for the given filters.</EmptyList>}
+      {!tools.length && <EmptyList>Không tìm thấy công cụ nào phù hợp với bộ lọc đã chọn.</EmptyList>}
     </Grid>
   )
 }

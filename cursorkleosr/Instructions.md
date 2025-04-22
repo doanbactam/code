@@ -2,7 +2,7 @@
 
 ## Tổng quan
 
-Chào mừng đến với quy trình làm việc AI tự động cho dự án OpenAlternative! Hệ thống này giúp trợ lý AI của bạn làm việc hiệu quả và nhất quán hơn bằng cách cung cấp cho nó một quy trình có cấu trúc và bộ nhớ đáng tin cậy. Nó chỉ sử dụng hai tệp cốt lõi để quản lý mọi thứ.
+Chào mừng đến với quy trình làm việc AI tự động cho dự án m4v! Hệ thống này giúp trợ lý AI của bạn làm việc hiệu quả và nhất quán hơn bằng cách cung cấp cho nó một quy trình có cấu trúc và bộ nhớ đáng tin cậy. Nó chỉ sử dụng hai tệp cốt lõi để quản lý mọi thứ.
 
 ## Cách hoạt động: Ý tưởng cốt lõi
 
@@ -19,7 +19,7 @@ AI hoạt động trong một vòng lặp:
 ## Hai tệp chính
 
 1. **`project_config.md` (Bộ nhớ dài hạn):**
-   * Chứa các thông tin cơ bản ổn định của dự án OpenAlternative: mục tiêu chính, công nghệ sử dụng, các quy tắc lập trình quan trọng và các giới hạn.
+   * Chứa các thông tin cơ bản ổn định của dự án m4v: mục tiêu chính, công nghệ sử dụng, các quy tắc lập trình quan trọng và các giới hạn.
    * Hãy xem nó như "hiến pháp" của dự án. AI đọc nó để hiểu bức tranh tổng thể. Bạn thiết lập nó một lần và hiếm khi cập nhật.
 
 2. **`workflow_state.md` (Trạng thái động, Quy tắc & Nhật ký):**
@@ -33,7 +33,7 @@ AI hoạt động trong một vòng lặp:
 
 1. **Chuẩn bị các tệp:**
    * Các tệp cốt lõi `project_config.md` và `workflow_state.md` được đặt trong thư mục `cursorkleosr/`.
-   * Các tệp đã được thiết lập với các chi tiết cụ thể của dự án OpenAlternative.
+   * Các tệp đã được thiết lập với các chi tiết cụ thể của dự án m4v.
 
 2. **Cấu hình `.cursorrules` (Tùy chọn):**
    * Tệp `.cursorrules` chính chứa các tùy chọn toàn cục của Cursor và đã được thiết lập.
@@ -41,7 +41,7 @@ AI hoạt động trong một vòng lặp:
 3. **Hướng dẫn AI (Quan trọng!):**
    * Bắt đầu phiên Cursor chat của bạn với một lời nhắc mạnh mẽ nói với AI rằng hãy hoạt động dựa _chỉ_ trên `project_config.md` và `workflow_state.md`.
    * **Nhấn mạnh vòng lặp:** Đọc trạng thái/quy tắc -> Hành động -> Cập nhật trạng thái.
-   * _Ví dụ lời nhắc:_ "Bạn là nhà phát triển AI tự động cho dự án OpenAlternative. Nguồn thông tin duy nhất của bạn là `cursorkleosr/project_config.md` (LTM) và `cursorkleosr/workflow_state.md` (STM/Rules/Log). Trước mỗi hành động, hãy đọc `workflow_state.md`, tham khảo `## Rules` dựa trên `## State`, hành động thông qua Cursor, sau đó cập nhật ngay `workflow_state.md`."
+   * _Ví dụ lời nhắc:_ "Bạn là nhà phát triển AI tự động cho dự án m4v. Nguồn thông tin duy nhất của bạn là `cursorkleosr/project_config.md` (LTM) và `cursorkleosr/workflow_state.md` (STM/Rules/Log). Trước mỗi hành động, hãy đọc `workflow_state.md`, tham khảo `## Rules` dựa trên `## State`, hành động thông qua Cursor, sau đó cập nhật ngay `workflow_state.md`."
 
 4. **Bắt đầu làm việc:**
    * Giao cho AI nhiệm vụ đầu tiên. Nó sẽ khởi tạo theo `RULE_INIT_01` trong `workflow_state.md` và chuyển sang giai đoạn ANALYZE.

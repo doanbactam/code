@@ -1,6 +1,6 @@
 "use client"
 
-import type { Category } from "@openalternative/db/client"
+import type { Category } from "@m4v/db/client"
 import { useQueryStates } from "nuqs"
 import { use } from "react"
 import { useMemo, useState } from "react"

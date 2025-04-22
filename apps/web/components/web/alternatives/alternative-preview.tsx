@@ -29,8 +29,8 @@ const AlternativePreview = async () => {
 
   return (
     <Listing
-      title="Discover Open Source alternatives to:"
-      button={<Link href="/alternatives">View all alternatives</Link>}
+      title="Khám phá công cụ AI hàng đầu cho:"
+      button={<Link href="/alternatives">Xem tất cả công cụ AI</Link>}
       separated
     >
       <AlternativeList alternatives={alternatives} showAd={false} />
@@ -40,7 +40,7 @@ const AlternativePreview = async () => {
 
 const AlternativePreviewSkeleton = () => {
   return (
-    <Listing title="Discover Open Source alternatives to:">
+    <Listing title="Khám phá công cụ AI hàng đầu cho:">
       <AlternativeListSkeleton />
     </Listing>
   )

@@ -29,14 +29,14 @@ export const ToolSearch = ({ placeholder }: ToolSearchProps) => {
   })
 
   const sortOptions = [
-    { value: "publishedAt.desc", label: "Latest" },
-    { value: "pageviews.desc", label: "Most Popular" },
-    { value: "name.asc", label: "Name (A to Z)" },
-    { value: "name.desc", label: "Name (Z to A)" },
-    { value: "score.desc", label: "Most Popular" },
-    { value: "globalRank.desc", label: "GlobalRnak" },
-    { value: "lastUpdated.desc", label: "Last Updated" },
-    { value: "createdAt.desc", label: "Newest" },
+    { value: "publishedAt.desc", label: "Mới nhất" },
+    { value: "pageviews.desc", label: "Phổ biến nhất" },
+    { value: "name.asc", label: "Tên (A to Z)" },
+    { value: "name.desc", label: "Tên (Z to A)" },
+    { value: "score.desc", label: "Điểm số" },
+    { value: "globalRank.desc", label: "Xếp hạng thế giới" },
+    { value: "lastUpdated.desc", label: "Cập nhật gần đây" },
+    { value: "createdAt.desc", label: "Đăng ký gần đây" },
   ]
 
   return (
@@ -55,7 +55,7 @@ export const ToolSearch = ({ placeholder }: ToolSearchProps) => {
             size="lg"
             value={filters.q || ""}
             onChange={e => updateFilters({ q: e.target.value })}
-            placeholder={isLoading ? "Loading..." : placeholder || "Search tools..."}
+            placeholder={isLoading ? "Đang tải..." : placeholder || "Tìm kiếm công cụ..."}
             className="w-full truncate px-10"
           />
 
@@ -71,7 +71,7 @@ export const ToolSearch = ({ placeholder }: ToolSearchProps) => {
               onClick={() => setIsFiltersOpen(prev => !prev)}
             >
               <Icon name="lucide/list-filter" className="size-4" />
-              <span className="text-sm leading-none max-sm:sr-only">Filters</span>
+              <span className="text-sm leading-none max-sm:sr-only">Bộ lọc</span>
             </button>
           )}
         </div>
@@ -81,9 +81,9 @@ export const ToolSearch = ({ placeholder }: ToolSearchProps) => {
             <SelectTrigger
               size="lg"
               className="w-auto min-w-36 max-sm:flex-1"
-              aria-label="Order by"
+              aria-label="Sắp xếp theo"
             >
-              <SelectValue placeholder="Order by" />
+              <SelectValue placeholder="Sắp xếp theo" />
             </SelectTrigger>
 
             <SelectContent align="end">

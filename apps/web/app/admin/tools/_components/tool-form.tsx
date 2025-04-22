@@ -2,7 +2,7 @@
 
 import { slugify } from "@curiousleaf/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ToolStatus, PricingType } from "@openalternative/db/client"
+import { ToolStatus, PricingType } from "@m4v/db/client"
 import { formatDate } from "date-fns"
 import { redirect } from "next/navigation"
 import type { ComponentProps } from "react"
@@ -68,20 +68,25 @@ export function ToolForm({
 }: ToolFormProps) {
   const [isPreviewing, setIsPreviewing] = useState(false)
 
-  const form = useForm({
+  const form = useForm<FormSchema>({
     resolver: zodResolver(toolSchema),
     defaultValues: {
       name: tool?.name ?? "",
       slug: tool?.slug ?? "",
+      websiteUrl: tool?.websiteUrl ?? "",
+      affiliateUrl: tool?.affiliateUrl ?? "",
+      categories: tool?.categories.map(c => c.id) ?? [],
+      alternatives: tool?.alternatives.map(a => a.id) ?? [],
+      topics: tool?.topics.map(topic => topic.slug) ?? [],
+      status: tool?.status ?? ToolStatus.Draft,
       tagline: tool?.tagline ?? "",
       description: tool?.description ?? "",
       content: tool?.content ?? "",
-      websiteUrl: tool?.websiteUrl ?? "",
-      affiliateUrl: tool?.affiliateUrl ?? "",
+      stars: tool?.stars ?? 0,
+      forks: tool?.forks ?? 0,
       faviconUrl: tool?.faviconUrl ?? "",
       screenshotUrl: tool?.screenshotUrl ?? "",
       isFeatured: tool?.isFeatured ?? false,
-      isSelfHosted: tool?.isSelfHosted ?? false,
       submitterName: tool?.submitterName ?? "",
       submitterEmail: tool?.submitterEmail ?? "",
       submitterNote: tool?.submitterNote ?? "",
@@ -89,11 +94,8 @@ export function ToolForm({
       discountCode: tool?.discountCode ?? "",
       discountAmount: tool?.discountAmount ?? "",
       pricingType: tool?.pricingType ?? undefined,
-      status: tool?.status ?? ToolStatus.Draft,
-      publishedAt: tool?.publishedAt ?? undefined,
-      alternatives: tool?.alternatives?.map(a => a.id) ?? [],
-      categories: tool?.categories?.map(c => c.id) ?? [],
-      topics: tool?.topics?.map((t: Topic) => t.slug) ?? [],
+      publishedAt: tool?.publishedAt,
+      licenseId: tool?.license ? tool?.license.id : undefined,
     },
   })
 
@@ -116,7 +118,7 @@ export function ToolForm({
   // Create tool
   const { execute: createToolAction, isPending: isCreatingTool } = useServerAction(createTool, {
     onSuccess: ({ data }) => {
-      toast.success("Tool successfully created")
+      toast.success("Đã tạo công cụ thành công")
       redirect(`/admin/tools/${data.slug}`)
     },
 
@@ -128,7 +130,7 @@ export function ToolForm({
   // Update tool
   const { execute: updateToolAction, isPending: isUpdatingTool } = useServerAction(updateTool, {
     onSuccess: ({ data }) => {
-      toast.success("Tool successfully updated")
+      toast.success("Đã cập nhật công cụ thành công")
 
       if (data.slug !== tool?.slug) {
         redirect(`/admin/tools/${data.slug}`)
@@ -201,7 +203,7 @@ export function ToolForm({
           name="affiliateUrl"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Affiliate URL</FormLabel>
+              <FormLabel>AFFILIATE URL</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -215,7 +217,7 @@ export function ToolForm({
           name="tagline"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Tagline</FormLabel>
+              <FormLabel>Tiêu đề ngắn</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -229,7 +231,7 @@ export function ToolForm({
           name="description"
           render={({ field }) => (
             <FormItem className="col-span-full">
-              <FormLabel>Description</FormLabel>
+              <FormLabel>Mô tả</FormLabel>
               <FormControl>
                 <TextArea {...field} />
               </FormControl>
@@ -244,7 +246,7 @@ export function ToolForm({
           render={({ field }) => (
             <FormItem className="col-span-full items-stretch">
               <Stack className="justify-between">
-                <FormLabel>Content</FormLabel>
+                <FormLabel>Nội dung</FormLabel>
 
                 {field.value && (
                   <Button
@@ -257,7 +259,7 @@ export function ToolForm({
                     }
                     className="-my-1"
                   >
-                    {isPreviewing ? "Edit" : "Preview"}
+                    {isPreviewing ? "Chỉnh sửa" : "Xem trước"}
                   </Button>
                 )}
               </Stack>
@@ -283,21 +285,7 @@ export function ToolForm({
             name="isFeatured"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Featured</FormLabel>
-                <FormControl>
-                  <Switch onCheckedChange={field.onChange} checked={field.value} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="isSelfHosted"
-            render={({ field }) => (
-              <FormItem className="flex-1">
-                <FormLabel>Self-hosted</FormLabel>
+                <FormLabel>Nổi bật</FormLabel>
                 <FormControl>
                   <Switch onCheckedChange={field.onChange} checked={field.value} />
                 </FormControl>
@@ -313,7 +301,7 @@ export function ToolForm({
             name="publishedAt"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Published At</FormLabel>
+                <FormLabel>Thời gian đăng</FormLabel>
                 <FormControl>
                   <Input
                     type="datetime-local"
@@ -332,7 +320,7 @@ export function ToolForm({
             name="status"
             render={({ field }) => (
               <FormItem className="flex-1">
-                <FormLabel>Status</FormLabel>
+                <FormLabel>Trạng thái</FormLabel>
                 <FormControl>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <SelectTrigger className="w-full">
@@ -359,7 +347,7 @@ export function ToolForm({
           name="submitterName"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Submitter Name</FormLabel>
+              <FormLabel>Tên người gửi</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -373,7 +361,7 @@ export function ToolForm({
           name="submitterEmail"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Submitter Email</FormLabel>
+              <FormLabel>Email người gửi</FormLabel>
               <FormControl>
                 <Input type="email" {...field} />
               </FormControl>
@@ -387,7 +375,7 @@ export function ToolForm({
           name="submitterNote"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Submitter Note</FormLabel>
+              <FormLabel>Ghi chú người gửi</FormLabel>
               <FormControl>
                 <Input {...field} />
               </FormControl>
@@ -554,11 +542,11 @@ export function ToolForm({
 
         <div className="flex justify-between gap-4 col-span-full">
           <Button size="md" variant="secondary" asChild>
-            <Link href="/admin/tools">Cancel</Link>
+            <Link href="/admin/tools">Hủy</Link>
           </Button>
 
           <Button size="md" variant="primary" isPending={isPending}>
-            {tool ? "Update tool" : "Create tool"}
+            {tool ? "Cập nhật công cụ" : "Tạo công cụ"}
           </Button>
         </div>
       </form>

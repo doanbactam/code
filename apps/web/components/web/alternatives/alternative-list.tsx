@@ -33,7 +33,7 @@ const AlternativeList = ({ alternatives, showAd = true, ...props }: AlternativeL
         </Fragment>
       ))}
 
-      {!alternatives.length && <EmptyList>No alternatives found.</EmptyList>}
+      {!alternatives.length && <EmptyList>Không tìm thấy giải pháp thay thế nào.</EmptyList>}
     </Grid>
   )
 }

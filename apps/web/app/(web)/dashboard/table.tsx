@@ -1,7 +1,7 @@
 "use client"
 
 import { formatDate } from "@curiousleaf/utils"
-import { type Tool, ToolStatus } from "@openalternative/db/client"
+import { type Tool, ToolStatus } from "@m4v/db/client"
 import type { ColumnDef } from "@tanstack/react-table"
 import { differenceInDays, formatDistanceToNowStrict } from "date-fns"
 import { useQueryStates } from "nuqs"
@@ -155,8 +155,8 @@ export const DashboardTable = ({ toolsPromise }: DashboardTableProps) => {
   const filterFields: DataTableFilterField<Tool>[] = [
     {
       id: "name",
-      label: "Name",
-      placeholder: "Search by name...",
+      label: "Tên",
+      placeholder: "Tìm kiếm theo tên...",
     },
   ]
 
@@ -177,10 +177,10 @@ export const DashboardTable = ({ toolsPromise }: DashboardTableProps) => {
   })
 
   return (
-    <DataTable table={table} emptyState="No tools found. Submit or claim a tool to get started.">
+    <DataTable table={table} emptyState="Không tìm thấy công cụ. Đăng ký hoặc xác minh công cụ để bắt đầu.">
       <DataTableToolbar table={table} filterFields={filterFields}>
         <Button size="md" variant="primary" prefix={<Icon name="lucide/plus" />} asChild>
-          <Link href="/submit">Submit a tool</Link>
+          <Link href="/submit">Đăng ký công cụ</Link>
         </Button>
       </DataTableToolbar>
     </DataTable>

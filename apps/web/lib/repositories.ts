@@ -1,4 +1,4 @@
-import type { Prisma } from "@openalternative/db/client"
+import type { Prisma } from "@m4v/db/client"
 
 /**
  * Trả về dữ liệu trống vì đã loại bỏ tích hợp với GitHub.

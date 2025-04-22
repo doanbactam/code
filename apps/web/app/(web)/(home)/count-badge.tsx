@@ -1,6 +1,6 @@
 import { formatNumber } from "@curiousleaf/utils"
-import { db } from "@openalternative/db"
-import { ToolStatus } from "@openalternative/db/client"
+import { db } from "@m4v/db"
+import { ToolStatus } from "@m4v/db/client"
 import { subDays } from "date-fns"
 import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from "next/cache"
 import plur from "plur"
@@ -32,8 +32,8 @@ const CountBadge = async () => {
     <Badge prefix={<Ping />} className="order-first" asChild>
       <Link href="/latest">
         {newCount
-          ? `${formatNumber(newCount)} new ${plur("tool", newCount)} added`
-          : `${formatNumber(count)}+ open source tools`}
+          ? `${formatNumber(newCount)} công cụ mới được thêm`
+          : `${formatNumber(count)}+ công cụ mã nguồn mở`}
       </Link>
     </Badge>
   )

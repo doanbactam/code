@@ -1,7 +1,7 @@
 "use client"
 
 import { formatDate } from "@curiousleaf/utils"
-import { ToolStatus } from "@openalternative/db/client"
+import { ToolStatus } from "@m4v/db/client"
 import Link from "next/link"
 import type { ComponentProps } from "react"
 import { useState } from "react"
@@ -65,7 +65,7 @@ export const ToolActions = ({ tool, children, className, ...props }: ToolActions
             onClick={() => setIsClaimOpen(true)}
             className="text-blue-600 dark:text-blue-400"
           >
-            Claim
+            Xác minh
           </Button>
         </Tooltip>
       )}

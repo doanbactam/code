@@ -16,7 +16,7 @@ export const AlternativeListing = async ({ searchParams }: AlternativeListingPro
       alternatives={alternatives}
       totalCount={totalCount}
       perPage={parsedParams.perPage}
-      placeholder={`Search in ${totalCount} alternatives...`}
+      placeholder={`Tìm kiếm trong ${totalCount} lựa chọn thay thế...`}
     />
   )
 }

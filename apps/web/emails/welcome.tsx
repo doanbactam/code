@@ -46,7 +46,7 @@ const EmailWelcome = ({ name = "there", ...props }: EmailProps) => {
         <li>
           <Text className="m-0">
             <Link href={`${config.site.url}/advertise`} className="underline font-medium">
-              Advertise on OpenAlternative
+              Advertise on m4v
             </Link>{" "}
             – Choose one of the available options and promote your business or software on our
             website.

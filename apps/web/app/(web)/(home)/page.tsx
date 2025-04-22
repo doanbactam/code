@@ -22,10 +22,12 @@ export default function Home({ searchParams }: PageProps) {
       <section className="flex flex-col gap-y-6 w-full mb-[2vh]">
         <Intro alignment="center">
           <IntroTitle className="max-w-[15em] lg:text-5xl/[1.1]!">
-            Discover {config.site.tagline}
+            Khám Phá Công Cụ AI Hữu Ích Cho Công Việc Hàng Ngày
           </IntroTitle>
 
-          <IntroDescription className="lg:mt-2">{config.site.description}</IntroDescription>
+          <IntroDescription className="lg:mt-2">
+            Bộ sưu tập các công cụ AI tốt nhất cho công việc và cuộc sống hàng ngày. Tiết kiệm thời gian với các công cụ AI đáng tin cậy được chọn lọc cho bạn.
+          </IntroDescription>
 
           <Suspense fallback={<CountBadgeSkeleton />}>
             <CountBadge />
@@ -35,7 +37,7 @@ export default function Home({ searchParams }: PageProps) {
         <NewsletterForm
           size="lg"
           className="max-w-sm mx-auto items-center text-center"
-          buttonProps={{ children: "Join our community", size: "md", variant: "fancy" }}
+          buttonProps={{ children: "Tham gia cộng đồng", size: "md", variant: "fancy" }}
         >
           <NewsletterProof />
         </NewsletterForm>

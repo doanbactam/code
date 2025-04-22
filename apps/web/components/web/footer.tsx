@@ -41,12 +41,11 @@ export const Footer = ({ children, className, hideNewsletter, ...props }: Footer
         >
           <Stack size="lg" direction="column" className="min-w-0 max-w-64">
             <H5 as="strong" className="px-0.5 font-medium">
-              Subscribe to our newsletter
+              Đăng ký nhận bản tin của chúng tôi
             </H5>
 
             <p className="-mt-2 px-0.5 text-xs text-muted-foreground first:mt-0">
-              Join {formatNumber(config.stats.subscribers + config.stats.stars, "standard")}+ other
-              members and get updates on new open source tools.
+              Tham gia cùng {formatNumber(config.stats.subscribers + config.stats.stars, "standard")}+ thành viên khác và nhận thông tin cập nhật về các công cụ AI mới.
             </p>
 
             <NewsletterForm medium="footer_form" />
@@ -74,42 +73,42 @@ export const Footer = ({ children, className, hideNewsletter, ...props }: Footer
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <Tooltip tooltip="Contact us">
+            <Tooltip tooltip="Liên hệ với chúng tôi">
               <NavLink
                 href={`mailto:${config.site.email}`}
                 target="_blank"
                 rel="nofollow noreferrer"
-                aria-label="Contact us"
+                aria-label="Liên hệ với chúng tôi"
               >
                 <Icon name="lucide/at-sign" className="size-[1.44em] opacity-75" />
               </NavLink>
             </Tooltip>
 
-            <Tooltip tooltip="View source code">
+            <Tooltip tooltip="Xem mã nguồn">
               <NavLink href={config.links.github} target="_blank" rel="nofollow noreferrer">
                 <Icon name="tabler/brand-github" className="size-[1.44em] opacity-75" />
               </NavLink>
             </Tooltip>
 
-            <Tooltip tooltip="Follow us on X/Twitter">
+            <Tooltip tooltip="Theo dõi chúng tôi trên X/Twitter">
               <NavLink href={config.links.twitter} target="_blank" rel="nofollow noreferrer">
                 <Icon name="tabler/brand-x" className="size-[1.44em] opacity-75" />
               </NavLink>
             </Tooltip>
 
-            <Tooltip tooltip="Follow us on Bluesky">
+            <Tooltip tooltip="Theo dõi chúng tôi trên Bluesky">
               <NavLink href={config.links.bluesky} target="_blank" rel="nofollow noreferrer">
                 <Icon name="tabler/brand-bluesky" className="size-[1.44em] opacity-75" />
               </NavLink>
             </Tooltip>
 
-            <Tooltip tooltip="Follow us on Mastodon">
+            <Tooltip tooltip="Theo dõi chúng tôi trên Mastodon">
               <NavLink href={config.links.mastodon} target="_blank" rel="nofollow noreferrer">
                 <Icon name="tabler/brand-mastodon" className="size-[1.44em] opacity-75" />
               </NavLink>
             </Tooltip>
 
-            <Tooltip tooltip="Follow us on LinkedIn">
+            <Tooltip tooltip="Theo dõi chúng tôi trên LinkedIn">
               <NavLink href={config.links.linkedin} target="_blank" rel="nofollow noreferrer">
                 <Icon name="tabler/brand-linkedin" className="size-[1.44em] opacity-75" />
               </NavLink>
@@ -122,26 +121,25 @@ export const Footer = ({ children, className, hideNewsletter, ...props }: Footer
         </Stack>
 
         <Stack direction="column" className="text-sm/normal md:col-span-3 md:col-start-8">
-          <H6 as="strong">Browse:</H6>
+          <H6 as="strong">Duyệt:</H6>
 
-          <NavLink href="/alternatives">Alternatives</NavLink>
-          <NavLink href="/categories">Categories</NavLink>
-          <NavLink href="/self-hosted">Self-hosted</NavLink>
-          <NavLink href="/topics">Topics</NavLink>
-          <NavLink href="/licenses">Licenses</NavLink>
+          <NavLink href="/alternatives">Công cụ AI nổi bật</NavLink>
+          <NavLink href="/categories">Danh mục</NavLink>
+          <NavLink href="/free">Miễn phí</NavLink>
+          <NavLink href="/topics">Chủ đề</NavLink>
         </Stack>
 
         <Stack direction="column" className="text-sm/normal md:col-span-3">
-          <H6 as="strong">Quick Links:</H6>
+          <H6 as="strong">Liên kết nhanh:</H6>
 
-          <NavLink href="/about">About Us</NavLink>
+          <NavLink href="/about">Về Chúng Tôi</NavLink>
           <NavLink href="/blog">Blog</NavLink>
-          <NavLink href="/advertise">Advertise</NavLink>
-          <NavLink href="/submit">Add a Free Listing</NavLink>
+          <NavLink href="/advertise">Quảng cáo</NavLink>
+          <NavLink href="/submit">Thêm công cụ AI</NavLink>
         </Stack>
 
         <Stack direction="column" className="text-sm/normal md:col-span-3">
-          <H6 as="strong">Other Products:</H6>
+          <H6 as="strong">Sản phẩm khác:</H6>
 
           {config.links.family.map(({ href, title, description }) => (
             <ExternalLink
@@ -159,7 +157,7 @@ export const Footer = ({ children, className, hideNewsletter, ...props }: Footer
 
       <div className="flex flex-row flex-wrap items-end justify-between gap-x-4 gap-y-2 w-full text-sm text-muted-foreground **:[&[href]]:font-medium **:[&[href]]:text-foreground **:[&[href]]:hover:text-secondary-foreground">
         <Stack size="sm">
-          <span>Built with</span>
+          <span>Được xây dựng với</span>
 
           <ExternalLink href={config.links.madeWith} className="flex items-center gap-2" doFollow>
             <svg
@@ -180,7 +178,7 @@ export const Footer = ({ children, className, hideNewsletter, ...props }: Footer
           <ExternalLink href={config.links.author} data-link doFollow>
             Piotr Kulpinski
           </ExternalLink>
-          . Website may contain affiliate links.
+          . Trang web có thể chứa các liên kết liên kết.
         </p>
       </div>
 

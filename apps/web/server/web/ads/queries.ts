@@ -1,5 +1,5 @@
-import { db } from "@openalternative/db"
-import type { Prisma } from "@openalternative/db/client"
+import { db } from "@m4v/db"
+import type { Prisma } from "@m4v/db/client"
 import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from "next/cache"
 import { adManyPayload, adOnePayload } from "~/server/web/ads/payloads"
 
@@ -7,7 +7,7 @@ export const findAds = async ({ where, orderBy, ...args }: Prisma.AdFindManyArgs
   "use cache"
 
   cacheTag("ads")
-  cacheLife("hours")
+  cacheLife("giờ")
 
   return db.ad.findMany({
     ...args,
@@ -20,7 +20,7 @@ export const findAd = async ({ where, orderBy, ...args }: Prisma.AdFindFirstArgs
   "use cache"
 
   cacheTag("ad")
-  cacheLife("minutes")
+  cacheLife("phút")
 
   return db.ad.findFirst({
     ...args,

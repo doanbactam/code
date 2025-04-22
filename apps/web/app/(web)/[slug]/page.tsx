@@ -130,7 +130,7 @@ export default async function ToolPage(props: PageProps) {
                   eventName="click_website"
                   eventProps={{ url: tool.websiteUrl }}
                 >
-                  Visit {tool.name}
+                  Truy cập {tool.name}
                 </ExternalLink>
               </Button>
 
@@ -141,7 +141,7 @@ export default async function ToolPage(props: PageProps) {
                     eventName="click_ad"
                     eventProps={{ url: tool.hostingUrl, type: "ToolPage" }}
                   >
-                    Self-host with Easypanel
+                    Tự lưu trữ với Easypanel
                   </ExternalLink>
                 </Button>
               )}
@@ -194,7 +194,7 @@ export default async function ToolPage(props: PageProps) {
           {/* Topics */}
           {!!tool.topics.length && (
             <Stack size="lg" direction="column" className="w-full max-md:order-8">
-              <H4 as="strong">Related topics:</H4>
+              <H4 as="strong">Chủ đề liên quan:</H4>
 
               <Stack>
                 {tool.topics.map(({ slug }) => (

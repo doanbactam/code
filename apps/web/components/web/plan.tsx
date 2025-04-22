@@ -148,8 +148,8 @@ const Plan = ({
           {isSubscription && prices.length > 1 && (
             <PlanIntervalSwitch
               intervals={[
-                { label: "Monthly", value: "month" },
-                { label: "Yearly", value: "year" },
+                { label: "Tháng", value: "month" },
+                { label: "Năm", value: "year" },
               ]}
               value={interval}
               onChange={setInterval}

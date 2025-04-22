@@ -1,4 +1,4 @@
-import { ToolStatus } from "@openalternative/db/client"
+import { ToolStatus } from "@m4v/db/client"
 import type { SearchParams } from "nuqs/server"
 import { ToolQuery } from "~/components/web/tools/tool-query"
 import { filterParamsCache } from "~/server/web/shared/schemas"
@@ -21,7 +21,7 @@ export const ComingSoonToolListing = async ({ searchParams }: ComingSoonToolList
       tools={tools}
       totalCount={totalCount}
       perPage={parsedParams.perPage}
-      placeholder={`Search in ${totalCount} tools...`}
+      placeholder={`Tìm kiếm trong ${totalCount} công cụ...`}
       enableSort={false}
     />
   )

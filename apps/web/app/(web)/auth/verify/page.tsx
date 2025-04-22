@@ -12,8 +12,8 @@ type PageProps = {
 }
 
 export const metadata: Metadata = {
-  title: "Check your inbox",
-  description: `Check your inbox to sign in to ${config.site.name}.`,
+  title: "Kiểm tra hộp thư đến",
+  description: `Kiểm tra hộp thư đến để đăng nhập vào ${config.site.name}.`,
   openGraph: { ...metadataConfig.openGraph, url: "/check-inbox" },
   alternates: { ...metadataConfig.alternates, canonical: "/check-inbox" },
 }
@@ -30,12 +30,12 @@ export default async function VerifyPage({ searchParams }: PageProps) {
     {
       provider: "Gmail",
       icon: "/gmail.svg",
-      link: "https://mail.google.com/#search/openalternative%20login",
+      link: "https://mail.google.com/#search/m4v%20login",
     },
     {
       provider: "Superhuman",
       icon: "/superhuman.svg",
-      link: "superhuman://mail.superhuman.com/search/openalternative%20login",
+      link: "superhuman://mail.superhuman.com/search/m4v%20login",
     },
   ]
 
@@ -44,8 +44,8 @@ export default async function VerifyPage({ searchParams }: PageProps) {
       <Intro>
         <IntroTitle size="h3">{`${metadata.title}`}</IntroTitle>
         <IntroDescription className="md:text-sm">
-          We've sent you a magic link to <strong className="text-foreground">{email}</strong>.
-          Please click the link to confirm your address.
+          Chúng tôi đã gửi cho bạn một liên kết mã hóa đến <strong className="text-foreground">{email}</strong>.
+          Vui lòng nhấp vào liên kết để xác nhận địa chỉ của bạn.
         </IntroDescription>
       </Intro>
 
@@ -65,12 +65,12 @@ export default async function VerifyPage({ searchParams }: PageProps) {
       </Stack>
 
       <p className="text-xs text-muted-foreground/75">
-        No email in your inbox? Check your spam folder or{" "}
+        Không có email trong hộp thư đến? Kiểm tra thư mục rác hoặc{" "}
         <Link
           href="/auth/login"
           className="text-muted-foreground font-medium hover:text-foreground"
         >
-          try a different email address
+          thử địa chỉ email khác
         </Link>
         .
       </p>

@@ -30,16 +30,16 @@ const ToolCard = ({ className, tool, isRelated, ...props }: ToolCardProps) => {
 
   const insights = [
     {
-      label: "Monthly visits",
-      value: typeof tool.monthlyVisits === 'number' ? formatNumber(tool.monthlyVisits, "standard") : "0",
+      label: "Lượt truy cập",
+      value: tool.monthlyVisits ? formatNumber(Number(tool.monthlyVisits), "standard") : "0",
       icon: <Icon name="lucide/hash" />,
     },
     {
-      label: "Global Rank",
+      label: "Xếp hạng thế giới",
       value: tool.globalRank ? formatNumber(Number(tool.globalRank), "standard") : "0",
       icon: <Icon name="lucide/globe" />,
     },
-    { label: "Last update", value: lastUpdated, icon: <Icon name="lucide/timer" /> },
+    { label: "Cập nhật gần đây", value: lastUpdated, icon: <Icon name="lucide/timer" /> },
   ]
 
   return (
@@ -72,7 +72,7 @@ const ToolCard = ({ className, tool, isRelated, ...props }: ToolCardProps) => {
               {!!tool.alternatives.length && (
                 <Stack className="mt-auto text-sm">
                   <span>
-                    <span className="sr-only">Open Source </span>Alternative to:
+                    <span className="sr-only">Công cụ AI miễn phí thay thế</span>Thay thế:
                   </span>
 
                   {tool.alternatives.map(({ slug, name, faviconUrl }) => (
@@ -105,14 +105,14 @@ const ToolCard = ({ className, tool, isRelated, ...props }: ToolCardProps) => {
 
 const ToolCardSkeleton = () => {
   const insights = [
-    { label: "Monthly visits", value: <Skeleton className="h-4 w-16" />, icon: <Icon name="lucide/hash" /> },
+    { label: "Lượt truy cập", value: <Skeleton className="h-4 w-16" />, icon: <Icon name="lucide/hash" /> },
     {
-      label: "Global Rank",
+      label: "Xếp hạng thế giới",
       value: <Skeleton className="h-4 w-14" />,
       icon: <Icon name="lucide/globe" />,
     },
     {
-      label: "Last update",
+      label: "Cập nhật gần đây",
       value: <Skeleton className="h-4 w-20" />,
       icon: <Icon name="lucide/timer" />,
     },

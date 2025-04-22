@@ -16,7 +16,7 @@ export const UserLogout = ({ className, ...props }: ComponentProps<"button">) =>
       fetchOptions: {
         onSuccess: () => {
           router.refresh()
-          toast.success("You've been signed out successfully")
+          toast.success("Bạn đã đăng xuất thành công")
         },
       },
     })
@@ -30,7 +30,7 @@ export const UserLogout = ({ className, ...props }: ComponentProps<"button">) =>
       onClick={handleSignOut}
     >
       <Icon name="lucide/log-out" className="shrink-0 size-4 opacity-75" />
-      Logout
+      Đăng xuất
     </button>
   )
 }

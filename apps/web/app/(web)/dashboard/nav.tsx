@@ -19,11 +19,11 @@ export const DashboardNav = ({ className, ...props }: ComponentProps<"div">) => 
 
   const items = [
     {
-      label: "Submitted",
+      label: "Đã gửi",
       href: "/dashboard/submitted",
     },
     {
-      label: "Claimed",
+      label: "Đã xác nhận",
       href: "/dashboard/claimed",
     },
   ]

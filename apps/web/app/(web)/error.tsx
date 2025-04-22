@@ -20,17 +20,17 @@ export default function Error({ error, reset }: ErrorProps) {
 
   return (
     <Intro>
-      <IntroTitle>Something went wrong!</IntroTitle>
+      <IntroTitle>Đã xảy ra lỗi!</IntroTitle>
 
       <Prose>
         <p>
-          Please try again. If the problem persists, contact support at{" "}
+          Vui lòng thử lại. Nếu sự cố vẫn tiếp tục, hãy liên hệ hỗ trợ tại{" "}
           <Link href={`mailto:${config.site.email}`}>{config.site.email}</Link>.
         </p>
       </Prose>
 
       <Button className="mt-4" onClick={() => reset()}>
-        Try again
+        Thử lại
       </Button>
     </Intro>
   )

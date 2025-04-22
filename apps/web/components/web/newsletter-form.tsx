@@ -28,9 +28,9 @@ export const NewsletterForm = ({
   children,
   className,
   medium = "subscribe_form",
-  placeholder = "Enter your email",
+  placeholder = "Nhập email của bạn",
   size = "md",
-  buttonProps = { size: "sm", children: "Subscribe" },
+  buttonProps = { size: "sm", children: "Đăng ký" },
   ...props
 }: NewsletterFormProps) => {
   const form = useForm<NewsletterSchema>({

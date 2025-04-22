@@ -85,13 +85,13 @@ const ToolRefinementComponent = ({
 
         {!isPending && (
           <CommandEmpty className="px-1" asChild>
-            <Note as="div">No results found.</Note>
+            <Note as="div">Không tìm thấy kết quả nào.</Note>
           </CommandEmpty>
         )}
 
         {isPending && (
           <CommandLoading className="px-1" asChild>
-            <Note as="div">Loading...</Note>
+            <Note as="div">Đang tải...</Note>
           </CommandLoading>
         )}
       </CommandList>

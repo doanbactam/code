@@ -1,4 +1,4 @@
-import { type Tool, ToolStatus, PricingType } from "@openalternative/db/client"
+import { type Tool, ToolStatus, PricingType } from "@m4v/db/client"
 import {
   createSearchParamsCache,
   parseAsArrayOf,
@@ -34,7 +34,6 @@ export const toolSchema = z.object({
   faviconUrl: z.string().optional().or(z.literal("")),
   screenshotUrl: z.string().optional().or(z.literal("")),
   isFeatured: z.boolean().default(false),
-  isSelfHosted: z.boolean().default(false),
   submitterName: z.string().optional(),
   submitterEmail: z.string().email().optional().or(z.literal("")),
   submitterNote: z.string().optional(),

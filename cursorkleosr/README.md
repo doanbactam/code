@@ -1,4 +1,4 @@
-# Quy trình làm việc AI tự động cho OpenAlternative
+# Quy trình làm việc AI tự động cho m4v
 
 Thư mục này chứa các tệp cấu hình cho hệ thống quy trình làm việc AI tự động cho Cursor IDE, dựa trên dự án [kleosr/cursorkleosr](https://github.com/kleosr/cursorkleosr).
 
@@ -9,7 +9,7 @@ Thư mục này chứa các tệp cấu hình cho hệ thống quy trình làm v
 ## Các tệp trong thư mục này
 
 1. **`project_config.md` (Bộ nhớ dài hạn - LTM):**
-   * Chứa thông tin ổn định, thiết yếu về dự án OpenAlternative.
+   * Chứa thông tin ổn định, thiết yếu về dự án m4v.
    * Bao gồm mục tiêu dự án, công nghệ chính, các mẫu lập trình quan trọng và các ràng buộc chính.
    * Được cập nhật không thường xuyên.
 

@@ -58,7 +58,9 @@ const CommandList = ({ className, ...props }: ComponentProps<typeof CommandPrimi
 }
 
 const CommandEmpty = (props: ComponentProps<typeof CommandPrimitive.Empty>) => {
-  return <CommandPrimitive.Empty className="py-6 text-center text-sm" {...props} />
+  return <CommandPrimitive.Empty className="py-6 text-center text-sm" {...props}>
+    {props.children || "Không tìm thấy kết quả nào"}
+  </CommandPrimitive.Empty>
 }
 
 const CommandGroup = ({ className, ...props }: ComponentProps<typeof CommandPrimitive.Group>) => {

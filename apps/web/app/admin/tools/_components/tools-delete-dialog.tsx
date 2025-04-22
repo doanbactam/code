@@ -1,6 +1,6 @@
 "use client"
 
-import type { Tool } from "@openalternative/db/client"
+import type { Tool } from "@m4v/db/client"
 import type { ComponentProps } from "react"
 import { toast } from "sonner"
 import { useServerAction } from "zsa-react"
@@ -33,7 +33,7 @@ export const ToolsDeleteDialog = ({
   const { execute, isPending } = useServerAction(deleteTools, {
     onSuccess: () => {
       props.onOpenChange?.(false)
-      toast.success("Tools deleted")
+      toast.success("Đã xóa công cụ")
       onSuccess?.()
     },
 
@@ -47,35 +47,35 @@ export const ToolsDeleteDialog = ({
       {showTrigger && (
         <DialogTrigger asChild>
           <Button variant="secondary" size="md" prefix={<Icon name="lucide/trash" />}>
-            Delete ({tools.length})
+            Xóa ({tools.length})
           </Button>
         </DialogTrigger>
       )}
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
+          <DialogTitle>Bạn có chắc chắn không?</DialogTitle>
           <DialogDescription>
-            This action cannot be undone. This will permanently delete your{" "}
+            Hành động này không thể hoàn tác. Điều này sẽ xóa vĩnh viễn{" "}
             <span className="font-medium">{tools.length}</span>
-            {tools.length === 1 ? " tool" : " tools"} from our servers.
+            {tools.length === 1 ? " công cụ" : " công cụ"} khỏi máy chủ của chúng tôi.
           </DialogDescription>
         </DialogHeader>
 
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="secondary">Cancel</Button>
+            <Button variant="secondary">Hủy</Button>
           </DialogClose>
 
           <Button
-            aria-label="Delete selected rows"
+            aria-label="Xóa các hàng đã chọn"
             size="md"
             variant="destructive"
             className="min-w-28"
             onClick={() => execute({ ids: tools.map(({ id }) => id) })}
             isPending={isPending}
           >
-            Delete
+            Xóa
           </Button>
         </DialogFooter>
       </DialogContent>

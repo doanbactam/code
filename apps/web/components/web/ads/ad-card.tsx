@@ -1,4 +1,4 @@
-import type { AdType } from "@openalternative/db/client"
+import type { AdType } from "@m4v/db/client"
 import { Slot } from "radix-ui"
 import type { ComponentProps } from "react"
 import { Badge } from "~/components/common/badge"

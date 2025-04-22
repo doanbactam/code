@@ -1,4 +1,4 @@
-import { Prisma } from "@openalternative/db/client"
+import { Prisma } from "@m4v/db/client"
 import { alternativeManyPayload } from "~/server/web/alternatives/payloads"
 import { categoryManyPayload } from "~/server/web/categories/payloads"
 import { topicManyPayload } from "~/server/web/topics/payloads"
@@ -36,7 +36,6 @@ export const toolOnePayload = {
   faviconUrl: true,
   screenshotUrl: true,
   isFeatured: true,
-  isSelfHosted: true,
   hostingUrl: true,
   discountCode: true,
   discountAmount: true,

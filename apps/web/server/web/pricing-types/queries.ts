@@ -1,5 +1,5 @@
-import { db } from "@openalternative/db"
-import { PricingType, ToolStatus } from "@openalternative/db/client"
+import { db } from "@m4v/db"
+import { PricingType, ToolStatus } from "@m4v/db/client"
 import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from "next/cache"
 
 /**

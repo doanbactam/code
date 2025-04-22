@@ -35,7 +35,7 @@ const ToolQuery = ({
 const ToolQuerySkeleton = () => {
   return (
     <div className="flex flex-col gap-5">
-      <Input size="lg" placeholder="Loading..." disabled />
+      <Input size="lg" placeholder="Đang tải..." disabled />
       <ToolListSkeleton />
     </div>
   )

@@ -1,6 +1,6 @@
 import { createAnthropic } from "@ai-sdk/anthropic"
 import { isTruthy } from "@curiousleaf/utils"
-import { db } from "@openalternative/db"
+import { db } from "@m4v/db"
 import { generateObject } from "ai"
 import { z } from "zod"
 import { env } from "~/env"

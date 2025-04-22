@@ -1,4 +1,4 @@
-import { db } from "@openalternative/db"
+import { db } from "@m4v/db"
 import Image from "next/image"
 import { type ComponentProps, Suspense } from "react"
 import { Link } from "~/components/common/link"

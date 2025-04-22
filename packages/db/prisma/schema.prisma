@@ -147,7 +147,6 @@ model Tool {
   faviconUrl      String?
   screenshotUrl   String?
   isFeatured      Boolean                  @default(false)
-  isSelfHosted    Boolean                  @default(false)
   submitterName   String?
   submitterEmail  String?
   submitterNote   String?

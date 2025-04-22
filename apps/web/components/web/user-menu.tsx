@@ -26,7 +26,7 @@ const UserMenu = (props: { session: Session | null }) => {
   if (!session) {
     return (
       <Button size="sm" variant="secondary" asChild>
-        <Link href="/auth/login">Sign In</Link>
+        <Link href="/auth/login">Đăng nhập</Link>
       </Button>
     )
   }
@@ -56,14 +56,14 @@ const UserMenu = (props: { session: Session | null }) => {
         {session.user.role === "admin" && (
           <DropdownMenuItem asChild>
             <NavLink href="/admin">
-              <Icon name="lucide/shield-half" className="shrink-0 size-4 opacity-75" /> Admin Panel
+              <Icon name="lucide/shield-half" className="shrink-0 size-4 opacity-75" /> Bảng quản trị
             </NavLink>
           </DropdownMenuItem>
         )}
 
         <DropdownMenuItem asChild>
           <NavLink href="/dashboard">
-            <Icon name="lucide/user" className="shrink-0 size-4 opacity-75" /> Dashboard
+            <Icon name="lucide/user" className="shrink-0 size-4 opacity-75" /> Bảng điều khiển
           </NavLink>
         </DropdownMenuItem>
 
@@ -78,7 +78,7 @@ const UserMenu = (props: { session: Session | null }) => {
 const UserMenuSkeleton = () => {
   return (
     <Button size="sm" variant="secondary" disabled>
-      Sign In
+      Đăng nhập
     </Button>
   )
 }

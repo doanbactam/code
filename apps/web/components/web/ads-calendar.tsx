@@ -1,4 +1,4 @@
-import type { AdType } from "@openalternative/db/client"
+import type { AdType } from "@m4v/db/client"
 import { differenceInDays, endOfDay, startOfDay } from "date-fns"
 import { type ComponentProps, useCallback, useMemo } from "react"
 import type { DateRange } from "react-day-picker"

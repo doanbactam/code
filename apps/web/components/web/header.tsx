@@ -73,7 +73,7 @@ export const Header = ({ children, className, session, ...props }: HeaderProps) 
         <nav className="contents max-lg:hidden">
           <DropdownMenu>
             <DropdownMenuTrigger className={cx(navLinkVariants({ className: "gap-1" }))}>
-              Browse{" "}
+              Khám phá{" "}
               <Icon
                 name="lucide/chevron-down"
                 className="group-data-[state=open]:-rotate-180 duration-200"
@@ -83,37 +83,31 @@ export const Header = ({ children, className, session, ...props }: HeaderProps) 
             <DropdownMenuContent align="start">
               <DropdownMenuItem asChild>
                 <NavLink href="/latest">
-                  <Icon name="lucide/calendar-days" className="shrink-0 size-4 opacity-75" /> Latest
-                </NavLink>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <NavLink href="/self-hosted">
-                  <Icon name="lucide/server" className="shrink-0 size-4 opacity-75" /> Self-hosted
+                  <Icon name="lucide/calendar-days" className="shrink-0 size-4 opacity-75" /> Mới nhất
                 </NavLink>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <NavLink href="/coming-soon">
-                  <Icon name="lucide/clock" className="shrink-0 size-4 opacity-75" /> Coming Soon
+                  <Icon name="lucide/clock" className="shrink-0 size-4 opacity-75" /> Sắp ra mắt
                 </NavLink>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <NavLink href="/categories">
-                  <Icon name="lucide/tags" className="shrink-0 size-4 opacity-75" /> Categories
+                  <Icon name="lucide/tags" className="shrink-0 size-4 opacity-75" /> Danh mục
                 </NavLink>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <NavLink href="/topics">
-                  <Icon name="lucide/tag" className="shrink-0 size-4 opacity-75" /> Topics
+                  <Icon name="lucide/tag" className="shrink-0 size-4 opacity-75" /> Chủ đề
                 </NavLink>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <NavLink href="/alternatives">Alternatives</NavLink>
-          <NavLink href="/self-hosted">Self-hosted</NavLink>
-          <NavLink href="/advertise">Advertise</NavLink>
-          <NavLink href="/submit">Submit</NavLink>
+          <NavLink href="/alternatives">Lựa chọn thay thế</NavLink>
+          <NavLink href="/advertise">Quảng cáo</NavLink>
+          {/* <NavLink href="/submit">Submit</NavLink> */}
         </nav>
 
         <Stack size="sm" className="max-sm:hidden">
@@ -159,28 +153,22 @@ export const Header = ({ children, className, session, ...props }: HeaderProps) 
         )}
       >
         <NavLink href="/latest" className="text-base">
-          Latest
-        </NavLink>
-        <NavLink href="/self-hosted" className="text-base">
-          Self-hosted
+          Mới nhất
         </NavLink>
         <NavLink href="/coming-soon" className="text-base">
-          Coming Soon
+          Sắp ra mắt
         </NavLink>
         <NavLink href="/alternatives" className="text-base">
-          Alternatives
+          Lựa chọn thay thế
         </NavLink>
         <NavLink href="/categories" className="text-base">
-          Categories
+          Danh mục
         </NavLink>
         <NavLink href="/topics" className="text-base">
-          Topics
-        </NavLink>
-        <NavLink href="/submit" className="text-base">
-          Submit
+          Chủ đề
         </NavLink>
         <NavLink href="/advertise" className="text-base">
-          Advertise
+          Quảng cáo
         </NavLink>
         <NavLink href="/about" className="text-base">
           About

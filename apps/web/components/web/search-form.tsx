@@ -46,7 +46,7 @@ export const SearchForm = ({ className, ...props }: ComponentProps<"form">) => {
           size="sm"
           value={query}
           onChange={e => setQuery(e.target.value)}
-          placeholder="Search..."
+          placeholder="Tìm kiếm..."
           onFocus={handleExpand}
           onBlur={handleCollapse}
           className={cx(
@@ -63,7 +63,7 @@ export const SearchForm = ({ className, ...props }: ComponentProps<"form">) => {
           )}
           onClick={handleExpand}
           tabIndex={-1}
-          aria-label="Search"
+          aria-label="Tìm kiếm"
         >
           <Icon name="lucide/search" className="size-4" />
         </button>

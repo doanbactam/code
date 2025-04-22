@@ -6,10 +6,10 @@ import { cx } from "~/utils/cva"
 
 export const Stats = ({ className, ...props }: ComponentProps<"div">) => {
   const stats = [
-    { value: config.stats.pageviews, label: "Monthly Pageviews" },
-    { value: config.stats.tools, label: "Listed Projects" },
-    { value: config.stats.subscribers, label: "Newsletter Subscribers" },
-    { value: config.stats.stars, label: "GitHub Stars" },
+    { value: config.stats.pageviews, label: "Lượt truy cập" },
+    { value: config.stats.tools, label: "Công cụ được liệt kê" },
+    { value: config.stats.subscribers, label: "Người đăng ký nhận bản tin" },
+    { value: config.stats.stars, label: "Sao GitHub" },
   ]
 
   return (

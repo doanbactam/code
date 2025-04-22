@@ -1,6 +1,6 @@
 "use client"
 
-import type { Category } from "@openalternative/db/client"
+import type { Category } from "@m4v/db/client"
 import type { ComponentProps } from "react"
 import { toast } from "sonner"
 import { useServerAction } from "zsa-react"

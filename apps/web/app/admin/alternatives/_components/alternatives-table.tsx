@@ -1,6 +1,6 @@
 "use client"
 
-import type { Alternative } from "@openalternative/db/client"
+import type { Alternative } from "@m4v/db/client"
 import { useQueryStates } from "nuqs"
 import { use, useMemo, useState } from "react"
 import { AlternativesDeleteDialog } from "~/app/admin/alternatives/_components/alternatives-delete-dialog"

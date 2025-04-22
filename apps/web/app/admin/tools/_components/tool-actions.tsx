@@ -1,6 +1,6 @@
 "use client"
 
-import type { Tool } from "@openalternative/db/client"
+import type { Tool } from "@m4v/db/client"
 import { EllipsisIcon } from "lucide-react"
 import type { ComponentProps, Dispatch, SetStateAction } from "react"
 import { toast } from "sonner"
@@ -31,19 +31,19 @@ export const ToolActions = ({ className, tool, setRowAction, ...props }: ToolAct
   const actions = [
     {
       action: fetchSimilarWebData,
-      label: "Fetch SimilarWeb",
-      successMessage: "SimilarWeb data fetched successfully", 
+      label: "Lấy dữ liệu SimilarWeb",
+      successMessage: "Đã lấy dữ liệu SimilarWeb thành công", 
       show: () => !!tool.websiteUrl,
     },
     {
       action: reuploadToolAssets,
-      label: "Reupload Assets",
-      successMessage: "Tool assets reuploaded",
+      label: "Tải lại tài nguyên",
+      successMessage: "Đã tải lại tài nguyên công cụ",
     },
     {
       action: regenerateToolContent,
-      label: "Regenerate Content",
-      successMessage: "Tool content regenerated",
+      label: "Tạo lại nội dung",
+      successMessage: "Đã tạo lại nội dung công cụ",
     },
   ] as const
 
@@ -72,12 +72,12 @@ export const ToolActions = ({ className, tool, setRowAction, ...props }: ToolAct
 
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
-          <Link href={`/admin/tools/${tool.slug}`}>Edit</Link>
+          <Link href={`/admin/tools/${tool.slug}`}>Chỉnh sửa</Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem asChild>
           <Link href={`/${tool.slug}`} target="_blank">
-            View
+            Xem
           </Link>
         </DropdownMenuItem>
 
@@ -86,7 +86,7 @@ export const ToolActions = ({ className, tool, setRowAction, ...props }: ToolAct
             onSelect={() => setRowAction({ data: tool, type: "schedule" })}
             className="text-green-600"
           >
-            Schedule
+            Lên lịch
           </DropdownMenuItem>
         )}
 
@@ -100,7 +100,7 @@ export const ToolActions = ({ className, tool, setRowAction, ...props }: ToolAct
 
         <DropdownMenuItem asChild>
           <Link href={tool.websiteUrl} target="_blank">
-            Visit website
+            Truy cập trang web
           </Link>
         </DropdownMenuItem>
 
@@ -110,7 +110,7 @@ export const ToolActions = ({ className, tool, setRowAction, ...props }: ToolAct
           onSelect={() => setRowAction({ data: tool, type: "delete" })}
           className="text-red-500"
         >
-          Delete
+          Xóa
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

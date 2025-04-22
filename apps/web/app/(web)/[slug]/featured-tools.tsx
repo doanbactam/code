@@ -22,10 +22,12 @@ export const FeaturedTools = async ({ ...props }: ComponentProps<typeof Card>) =
       <Stack direction="column">
         <Stack size="sm">
           <Icon name="lucide/star" className="fill-current text-blue-500" />
-          <H5 as="strong">Featured projects</H5>
+          <H5 as="strong">Công cụ được đề xuất</H5>
         </Stack>
 
-        <Note>{siteConfig.name} is made possible by the following supporters:</Note>
+        <Note>
+          {siteConfig.name} được tài trợ bởi các nhà tài trợ sau:
+        </Note>
       </Stack>
 
       <Stack className="gap-2">
