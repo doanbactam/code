@@ -95,7 +95,6 @@ export function ToolForm({
       discountAmount: tool?.discountAmount ?? "",
       pricingType: tool?.pricingType ?? undefined,
       publishedAt: tool?.publishedAt,
-      licenseId: tool?.license ? tool?.license.id : undefined,
     },
   })
 

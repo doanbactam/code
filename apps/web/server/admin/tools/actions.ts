@@ -12,6 +12,7 @@ import { removeS3Directories, uploadFavicon, uploadScreenshot } from "~/lib/medi
 import { adminProcedure } from "~/lib/safe-actions"
 import { toolSchema } from "~/server/admin/tools/schemas"
 import { inngest } from "~/services/inngest"
+import { env } from "~/env"
 
 export const createTool = adminProcedure
   .createServerAction()
@@ -196,6 +197,11 @@ export const fetchSimilarWebData = adminProcedure
   .handler(async ({ input: { id } }) => {
     const tool = await db.tool.findUniqueOrThrow({ where: { id } })
     
+    // Kiểm tra xem API key có tồn tại không
+    if (!env.SIMILARWEB_API_KEY) {
+      throw new Error("Chưa cấu hình SIMILARWEB_API_KEY trong biến môi trường")
+    }
+    
     // Import needed here to avoid circular dependencies
     const { getToolWebsiteData } = await import("~/lib/websites")
     const data = await getToolWebsiteData(tool.websiteUrl)
@@ -330,6 +336,11 @@ export const batchFetchSimilarWebData = adminProcedure
   .createServerAction()
   .input(z.object({ ids: z.array(z.string()) }))
   .handler(async ({ input: { ids } }) => {
+    // Kiểm tra xem API key có tồn tại không
+    if (!env.SIMILARWEB_API_KEY) {
+      throw new Error("Chưa cấu hình SIMILARWEB_API_KEY trong biến môi trường")
+    }
+    
     const tools = await db.tool.findMany({
       where: { id: { in: ids } },
       select: { id: true, slug: true, websiteUrl: true },

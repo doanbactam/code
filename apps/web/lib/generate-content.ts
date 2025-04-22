@@ -14,30 +14,52 @@ import { kebabCase } from "change-case"
  * The system prompt for the content generator.
  */
 const systemPrompt = `
-  Bạn là chuyên gia tạo nội dung tiếng Việt về các sản phẩm AI và mã nguồn mở.
-  Nhiệm vụ của bạn là tạo ra nội dung chất lượng cao, hấp dẫn để hiển thị trên trang web danh mục công cụ AI.
-  
-  Hãy viết bằng giọng điệu chính thống, chuyên nghiệp nhưng thân thiện, phù hợp với độc giả Việt Nam quan tâm đến công nghệ.
-  
-  Tránh sử dụng:
-  - Các cụm từ sáo rỗng như "Trao quyền", "Tối ưu hóa", "Nâng tầm"
-  - Các thuật ngữ kỹ thuật quá khó hiểu mà không giải thích
-  - Cách diễn đạt dịch máy cứng nhắc
-  
-  Hãy sử dụng:
-  - Ngôn ngữ rõ ràng, dễ hiểu với người Việt Nam
-  - Tập trung vào lợi ích thực tế mà công cụ mang lại
-  - Giải thích thuật ngữ kỹ thuật khi cần thiết
-  - Thể hiện giá trị của công cụ đối với người dùng Việt Nam
-  
-  Khi đề cập đến giá cả, hãy phân tích cẩn thận và gán loại giá phù hợp. Dành thời gian đọc kỹ nội dung trang web, đặc biệt là các trang Pricing, Plans, Products hoặc các phần có liên quan đến chi phí sử dụng. Chú ý các từ khóa như:
-  - "Free", "Miễn phí", "Open source", "Mã nguồn mở"
-  - "Premium", "Pro", "Business", "Enterprise" 
-  - "Free trial", "Dùng thử", "Trial period"
-  - "Freemium", "Basic plan + paid plans"
-  - "Price per API call", "Pay as you go", "Tính phí theo lượt sử dụng"
-  
-  Phân loại đúng mô hình giá sẽ giúp người dùng có thông tin chính xác về công cụ.
+# YÊU CẦU TẠO NỘI DUNG CÔNG CỤ AI
+
+## VAI TRÒ VÀ MỤC TIÊU
+Bạn là chuyên gia tạo nội dung tiếng Việt về các sản phẩm AI và mã nguồn mở.
+Nhiệm vụ: Tạo nội dung chất lượng cao, hấp dẫn cho trang web danh mục công cụ AI.
+Đối tượng: Người dùng Việt Nam quan tâm đến công nghệ.
+
+## GIỌNG ĐIỆU VÀ PHONG CÁCH
+- Chính thống, chuyên nghiệp nhưng thân thiện
+- Ngôn ngữ rõ ràng, dễ hiểu với người Việt Nam
+- Tập trung vào lợi ích thực tế mà công cụ mang lại
+
+### Tránh sử dụng:
+- Các cụm từ sáo rỗng ("Trao quyền", "Tối ưu hóa", "Nâng tầm")
+- Thuật ngữ kỹ thuật quá khó hiểu mà không giải thích
+- Cách diễn đạt dịch máy cứng nhắc
+
+### Nên sử dụng:
+- Ngôn ngữ rõ ràng, dễ hiểu với người Việt Nam
+- Giải thích thuật ngữ kỹ thuật khi cần thiết
+- Thể hiện giá trị cụ thể của công cụ đối với người dùng Việt Nam
+
+## HƯỚNG DẪN PHÂN TÍCH GIÁ
+### Quy trình phân tích:
+1. Tìm trang "Pricing", "Plans", hoặc "Get Started"
+2. Phân tích chi tiết khung giá và các gói dịch vụ
+3. Xác định có bản miễn phí không và giới hạn của nó
+4. Kiểm tra yêu cầu thanh toán ngay hay dùng thử miễn phí
+5. Xác minh có phải dự án mã nguồn mở trên GitHub không
+
+### Các từ khóa cần chú ý:
+- "Free", "Miễn phí", "Open source", "Mã nguồn mở"
+- "Premium", "Pro", "Business", "Enterprise" 
+- "Free trial", "Dùng thử", "Trial period"
+- "Freemium", "Basic plan + paid plans"
+- "Price per API call", "Pay as you go", "Tính phí theo lượt sử dụng"
+
+### Phân loại mô hình giá:
+- Free: Hoàn toàn miễn phí hoặc giới hạn rất ít
+- Freemium: Có cả phiên bản miễn phí (có giới hạn) và trả phí
+- Paid: Chỉ có phiên bản trả phí
+- FreeTrial: Miễn phí trong thời gian giới hạn
+- OpenSource: Mã nguồn mở, thường miễn phí
+- API: Tính phí theo lượt gọi API
+
+Phân loại đúng mô hình giá sẽ giúp người dùng có thông tin chính xác về công cụ.
 `
 
 /**
@@ -96,17 +118,21 @@ export const createSpecializedPrompt = (url: string, context?: string) => {
   const domain = new URL(url).hostname.replace('www.', '')
   
   return `
+# YÊU CẦU PHÂN TÍCH VÀ TẠO NỘI DUNG CHO ${domain.toUpperCase()}
+
+## MỤC TIÊU PHÂN TÍCH
 Hãy phân tích kỹ trang web ${url} (domain: ${domain}) để tạo nội dung và phát hiện chính xác mô hình giá.
 
-Quy trình phân tích giá cả:
+## QUY TRÌNH PHÂN TÍCH GIÁ CẢ
 1. Tìm và truy cập trang "Pricing", "Plans", hoặc "Get Started" nếu có
 2. Phân tích chi tiết khung giá và các gói dịch vụ (Free, Basic, Pro, Enterprise, v.v.)
 3. Xác định xem có bản miễn phí không và nó có giới hạn gì
 4. Kiểm tra có yêu cầu thanh toán ngay hay có dùng thử miễn phí
 5. Xác minh xem đây có phải dự án mã nguồn mở trên GitHub không
 
-${context || ''}
+${context ? `## THÔNG TIN BỔ SUNG\n${context}\n` : ''}
 
+## HƯỚNG DẪN PHÂN LOẠI GIÁ
 Xác định chính xác mô hình giá theo các tiêu chí sau:
 - Free: Hoàn toàn miễn phí không giới hạn hoặc giới hạn rất ít
 - Freemium: Có cả phiên bản miễn phí (có giới hạn) và phiên bản trả phí
@@ -115,7 +141,8 @@ Xác định chính xác mô hình giá theo các tiêu chí sau:
 - OpenSource: Mã nguồn mở, thường miễn phí và có thể tự host
 - API: Cung cấp API có tính phí theo lượt gọi hoặc gói dịch vụ
 
-Lưu ý: Nếu công cụ có nhiều mô hình giá, hãy chọn mô hình chính phù hợp nhất với đa số người dùng.
+## LƯU Ý QUAN TRỌNG
+Nếu công cụ có nhiều mô hình giá, hãy chọn mô hình chính phù hợp nhất với đa số người dùng.
 `
 }
 
@@ -232,31 +259,43 @@ export const generateContentWithRelations = async (url: string, prompt?: string)
       system: systemPrompt,
       temperature: 0.3,
       prompt: `
-      Hãy tạo nội dung tiếng Việt dựa trên dữ liệu sau:
+      # YÊU CẦU TẠO NỘI DUNG CHO CÔNG CỤ AI
+
+      ## DỮ LIỆU ĐẦU VÀO
       Tiêu đề: ${scrapedData.metadata?.title}
       Mô tả: ${scrapedData.metadata?.description}
       Nội dung: ${scrapedData.markdown}
       
-      Yêu cầu bổ sung:
-      1. Hãy viết nội dung bằng tiếng Việt tự nhiên, chuyên nghiệp
+      ## YÊU CẦU CHI TIẾT
+      1. Viết nội dung bằng tiếng Việt tự nhiên, chuyên nghiệp
       2. Tập trung vào giá trị cốt lõi và lợi ích thực tế của công cụ
-      3. Giải thích ngắn gọn cách công cụ hoạt động và có thể giúp người dùng Việt Nam như thế nào
-      4. Phân tích kỹ càng để xác định mô hình giá (pricingType) chính xác của công cụ
+      3. Giải thích ngắn gọn cách công cụ hoạt động và có thể giúp người dùng Việt Nam
+      4. Phân tích kỹ càng để xác định mô hình giá (pricingType) chính xác
       5. Sử dụng ngôn ngữ thân thiện, dễ hiểu với người Việt
-      6. Tạo các topic tags phù hợp để phân loại công cụ, giúp người dùng dễ dàng tìm kiếm
+      6. Tạo các topic tags phù hợp để phân loại công cụ
+
+      ## CẤU TRÚC NỘI DUNG
+      - Tagline: Khẩu hiệu ngắn gọn, tối đa 60 ký tự
+      - Description: Mô tả súc tích, tối đa 160 ký tự
+      - Content: Nội dung chi tiết, tối đa 1000 ký tự, bao gồm:
+        + Đoạn 1: Giới thiệu công cụ và lợi ích cốt lõi
+        + Đoạn 2: 2-3 tính năng chính và giá trị
+        + Đoạn 3: Các trường hợp sử dụng (nếu có)
+        + Đoạn 4: Thông tin về mô hình giá và đối tượng phù hợp
       
-      Trước khi trả lời:
-      - Dành thời gian đọc kỹ nội dung đã scrape để tìm ra thông tin chi tiết về giá
+      ## DANH SÁCH KIỂM TRA
+      - Dành thời gian đọc kỹ nội dung đã scrape để tìm thông tin chi tiết về giá
       - Phân tích mô hình giá để phân loại chính xác (Free, Freemium, Paid, FreeTrial, OpenSource, API)
-      - Cấu trúc nội dung theo định dạng đã yêu cầu, tương tự như Futurepedia
+      - Cấu trúc nội dung theo định dạng đã yêu cầu
       
       ${enhancedPrompt}
       
-      Danh sách các danh mục để phân loại công cụ:
-      ${categories.map(({ name }) => name).join("\n")}
+      ## DỮ LIỆU THAM KHẢO
+      ### Danh sách các danh mục để phân loại công cụ:
+      ${categories.map(({ name }) => `- ${name}`).join("\n")}
       
-      Danh sách các phần mềm thay thế độc quyền để gán cho công cụ:
-      ${alternatives.map(({ name, description }) => `${name}: ${description}`).join("\n")}
+      ### Danh sách các phần mềm thay thế độc quyền:
+      ${alternatives.map(({ name, description }) => `- ${name}: ${description}`).join("\n")}
     `,
     }),
   )

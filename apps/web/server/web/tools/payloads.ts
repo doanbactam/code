@@ -50,7 +50,6 @@ export const toolOnePayload = {
   // Standard fields
   publishedAt: true,
   updatedAt: true,
-  license: true,
   owner: toolOwnerPayload,
   alternatives: toolAlternativesPayload,
   categories: toolCategoriesPayload,
