@@ -7,7 +7,7 @@ export const findAds = async ({ where, orderBy, ...args }: Prisma.AdFindManyArgs
   "use cache"
 
   cacheTag("ads")
-  cacheLife("giờ")
+  cacheLife("hours")
 
   return db.ad.findMany({
     ...args,
@@ -20,7 +20,7 @@ export const findAd = async ({ where, orderBy, ...args }: Prisma.AdFindFirstArgs
   "use cache"
 
   cacheTag("ad")
-  cacheLife("phút")
+  cacheLife("minutes")
 
   return db.ad.findFirst({
     ...args,

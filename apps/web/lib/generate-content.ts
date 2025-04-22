@@ -1,6 +1,7 @@
 import { createAnthropic } from "@ai-sdk/anthropic"
 import { isTruthy } from "@curiousleaf/utils"
 import { db } from "@m4v/db"
+import { PricingType } from "@m4v/db/client"
 import { generateObject } from "ai"
 import { z } from "zod"
 import { env } from "~/env"
@@ -29,7 +30,14 @@ const systemPrompt = `
   - Giải thích thuật ngữ kỹ thuật khi cần thiết
   - Thể hiện giá trị của công cụ đối với người dùng Việt Nam
   
-  Khi đề cập đến giá cả, hãy sử dụng thuật ngữ phù hợp: "Miễn phí", "Freemium", "Trả phí", "Mã nguồn mở", v.v.
+  Khi đề cập đến giá cả, hãy phân tích cẩn thận và gán loại giá phù hợp. Dành thời gian đọc kỹ nội dung trang web, đặc biệt là các trang Pricing, Plans, Products hoặc các phần có liên quan đến chi phí sử dụng. Chú ý các từ khóa như:
+  - "Free", "Miễn phí", "Open source", "Mã nguồn mở"
+  - "Premium", "Pro", "Business", "Enterprise" 
+  - "Free trial", "Dùng thử", "Trial period"
+  - "Freemium", "Basic plan + paid plans"
+  - "Price per API call", "Pay as you go", "Tính phí theo lượt sử dụng"
+  
+  Phân loại đúng mô hình giá sẽ giúp người dùng có thông tin chính xác về công cụ.
 `
 
 /**
@@ -49,7 +57,7 @@ const contentSchema = z.object({
   content: z
     .string()
     .describe(
-      "Mô tả chi tiết, hấp dẫn với các lợi ích chính (tối đa 1000 ký tự). Có thể định dạng Markdown, nhưng nên bắt đầu bằng đoạn văn và không sử dụng tiêu đề. Đánh dấu những điểm quan trọng bằng chữ in đậm. Đảm bảo các danh sách sử dụng cú pháp Markdown chính xác. Hãy viết bằng tiếng Việt tự nhiên, chuyên nghiệp.",
+      "Mô tả chi tiết, hấp dẫn với các lợi ích chính (tối đa 1000 ký tự). Tuân theo cấu trúc sau: \n1. Bắt đầu bằng đoạn giới thiệu ngắn gọn về công cụ và lợi ích cốt lõi.\n2. Mô tả 2-3 tính năng chính và giá trị chúng mang lại cho người dùng.\n3. Nếu phù hợp, đề cập đến các trường hợp sử dụng phổ biến.\n4. Kết thúc bằng thông tin về mô hình giá và đối tượng phù hợp.\nĐánh dấu những điểm quan trọng bằng chữ in đậm. Hãy viết bằng tiếng Việt tự nhiên, chuyên nghiệp.",
     ),
 })
 
@@ -75,6 +83,40 @@ const scrapeWebsiteData = async (url: string) => {
  */
 const formatTopicSlugs = (topics: string[]): string[] => {
   return topics.map(topic => kebabCase(topic.trim().toLowerCase())).filter(Boolean)
+}
+
+/**
+ * Creates a specialized prompt for improving pricing detection and content generation
+ * @param url URL of the website being analyzed
+ * @param context Additional context about the tool (optional)
+ * @returns A specialized prompt string
+ */
+export const createSpecializedPrompt = (url: string, context?: string) => {
+  // Extract domain name for quick reference
+  const domain = new URL(url).hostname.replace('www.', '')
+  
+  return `
+Hãy phân tích kỹ trang web ${url} (domain: ${domain}) để tạo nội dung và phát hiện chính xác mô hình giá.
+
+Quy trình phân tích giá cả:
+1. Tìm và truy cập trang "Pricing", "Plans", hoặc "Get Started" nếu có
+2. Phân tích chi tiết khung giá và các gói dịch vụ (Free, Basic, Pro, Enterprise, v.v.)
+3. Xác định xem có bản miễn phí không và nó có giới hạn gì
+4. Kiểm tra có yêu cầu thanh toán ngay hay có dùng thử miễn phí
+5. Xác minh xem đây có phải dự án mã nguồn mở trên GitHub không
+
+${context || ''}
+
+Xác định chính xác mô hình giá theo các tiêu chí sau:
+- Free: Hoàn toàn miễn phí không giới hạn hoặc giới hạn rất ít
+- Freemium: Có cả phiên bản miễn phí (có giới hạn) và phiên bản trả phí
+- Paid: Chỉ có phiên bản trả phí, không có lựa chọn miễn phí
+- FreeTrial: Miễn phí trong thời gian giới hạn, sau đó phải trả phí
+- OpenSource: Mã nguồn mở, thường miễn phí và có thể tự host
+- API: Cung cấp API có tính phí theo lượt gọi hoặc gói dịch vụ
+
+Lưu ý: Nếu công cụ có nhiều mô hình giá, hãy chọn mô hình chính phù hợp nhất với đa số người dùng.
+`
 }
 
 /**
@@ -123,6 +165,9 @@ export const generateContentWithRelations = async (url: string, prompt?: string)
   const model = anthropic("claude-3-5-sonnet-latest")
   const scrapedData = await scrapeWebsiteData(url)
 
+  // Add specialized prompt if none is provided
+  const enhancedPrompt = prompt || createSpecializedPrompt(url)
+
   const [categories, alternatives] = await Promise.all([
     db.category.findMany(),
     db.alternative.findMany(),
@@ -158,6 +203,26 @@ export const generateContentWithRelations = async (url: string, prompt?: string)
         Đảm bảo các topics đại diện cho các khía cạnh khác nhau của công cụ.
         Mỗi topic nên ngắn gọn, tối đa 2-3 từ, tốt nhất là 1 từ.
       `),
+    pricingType: z
+      .nativeEnum(PricingType)
+      .describe(`
+        Phân tích kỹ lưỡng mô hình giá của công cụ và gán loại giá phù hợp nhất từ các loại sau:
+        - Free: Hoàn toàn miễn phí, không có phiên bản trả phí hay giới hạn đáng kể
+        - Freemium: Cung cấp phiên bản miễn phí có giới hạn và phiên bản trả phí có tính năng nâng cao
+        - Paid: Chỉ có phiên bản trả phí, có thể có dùng thử nhưng không có phiên bản miễn phí vĩnh viễn
+        - FreeTrial: Miễn phí dùng thử trong một thời gian giới hạn, sau đó phải trả phí
+        - OpenSource: Mã nguồn mở, thường miễn phí và có thể tự host
+        - API: Cung cấp API có tính phí theo lượt gọi hoặc gói dịch vụ
+        
+        Quy trình phân tích:
+        1. Tìm kiếm các trang như "Pricing", "Plans", "Subscription" trong website
+        2. Xem xét các từ khóa liên quan đến giá cả trong toàn bộ nội dung như "Free", "Pro", "Premium", "Enterprise"
+        3. Kiểm tra các biểu tượng GitHub hoặc thông tin về repository để xác định mã nguồn mở
+        4. Tìm thông tin về dùng thử hoặc thời hạn sử dụng miễn phí
+        5. Xác định xem có API riêng với cấu trúc giá khác không
+        
+        Chú ý: Nếu một công cụ có nhiều mô hình giá (ví dụ: cả bản Freemium và API), hãy chọn mô hình chính phù hợp nhất với đa số người dùng.
+      `)
   })
 
   const { data, error } = await tryCatch(
@@ -176,11 +241,16 @@ export const generateContentWithRelations = async (url: string, prompt?: string)
       1. Hãy viết nội dung bằng tiếng Việt tự nhiên, chuyên nghiệp
       2. Tập trung vào giá trị cốt lõi và lợi ích thực tế của công cụ
       3. Giải thích ngắn gọn cách công cụ hoạt động và có thể giúp người dùng Việt Nam như thế nào
-      4. Nếu công cụ có tính phí, hãy đề cập đến điều này một cách minh bạch
+      4. Phân tích kỹ càng để xác định mô hình giá (pricingType) chính xác của công cụ
       5. Sử dụng ngôn ngữ thân thiện, dễ hiểu với người Việt
       6. Tạo các topic tags phù hợp để phân loại công cụ, giúp người dùng dễ dàng tìm kiếm
       
-      ${prompt}
+      Trước khi trả lời:
+      - Dành thời gian đọc kỹ nội dung đã scrape để tìm ra thông tin chi tiết về giá
+      - Phân tích mô hình giá để phân loại chính xác (Free, Freemium, Paid, FreeTrial, OpenSource, API)
+      - Cấu trúc nội dung theo định dạng đã yêu cầu, tương tự như Futurepedia
+      
+      ${enhancedPrompt}
       
       Danh sách các danh mục để phân loại công cụ:
       ${categories.map(({ name }) => name).join("\n")}

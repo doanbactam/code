@@ -22,23 +22,47 @@ export const ToolBadges = ({ tool, children, className, ...props }: ToolBadgesPr
   const isFresh = publishedDiff !== null && publishedDiff <= 30 && publishedDiff >= 0
   const isScheduled = publishedAt !== null && publishedAt > new Date()
 
-  // Map pricingType to appropriate colors and badges
+  // Map pricingType to appropriate colors, badges, and icons
   const getPricingTypeDetails = () => {
     if (!pricingType) return null
     
     switch (pricingType) {
       case 'Free':
-        return { label: 'Free', variant: 'success' as const }
+        return { 
+          label: 'Free', 
+          variant: 'success' as const,
+          tooltip: 'Hoàn toàn miễn phí'
+        }
       case 'Freemium':
-        return { label: 'Freemium', variant: 'info' as const }
+        return { 
+          label: 'Freemium', 
+          variant: 'info' as const,
+          tooltip: 'Bản miễn phí có giới hạn + bản trả phí'
+        }
       case 'Paid':
-        return { label: 'Paid', variant: 'primary' as const }
+        return { 
+          label: 'Paid', 
+          variant: 'primary' as const,
+          tooltip: 'Chỉ có phiên bản trả phí'
+        }
       case 'FreeTrial':
-        return { label: 'Free Trial', variant: 'warning' as const }
+        return { 
+          label: 'Free Trial', 
+          variant: 'warning' as const,
+          tooltip: 'Dùng thử miễn phí, sau đó trả phí'
+        }
       case 'OpenSource':
-        return { label: 'Open Source', variant: 'soft' as const }
+        return { 
+          label: 'Open Source', 
+          variant: 'soft' as const,
+          tooltip: 'Mã nguồn mở và miễn phí'
+        }
       case 'API':
-        return { label: 'API', variant: 'outline' as const }
+        return { 
+          label: 'API', 
+          variant: 'outline' as const,
+          tooltip: 'Cung cấp API, thường tính phí theo sử dụng'
+        }
       default:
         return null
     }
@@ -84,9 +108,11 @@ export const ToolBadges = ({ tool, children, className, ...props }: ToolBadgesPr
       )}
 
       {pricingTypeDetails && (
-        <Badge size="sm" variant={pricingTypeDetails.variant}>
-          {pricingTypeDetails.label}
-        </Badge>
+        <Tooltip tooltip={pricingTypeDetails.tooltip}>
+          <Badge size="sm" variant={pricingTypeDetails.variant}>
+            {pricingTypeDetails.label}
+          </Badge>
+        </Tooltip>
       )}
 
       {children}

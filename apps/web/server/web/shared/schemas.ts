@@ -24,7 +24,6 @@ export type FilterSchema = Awaited<ReturnType<typeof filterParamsCache.parse>>
 export const submitToolSchema = z.object({
   name: z.string().min(1, "Name is required"),
   websiteUrl: z.string().min(1, "Website is required").url("Invalid URL").trim(),
-  repositoryUrl: z.string().url("Invalid URL").optional().or(z.literal("")),
   submitterName: z.string().min(1, "Your name is required"),
   submitterEmail: z.string().email("Please enter a valid email address"),
   submitterNote: z.string().max(200),

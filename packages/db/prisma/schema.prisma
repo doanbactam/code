@@ -174,8 +174,6 @@ model Tool {
   alternatives Alternative[]
   categories   Category[]
   topics       Topic[]
-  license      License?      @relation(fields: [licenseId], references: [id])
-  licenseId    String?
   likes        Like[]
   reports      Report[]
   claims       Claim[]
@@ -240,20 +238,6 @@ model Topic {
   updatedAt DateTime @updatedAt
 
   // Implicit relation
-  tools Tool[]
-
-  // Indexes
-  @@index([slug])
-}
-
-model License {
-  id        String   @id @default(cuid())
-  name      String   @unique @db.Citext
-  slug      String   @unique
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  // Relations
   tools Tool[]
 
   // Indexes

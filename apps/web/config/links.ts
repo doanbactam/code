@@ -2,28 +2,28 @@ import { siteConfig } from "~/config/site"
 
 export const linksConfig = {
   madeWith: "https://dirstarter.com",
-  author: "https://kulpinski.pl",
-  twitter: "https://x.com/ossalternative",
+  author: "https://blog-m4vvn.vercel.app",
+  twitter: "https://x.com/m4v.vn",
   bluesky: "https://bsky.app/profile/m4v.co",
   mastodon: "https://mastodon.social/@m4v",
   linkedin: "https://linkedin.com/company/m4v",
-  github: "https://github.com/piotrkulpinski/m4v",
+  github: "https://github.com/m4v",
   analytics: "https://go.m4v.co/analytics",
   feeds: [
-    { title: "Open Source Tools", url: `${siteConfig.url}/rss/tools.xml` },
+    { title: "AI Tools", url: `${siteConfig.url}/rss/tools.xml` },
     { title: "Proprietary Alternatives", url: `${siteConfig.url}/rss/alternatives.xml` },
   ],
   family: [
-    {
-      title: "DevSuite",
-      href: "https://devsuite.co",
-      description: "Find the perfect developer tools for your next project",
-    },
-    {
-      title: "OpenAds",
-      href: "https://openads.co",
-      description: "Automate ad spot management and increase website revenue",
-    },
+    // {
+    //   title: "DevSuite",
+    //   href: "https://devsuite.co",
+    //   description: "Find the perfect developer tools for your next project",
+    // },
+    // {
+    //   title: "OpenAds",
+    //   href: "https://openads.co",
+    //   description: "Automate ad spot management and increase website revenue",
+    // },
     {
       title: "Dirstarter",
       href: "https://dirstarter.com",

@@ -21,6 +21,7 @@ import {
 } from "~/components/common/form"
 import { Hint } from "~/components/common/hint"
 import { Input } from "~/components/common/input"
+import { Link } from "~/components/common/link"
 import { FeatureNudge } from "~/components/web/feature-nudge"
 import { useSession } from "~/lib/auth-client"
 import { type SubmitToolSchema, submitToolSchema } from "~/server/web/shared/schemas"
@@ -66,6 +67,23 @@ export const SubmitForm = ({ className, ...props }: ComponentProps<"form">) => {
     },
   })
 
+  // Hiển thị thông báo đăng nhập nếu người dùng chưa đăng nhập
+  if (!session?.user) {
+    return (
+      <div className="flex flex-col items-center justify-center space-y-6 py-8">
+        <div className="text-center space-y-2">
+          <h2 className="text-xl font-medium">Bạn cần đăng nhập để gửi công cụ</h2>
+          <p className="text-muted-foreground max-w-md">
+            Để đảm bảo chất lượng và quản lý nội dung, chúng tôi yêu cầu người dùng phải đăng nhập trước khi gửi công cụ AI mới.
+          </p>
+        </div>
+        <Button asChild variant="primary" size="lg">
+          <Link href="/auth/signin">Đăng nhập</Link>
+        </Button>
+      </div>
+    )
+  }
+
   return (
     <Form {...form}>
       <form
@@ -74,38 +92,6 @@ export const SubmitForm = ({ className, ...props }: ComponentProps<"form">) => {
         noValidate
         {...props}
       >
-        {!session?.user && (
-          <>
-            <FormField
-              control={form.control}
-              name="submitterName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel isRequired>Tên của bạn:</FormLabel>
-                  <FormControl>
-                    <Input type="text" size="lg" placeholder="Nguyễn Văn A" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="submitterEmail"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel isRequired>Email của bạn:</FormLabel>
-                  <FormControl>
-                    <Input type="email" size="lg" placeholder="nguyenvana@example.com" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </>
-        )}
-
         <FormField
           control={form.control}
           name="name"

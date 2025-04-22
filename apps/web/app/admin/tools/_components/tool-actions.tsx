@@ -37,8 +37,8 @@ export const ToolActions = ({ className, tool, setRowAction, ...props }: ToolAct
     },
     {
       action: reuploadToolAssets,
-      label: "Tải lại tài nguyên",
-      successMessage: "Đã tải lại tài nguyên công cụ",
+      label: "Tải hình ảnh",
+      successMessage: "Đã tải hình ảnh công cụ",
     },
     {
       action: regenerateToolContent,

@@ -7,10 +7,8 @@ import { createServerAction } from "zsa"
 import { subscribeToNewsletter } from "~/actions/subscribe"
 import { isProd } from "~/env"
 import { auth } from "~/lib/auth"
-import { getIP, isRateLimited } from "~/lib/rate-limiter"
 import { submitToolSchema } from "~/server/web/shared/schemas"
 import { inngest } from "~/services/inngest"
-import { isDisposableEmail } from "~/utils/helpers"
 
 /**
  * Generates a unique slug by adding a numeric suffix if needed
@@ -42,19 +40,9 @@ export const submitTool = createServerAction()
   .handler(async ({ input: { newsletterOptIn, ...data } }) => {
     const session = await auth.api.getSession({ headers: await headers() })
 
+    // Yêu cầu người dùng phải đăng nhập để gửi công cụ
     if (!session?.user) {
-      const ip = await getIP()
-      const rateLimitKey = `submission:${ip}`
-
-      // Rate limiting check
-      if (await isRateLimited(rateLimitKey, "submission")) {
-        throw new Error("Too many submissions. Please try again later.")
-      }
-
-      // Disposable email check
-      if (await isDisposableEmail(data.submitterEmail)) {
-        throw new Error("Invalid email address, please use a real one")
-      }
+      throw new Error("Bạn cần đăng nhập để gửi công cụ.")
     }
 
     if (newsletterOptIn) {
@@ -79,8 +67,8 @@ export const submitTool = createServerAction()
     const slug = await generateUniqueSlug(data.name)
 
     // Check if the email domain matches the tool's website domain
-    const ownerId = session?.user.email.includes(getUrlHostname(data.websiteUrl))
-      ? session?.user.id
+    const ownerId = session.user.email.includes(getUrlHostname(data.websiteUrl))
+      ? session.user.id
       : undefined
 
     // Save the tool to the database
