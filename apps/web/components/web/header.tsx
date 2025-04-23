@@ -174,9 +174,6 @@ export const Header = ({ children, className, session, ...props }: HeaderProps) 
           About
         </NavLink>
 
-        <Suspense>
-          <SearchForm className="col-span-full w-full sm:hidden" />
-        </Suspense>
       </nav>
     </Container>
   )
