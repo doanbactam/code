@@ -104,7 +104,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
       />
 
       {/* Google Analytics */}
-      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-M3P2VMWQ" />
+      <Script async src="https://www.googletagmanager.com/gtag/js?id=G-WMXML5Z68Z" />
 
       <Script>
         {`
@@ -112,7 +112,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
-          gtag('config', 'G-M3P2VMWQ');
+          gtag('config', 'G-WMXML5Z68Z');
         `}
       </Script>
     </Providers>
