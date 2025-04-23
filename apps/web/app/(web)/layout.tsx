@@ -13,6 +13,17 @@ import { Container } from "~/components/web/ui/container"
 import { config } from "~/config"
 import { env } from "~/env"
 import { getServerSession } from "~/lib/auth"
+import { Metadata } from "next"
+import { PageTransition } from "~/components/page-transition"
+
+export const dynamic = "force-dynamic"
+
+export const metadata: Metadata = {
+  title: {
+    default: "Khám Phá Công Cụ AI Hữu Ích Cho Công Việc Hàng Ngày",
+    template: "%s",
+  },
+}
 
 export default async function RootLayout({ children }: PropsWithChildren) {
   const url = config.site.url
@@ -43,7 +54,7 @@ export default async function RootLayout({ children }: PropsWithChildren) {
       {
         "@type": "Person",
         "@id": `${url}/#/schema/person/1`,
-        name: "Piotr Kulpinski",
+        name: "Syr",
         sameAs: [config.links.author],
       },
       {
@@ -80,7 +91,15 @@ export default async function RootLayout({ children }: PropsWithChildren) {
 
         <Container asChild>
           <main className="flex flex-col grow py-8 gap-8 md:gap-10 md:py-10 lg:gap-12 lg:py-12">
-            {children}
+            <Suspense fallback={
+              <div className="flex items-center justify-center min-h-[50vh]">
+                <div className="w-8 h-8 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+              </div>
+            }>
+              <PageTransition>
+                {children}
+              </PageTransition>
+            </Suspense>
 
             <Footer />
           </main>

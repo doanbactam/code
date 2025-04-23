@@ -10,15 +10,15 @@
 *Holds the current status of the workflow.*
 
 ```yaml
-Phase: BLUEPRINT # Current workflow phase (ANALYZE, BLUEPRINT, CONSTRUCT, VALIDATE, BLUEPRINT_REVISE)
-Status: NEEDS_PLAN_APPROVAL # Current status (READY, IN_PROGRESS, BLOCKED_*, NEEDS_*, COMPLETED, COMPLETED_ITERATION)
-CurrentTaskID: SummarizeItemsIteratively # Identifier for the main task being worked on
-CurrentStep: null # Identifier for the specific step in the plan being executed
+Phase: CONSTRUCT # Current workflow phase (ANALYZE, BLUEPRINT, CONSTRUCT, VALIDATE, BLUEPRINT_REVISE)
+Status: IN_PROGRESS # Current status (READY, IN_PROGRESS, BLOCKED_*, NEEDS_*, COMPLETED, COMPLETED_ITERATION)
+CurrentTaskID: ImproveAIandPersonalization # Identifier for the main task being worked on
+CurrentStep: 7.1 # Identifier for the specific step in the plan being executed
 CurrentItem: null # Identifier for the item currently being processed in iteration
-TotalItems: 0 # Total number of items to be processed
+TotalItems: 5 # Total number of items to be processed
 ProcessedItems: 0 # Number of items processed so far
 CurrentItemIndex: 0 # Index of the current item being processed
-LastUpdatedTimestamp: "2025-03-27 10:15:00" # Timestamp of the last update
+LastUpdatedTimestamp: "2025-03-27 13:00:00" # Timestamp of the last update
 ```
 
 ---
@@ -29,79 +29,100 @@ LastUpdatedTimestamp: "2025-03-27 10:15:00" # Timestamp of the last update
 
 **Kế hoạch cải thiện mã nguồn dự án**
 
-1. `[ ] Cải thiện hiệu suất và tối ưu hóa ứng dụng Next.js:`
-   - Áp dụng Partial Prerendering cho các route phù hợp (trang chủ, danh mục)
-   - Thêm Suspense boundaries cho các phần fetch data để tránh waterfall
-   - Tối ưu hóa các bundle JS với code splitting hiệu quả hơn
-   - Cài đặt và cấu hình module cache cho Server components
+### 1. `[ ] Cải thiện hiệu suất mạng và xử lý lỗi trong media.ts:`
+   - `[ ] 1.1 Thêm retry mechanism cho tất cả các API calls (ScreenshotOne, S3, v.v.)`
+   - `[ ] 1.2 Cải thiện error handling với thông tin chi tiết hơn`
+   - `[ ] 1.3 Thêm timeout options cho tất cả HTTP requests`
+   - `[ ] 1.4 Tối ưu hóa S3 upload với multipart upload cho files lớn`
+   - `[ ] 1.5 Thêm caching layer cho các API calls thường xuyên`
 
-2. `[ ] Nâng cao trải nghiệm người dùng và UI:`
-   - Cải thiện loading states với skeleton loaders
-   - Thêm hiệu ứng chuyển tiếp (transitions) mượt mà giữa các trang
-   - Thêm dark mode sử dụng CSS variables và Tailwind CSS
-   - Tối ưu hóa UI trên thiết bị di động với responsive design tốt hơn
+### 2. `[ ] Triển khai Server Components hiệu quả:`
+   - `[ ] 2.1 Chuyển đổi các components phù hợp sang React Server Components`
+   - `[ ] 2.2 Đảm bảo các Server Components không import các Client Components`
+   - `[ ] 2.3 Thêm Suspense boundaries cho các phần fetch data`
+   - `[ ] 2.4 Tối ưu hóa Streaming SSR với các patterns như wrap parameters`
+   - `[ ] 2.5 Triển khai Parallel Routes cho bố cục trang phức tạp`
 
-3. `[ ] Tăng cường bảo mật và xác thực:`
-   - Triển khai CSRF protection cho tất cả server actions
-   - Thêm rate limiting cho API endpoints nhạy cảm
-   - Cải thiện hệ thống phân quyền với RBAC (Role-based access control)
-   - Triển khai 2FA (Two-factor authentication) cho tài khoản admin
+### 3. `[ ] Cải thiện và chuẩn hóa Server Actions (zsa):`
+   - `[ ] 3.1 Refactor các server actions hiện tại để sử dụng zsa nhất quán`
+   - `[ ] 3.2 Thêm input validation cho tất cả server actions với Zod`
+   - `[ ] 3.3 Thêm error handling và response format nhất quán`
+   - `[ ] 3.4 Triển khai optimistic updates cho UX tốt hơn`
+   - `[ ] 3.5 Thêm rate limiting cho các server actions nhạy cảm`
 
-4. `[ ] Tối ưu hóa Server Actions (zsa):`
-   - Refactor các server actions để sử dụng zsa nhất quán hơn
-   - Chuẩn hóa cấu trúc response cho tất cả server actions
-   - Thêm logging cho server actions để dễ debug
-   - Cải thiện xử lý lỗi với các error boundaries chuyên biệt
+### 4. `[ ] Cải thiện trải nghiệm người dùng và tính năng giao diện:`
+   - `[ ] 4.1 Thêm hiệu ứng skeleton loaders cho tất cả phần loading`
+   - `[ ] 4.2 Triển khai dark mode với CSS variables và Tailwind CSS` 
+   - `[ ] 4.3 Cải thiện responsive design cho thiết bị di động`
+   - `[ ] 4.4 Thêm animations và transitions mượt mà giữa các trang`
+   - `[ ] 4.5 Triển khai View Transitions API cho các chuyển đổi trang`
 
-5. `[ ] Cải thiện quản lý State và Router Navigation:`
-   - Sử dụng useQueryState (nuqs) nhất quán cho state trên URL
-   - Triển khai paraller và intercepted routes cho UX tốt hơn
-   - Sửa dụng useOptimistic để cập nhật UI nhanh hơn
-   - Thêm middleware xử lý redirects và bảo vệ route
+### 5. `[ ] Tối ưu hóa quản lý state và router navigation:`
+   - `[ ] 5.1 Sử dụng nhất quán useQueryState (nuqs) cho state trên URL`
+   - `[ ] 5.2 Triển khai intercepted routes cho modal dialogs` 
+   - `[ ] 5.3 Tối ưu hóa client-side navigation với prefetching`
+   - `[ ] 5.4 Cải thiện middleware để xử lý redirects và route protection`
+   - `[ ] 5.5 Thêm focus management và keyboard navigation`
 
-6. `[ ] Tối ưu hóa cơ sở dữ liệu và fetch API:`
-   - Thêm caching layer cho các truy vấn DB phổ biến
-   - Triển khai data prefetching cho các route phổ biến
-   - Áp dụng query optimization để giảm load time
-   - Tích hợp connection pooling để quản lý kết nối DB hiệu quả
+### 6. `[ ] Tăng cường bảo mật và xác thực:`
+   - `[ ] 6.1 Cài đặt protection CSRF cho tất cả server actions`
+   - `[ ] 6.2 Cải thiện hệ thống phân quyền với role-based access control`
+   - `[ ] 6.3 Triển khai 2FA cho tài khoản admin`
+   - `[ ] 6.4 Thêm Content Security Policy headers`
+   - `[ ] 6.5 Quét và khắc phục các lỗ hổng bảo mật trong dependencies`
 
-7. `[ ] Cải thiện tính năng AI và Personalization:`
-   - Nâng cấp tích hợp AI SDK với chức năng tiên tiến hơn
-   - Thêm tính năng gợi ý cá nhân hóa dựa trên hành vi người dùng
-   - Tối ưu hóa prompt engineering cho AI responses
-   - Thêm feedback loop để cải thiện độ chính xác AI
+### 7. `[ ] Cải thiện tính năng AI và cá nhân hóa:`
+   - `[ ] 7.1 Nâng cấp tích hợp AI SDK với chức năng tiên tiến hơn`
+   - `[ ] 7.2 Thêm gợi ý cá nhân hóa dựa trên hành vi người dùng`
+   - `[ ] 7.3 Tối ưu hóa prompt engineering cho AI responses`
+   - `[ ] 7.4 Thêm feedback loop để cải thiện độ chính xác AI`
+   - `[ ] 7.5 Triển khai memory và context cho AI conversations`
 
-8. `[ ] Nâng cấp hệ thống Analytics và Monitoring:`
-   - Tích hợp OpenTelemetry để theo dõi hiệu suất
-   - Cải thiện error tracking với chi tiết chi tiết hơn
-   - Thêm custom events tracking cho user behavior
-   - Triển khai real-time dashboard cho admin
+### 8. `[ ] Nâng cấp hệ thống Analytics và Monitoring:`
+   - `[ ] 8.1 Tích hợp OpenTelemetry để theo dõi hiệu suất`
+   - `[ ] 8.2 Cải thiện error tracking với chi tiết hơn`
+   - `[ ] 8.3 Thêm custom events tracking cho user behavior`
+   - `[ ] 8.4 Triển khai real-time dashboard cho admin`
+   - `[ ] 8.5 Thêm Web Vitals monitoring và reporting`
 
-9. `[ ] Tối ưu hóa quy trình CI/CD và Testing:`
-   - Thiết lập unit testing cho các components quan trọng
-   - Thêm integration tests sử dụng Playwright
-   - Cải thiện pipeline CI/CD với Turborepo cache
-   - Thêm A/B testing framework cho các tính năng mới
+### 9. `[ ] Tối ưu hóa quy trình CI/CD và Testing:`
+   - `[ ] 9.1 Thiết lập unit testing cho các components quan trọng`
+   - `[ ] 9.2 Thêm integration tests sử dụng Playwright`
+   - `[ ] 9.3 Cải thiện pipeline CI/CD với Turborepo cache`
+   - `[ ] 9.4 Thêm A/B testing framework cho các tính năng mới`
+   - `[ ] 9.5 Tự động hóa code quality checks với linters và formatters`
 
-10. `[ ] Tinh chỉnh SEO và Content Delivery:`
-    - Cải thiện dynamic metadata cho tất cả trang
-    - Triển khai structured data/JSON-LD nhất quán
-    - Tối ưu hóa Core Web Vitals (LCP, CLS, FID)
-    - Thêm tự động generation sitemap và robots.txt
+### 10. `[ ] Tinh chỉnh SEO và trải nghiệm nội dung:`
+   - `[ ] 10.1 Cải thiện dynamic metadata cho tất cả trang`
+   - `[ ] 10.2 Triển khai structured data/JSON-LD nhất quán`
+   - `[ ] 10.3 Tối ưu hóa Core Web Vitals (LCP, CLS, FID)`
+   - `[ ] 10.4 Cải thiện accessibility với ARIA attributes`
+   - `[ ] 10.5 Thêm tính năng đa ngôn ngữ và internationalization`
 
-11. `[ ] Cải thiện khả năng mở rộng và kiến trúc:`
-    - Triển khai feature flags để kiểm soát rollout
-    - Refactor theo microservices cho các chức năng phức tạp
-    - Thêm caching layer với Redis/Upstash cho dữ liệu phổ biến
-    - Triển khai circuit breakers cho các external API calls
+### 11. `[ ] Cải thiện khả năng mở rộng và kiến trúc:`
+   - `[ ] 11.1 Triển khai feature flags để kiểm soát rollout`
+   - `[ ] 11.2 Refactor theo microservices cho các chức năng phức tạp`
+   - `[ ] 11.3 Thêm caching layer với Redis/Upstash cho dữ liệu phổ biến`
+   - `[ ] 11.4 Triển khai circuit breakers cho các external API calls`
+   - `[ ] 11.5 Cải thiện Database schema và query optimization`
 
-12. `[ ] Nâng cao DevEx (Developer Experience):`
-    - Cải thiện TypeScript types và type safety
-    - Thêm nhiều developer docs và comments
-    - Chuẩn hóa cấu trúc thư mục và naming conventions
-    - Tạo các utility components và hooks tái sử dụng
+### 12. `[ ] Nâng cao DevEx (Developer Experience):`
+   - `[ ] 12.1 Cải thiện TypeScript types và type safety`
+   - `[ ] 12.2 Thêm nhiều developer docs và comments`
+   - `[ ] 12.3 Chuẩn hóa cấu trúc thư mục và naming conventions`
+   - `[ ] 12.4 Tạo các utility components và hooks tái sử dụng`
+   - `[ ] 12.5 Tối ưu hóa build times và developer feedback loops`
 
-Khi hoàn thành, kế hoạch này sẽ giúp cải thiện đáng kể hiệu suất, khả năng mở rộng, bảo mật và trải nghiệm người dùng của toàn bộ ứng dụng.
+**Ưu tiên triển khai:**
+1. Cao: Các bước 1, 3, 6 (Cải thiện xử lý lỗi, Server Actions, bảo mật)
+2. Trung bình: Các bước 2, 4, 5, 8, 10 (Server Components, UX, state management, monitoring, SEO)  
+3. Thấp: Các bước 7, 9, 11, 12 (AI, testing, kiến trúc, DevEx)
+
+**Kết quả mong đợi:**
+- Cải thiện đáng kể hiệu suất và khả năng mở rộng của ứng dụng
+- Nâng cao trải nghiệm người dùng và giảm thời gian tải trang
+- Tăng cường bảo mật và khả năng xử lý lỗi
+- Tối ưu hóa khả năng bảo trì và mở rộng codebase
 
 ---
 
@@ -268,6 +289,34 @@ RULE_ERR_HANDLE_ITEM_01:
 *   `[2025-03-27 10:30:00] [INFO][USER] User requested plan change to focus on source code improvement instead of workflow.`
 *   `[2025-03-27 10:32:00] [INFO][SYSTEM] Updated blueprint plan with 12 steps for source code improvement.`
 *   `[2025-03-27 10:32:15] [INFO][SYSTEM] State.Status remains NEEDS_PLAN_APPROVAL for the new plan.`
+*   `[2025-03-27 11:00:00] [INFO][USER] User requested analysis of ScreenshotOne API error.`
+*   `[2025-03-27 11:00:15] [INFO][SYSTEM] State.Phase changed to ANALYZE.`
+*   `[2025-03-27 11:00:20] [INFO][SYSTEM] State.Status changed to IN_PROGRESS.`
+*   `[2025-03-27 11:00:30] [INFO][SYSTEM] CurrentTaskID updated to AnalyzeScreenshotOneError.`
+*   `[2025-03-27 11:10:00] [INFO][SYSTEM] Conducted web search for ScreenshotOne API error information.`
+*   `[2025-03-27 11:15:00] [INFO][SYSTEM] Analyzed error response with error_code "host_returned_error" and status code 4.`
+*   `[2025-03-27 11:20:00] [INFO][SYSTEM] Identified error cause: Target website returned HTTP status code 4, which is outside the valid response range (200-299).`
+*   `[2025-03-27 11:25:00] [INFO][SYSTEM] Found solution: Add ignore_host_errors=true parameter to force taking screenshots despite host errors.`
+*   `[2025-03-27 11:30:00] [INFO][USER] User requested to apply fix in code (@construct).`
+*   `[2025-03-27 11:30:15] [INFO][SYSTEM] State.Phase changed to CONSTRUCT.`
+*   `[2025-03-27 11:30:20] [INFO][SYSTEM] State.Status set to IN_PROGRESS.`
+*   `[2025-03-27 11:30:25] [INFO][SYSTEM] CurrentStep set to FixScreenshotOneAPICall.`
+*   `[2025-03-27 11:35:00] [INFO][SYSTEM] Located ScreenshotOne API call in apps/web/lib/media.ts.`
+*   `[2025-03-27 11:35:30] [INFO][SYSTEM] Added ignore_host_errors=true parameter to ScreenshotOne API query.`
+*   `[2025-03-27 11:40:00] [INFO][SYSTEM] Code fix completed successfully. State.Status changed to COMPLETED.`
+*   `[2025-03-27 12:00:00] [INFO][USER] User requested to create comprehensive source code improvement plan (@construct PLAN).`
+*   `[2025-03-27 12:00:10] [INFO][SYSTEM] State.Phase changed to BLUEPRINT.`
+*   `[2025-03-27 12:00:15] [INFO][SYSTEM] State.Status set to IN_PROGRESS.`
+*   `[2025-03-27 12:00:20] [INFO][SYSTEM] CurrentTaskID updated to CreateSourceCodeImprovementPlan.`
+*   `[2025-03-27 12:15:00] [INFO][SYSTEM] Created detailed source code improvement plan with 12 main areas, with 5 specific tasks for each area.`
+*   `[2025-03-27 12:15:15] [INFO][SYSTEM] Added prioritization and expected outcomes to the plan.`
+*   `[2025-03-27 12:15:30] [INFO][SYSTEM] State.Status changed to NEEDS_PLAN_APPROVAL, awaiting user confirmation.`
+*   `[2025-03-27 13:00:00] [INFO][USER] User requested to implement AI and personalization improvements (@construct).`
+*   `[2025-03-27 13:00:10] [INFO][SYSTEM] State.Phase changed to CONSTRUCT.`
+*   `[2025-03-27 13:00:15] [INFO][SYSTEM] State.Status set to IN_PROGRESS.`
+*   `[2025-03-27 13:00:20] [INFO][SYSTEM] CurrentTaskID updated to ImproveAIandPersonalization.`
+*   `[2025-03-27 13:00:25] [INFO][SYSTEM] CurrentStep set to 7.1 (Nâng cấp tích hợp AI SDK).`
+
 ---
 
 ## Items

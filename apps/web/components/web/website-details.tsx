@@ -49,7 +49,7 @@ export const WebsiteDetails = ({ className, tool, ...props }: WebsiteDetailsProp
         {tool.websiteUrl && (
           <Button
             size="md"
-            variant="secondary"
+            variant="primary"
             prefix={<GlobeIcon />}
             suffix={<ArrowUpRightIcon className="h-4 w-4" />}
             className="mt-1 self-start"

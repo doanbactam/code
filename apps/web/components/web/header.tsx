@@ -11,6 +11,7 @@ import {
 } from "~/components/common/dropdown-menu"
 import { Icon } from "~/components/common/icon"
 import { Stack } from "~/components/common/stack"
+import { ThemeToggle } from "~/components/theme-toggle"
 import { SearchForm } from "~/components/web/search-form"
 import { Container } from "~/components/web/ui/container"
 import { Hamburger } from "~/components/web/ui/hamburger"
@@ -109,13 +110,15 @@ export const Header = ({ children, className, session, ...props }: HeaderProps) 
           <NavLink href="/advertise">Quảng cáo</NavLink>
           {/* <NavLink href="/submit">Submit</NavLink> */}
         </nav>
-{/* 
+
         <Stack size="sm" className="max-sm:hidden">
+          <ThemeToggle />
+
           <Suspense fallback={<Icon name="lucide/search" className="size-4" />}>
             <SearchForm />
           </Suspense>
 
-          <NavLink
+          {/* <NavLink
             href={config.links.twitter}
             target="_blank"
             rel="nofollow noreferrer"
@@ -140,8 +143,8 @@ export const Header = ({ children, className, session, ...props }: HeaderProps) 
             title="View source code"
           >
             <Icon name="tabler/brand-github" className="size-4" />
-          </NavLink>
-        </Stack> */}
+          </NavLink> */}
+        </Stack>
 
         <UserMenu session={session} />
       </div>

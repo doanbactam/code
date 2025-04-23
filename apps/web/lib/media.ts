@@ -150,6 +150,9 @@ export const uploadScreenshot = async (url: string, s3Key: string): Promise<stri
     block_trackers: "true",
     block_cookie_banners: "true",
 
+    // Error handling
+    ignore_host_errors: "true",
+
     // Image and viewport options
     format: "webp",
     viewport_width: "1280",
