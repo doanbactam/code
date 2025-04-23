@@ -19,24 +19,28 @@ export function DataTablePagination<TData>({
   table,
   pageSizeOptions = [10, 25, 50],
 }: DataTablePaginationProps<TData>) {
+  const selectedRowCount = table.getFilteredSelectedRowModel()?.rows?.length || 0
+  const filteredRowCount = table.getFilteredRowModel()?.rows?.length || 0
+  const currentPage = table.getState()?.pagination?.pageIndex + 1 || 1
+  const totalPages = table.getPageCount() || 1
+  
   return (
     <div className="flex flex-row flex-wrap items-center justify-between gap-4 tabular-nums sm:gap-6 lg:gap-8">
       <div className="grow whitespace-nowrap text-sm text-muted-foreground max-sm:hidden">
-        {table.getFilteredSelectedRowModel().rows.length} of{" "}
-        {table.getFilteredRowModel().rows.length} row(s) selected.
+        {selectedRowCount} of {filteredRowCount} row(s) selected.
       </div>
 
       <div className="flex items-center space-x-2 max-sm:grow">
         <p className="text-sm font-medium">Rows per page</p>
 
         <Select
-          value={`${table.getState().pagination.pageSize}`}
+          value={`${table.getState()?.pagination?.pageSize || pageSizeOptions[0]}`}
           onValueChange={value => {
             table.setPageSize(Number(value))
           }}
         >
           <SelectTrigger className="w-auto tabular-nums">
-            <SelectValue placeholder={table.getState().pagination.pageSize} />
+            <SelectValue placeholder={table.getState()?.pagination?.pageSize || pageSizeOptions[0]} />
           </SelectTrigger>
 
           <SelectContent side="top" className="tabular-nums">
@@ -50,7 +54,7 @@ export function DataTablePagination<TData>({
       </div>
 
       <div className="text-sm font-medium max-sm:hidden">
-        Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount() || 1}
+        Page {currentPage} of {totalPages}
       </div>
 
       <div className="flex items-center gap-2">
@@ -87,7 +91,7 @@ export function DataTablePagination<TData>({
           variant="secondary"
           size="md"
           className="max-lg:hidden"
-          onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+          onClick={() => table.setPageIndex(totalPages - 1)}
           disabled={!table.getCanNextPage()}
           suffix={<Icon name="lucide/chevrons-right" />}
         />

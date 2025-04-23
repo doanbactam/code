@@ -149,6 +149,9 @@ export function useDataTable<TData>({
   initialState,
   ...props
 }: UseDataTableProps<TData>) {
+  // Đảm bảo data luôn là mảng, không phải undefined hoặc null
+  const safeData = useMemo(() => (props.data || []) as TData[], [props.data])
+  
   const queryStateOptions = useMemo<Omit<UseQueryStateOptions<string>, "parse">>(
     () => ({
       history,
@@ -296,6 +299,7 @@ export function useDataTable<TData>({
 
   const table = useReactTable({
     ...props,
+    data: safeData,
     initialState,
     pageCount,
     state: {

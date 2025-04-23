@@ -45,13 +45,16 @@ export function DataTable<TData>({
   className,
   ...props
 }: DataTableProps<TData>) {
+  // Kiểm tra an toàn khi truy cập rows
+  const hasRows = table.getRowModel()?.rows?.length > 0
+  
   return (
     <>
       {children}
 
       <div className={cx("overflow-hidden rounded-md border", className)} {...props}>
         <Table>
-          {!!table.getRowModel().rows?.length && (
+          {hasRows && (
             <TableHeader>
               {table.getHeaderGroups().map(headerGroup => (
                 <TableRow key={headerGroup.id}>
@@ -74,7 +77,7 @@ export function DataTable<TData>({
           )}
 
           <TableBody>
-            {table.getRowModel().rows?.length ? (
+            {hasRows ? (
               table.getRowModel().rows.map(row => (
                 <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                   {row.getVisibleCells().map(cell => (
@@ -103,7 +106,7 @@ export function DataTable<TData>({
 
       <div className="flex flex-col gap-2.5">
         <DataTablePagination table={table} />
-        {table.getFilteredSelectedRowModel().rows.length > 0 && floatingBar}
+        {(table.getFilteredSelectedRowModel()?.rows?.length || 0) > 0 && floatingBar}
       </div>
     </>
   )

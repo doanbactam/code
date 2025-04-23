@@ -24,7 +24,7 @@ type AlternativesTableProps = {
 }
 
 export function AlternativesTable({ alternativesPromise }: AlternativesTableProps) {
-  const { alternatives, alternativesTotal, pageCount } = use(alternativesPromise)
+  const { alternatives = [], alternativesTotal = 0, pageCount = 0 } = use(alternativesPromise) || {}
   const [{ perPage, sort }] = useQueryStates(alternativesTableParamsSchema)
   const [rowAction, setRowAction] = useState<DataTableRowAction<Alternative> | null>(null)
 
@@ -41,7 +41,7 @@ export function AlternativesTable({ alternativesPromise }: AlternativesTableProp
   ]
 
   const { table } = useDataTable({
-    data: alternatives,
+    data: alternatives || [],
     columns,
     pageCount,
     filterFields,

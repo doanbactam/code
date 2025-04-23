@@ -24,47 +24,20 @@ CurrentItem: null # Identifier for the item currently being processed in iterati
 *Contains the step-by-step implementation plan generated during the BLUEPRINT phase.*
 
 **Task: SummarizeItemsIteratively**
-## Plan
 
-[ ] Step 1: Cập nhật hệ thống sinh nội dung và trích xuất topic
-[ ] Step 1.1: Mở rộng hàm generateContent trong lib/generate-content.ts để hỗ trợ trích xuất topics
-[ ] Step 1.2: Cập nhật schema content để bao gồm trường topics cho các topic tags gợi ý
-[ ] Step 1.3: Cập nhật prompt cho ChatGPT để yêu cầu gợi ý topic tags liên quan đến công cụ
-[ ] Step 1.4: Thêm hàm xử lý chuẩn hóa topic tags từ nội dung trả về từ ChatGPT
-[ ] Step 2: Tạo logic kết nối topic với công cụ
-[ ] Step 2.1: Tạo hàm tiện ích tạo hoặc kết nối topic tags (connectOrCreateTopics)
-[ ] Step 2.2: Thêm xử lý chuẩn hóa slug cho topic tags (chuyển thành lowercase, thay thế khoảng trắng)
-[ ] Step 2.3: Thêm logic tự động kết nối công cụ với topic tags đã được gợi ý
-[ ] Step 2.4: Thêm tùy chọn sử dụng gợi ý hoặc cung cấp topic tags riêng
-[ ] Step 3: Cập nhật giao diện quản lý công cụ trong admin
-[ ] Step 3.1: Thêm phần hiển thị topic tags được gợi ý từ ChatGPT trong form thêm/sửa tool
-[ ] Step 3.2: Thêm component topic-suggestion.tsx để hiển thị các topic được gợi ý
-[ ] Step 3.3: Thêm tùy chọn áp dụng/bỏ qua từng topic tag gợi ý
-[ ] Step 3.4: Thêm trường input cho việc thêm topic tags thủ công
-[ ] Step 4: Tích hợp với quy trình đăng tool hiện tại
-[ ] Step 4.1: Cập nhật server action createTool để gọi hàm generateContent và trích xuất topics
-[ ] Step 4.2: Cập nhật server action updateTool để cập nhật topics
-[ ] Step 4.3: Thêm khả năng chỉnh sửa topics đã được gợi ý trước khi lưu
-[ ] Step 4.4: Thêm khả năng tạo mới topics không có trong gợi ý
-[ ] Step 5: Tối ưu hóa hiệu suất và trải nghiệm người dùng
-[ ] Step 5.1: Thêm trạng thái loading khi đang lấy topics từ ChatGPT
-[ ] Step 5.2: Caching kết quả gợi ý topics để tránh gọi API nhiều lần không cần thiết
-[ ] Step 5.3: Thêm timeout và retry logic khi gọi API ChatGPT
-[ ] Step 5.4: Đảm bảo fallback hợp lý khi không thể lấy được topics từ ChatGPT
-[ ] Step 6: Cải thiện cách hiển thị Topic trong giao diện admin
-[ ] Step 6.1: Hiển thị số lượng công cụ liên kết với mỗi topic tag trong bảng quản lý
-[ ] Step 6.2: Thêm khả năng lọc và sắp xếp topics theo số lượng công cụ liên kết
-[ ] Step 6.3: Thêm biểu đồ thống kê về phân bố các topic tags trên dashboard
-[ ] Step 7: Thêm tính năng quản lý topic nâng cao (tùy chọn)
-[ ] Step 7.1: Thêm khả năng nhập topic tags hàng loạt
-[ ] Step 7.2: Thêm chức năng gợi ý nhóm topic tags liên quan
-[ ] Step 7.3: Thêm chức năng tìm kiếm công cụ theo nhiều topic tags cùng lúc
-[ ] Step 8: Kiểm thử và tài liệu hóa
-[ ] Step 8.1: Kiểm tra toàn bộ quy trình từ đăng công cụ đến gợi ý và lưu topic tags
-[ ] Step 8.2: Kiểm tra độ chính xác của topic tags được gợi ý
-[ ] Step 8.3: Cập nhật tài liệu nội bộ về cách sử dụng tính năng này
-[ ] Step 8.4: Theo dõi hiệu suất của tính năng trong thực tế
-
+*   `[ ] Step 1: Trigger RULE_ITERATE_01 to select the first item (item1).`
+*   `[ ] Step 2: (CONSTRUCT Phase) For CurrentItem=item1, use RULE_PROCESS_ITEM_01: Summarize 'Text to Tokenize' (Placeholder: Replace with actual summarization tool/logic) and record result in ## TokenizationResults.`
+*   `[ ] Step 3: (VALIDATE Phase) Verify summary for item1 exists in ## TokenizationResults.`
+*   `[ ] Step 4: Trigger RULE_ITERATE_01 to select the next item (item2).`
+*   `[ ] Step 5: (CONSTRUCT Phase) For CurrentItem=item2, use RULE_PROCESS_ITEM_01: Summarize 'Text to Tokenize' (Placeholder: Replace with actual summarization tool/logic) and record result in ## TokenizationResults.`
+*   `[ ] Step 6: (VALIDATE Phase) Verify summary for item2 exists in ## TokenizationResults.`
+*   `[ ] Step 7: Trigger RULE_ITERATE_01 to select the next item (item3).`
+*   `[ ] Step 8: (CONSTRUCT Phase) For CurrentItem=item3, use RULE_PROCESS_ITEM_01: Summarize 'Text to Tokenize' (Placeholder: Replace with actual summarization tool/logic) and record result in ## TokenizationResults.`
+*   `[ ] Step 9: (VALIDATE Phase) Verify summary for item3 exists in ## TokenizationResults.`
+*   `[ ] Step 10: Trigger RULE_ITERATE_01 to select the next item (item4).`
+*   `[ ] Step 11: (CONSTRUCT Phase) For CurrentItem=item4, use RULE_PROCESS_ITEM_01: Summarize 'Text to Tokenize' (Placeholder: Replace with actual summarization tool/logic) and record result in ## TokenizationResults.`
+*   `[ ] Step 12: (VALIDATE Phase) Verify summary for item4 exists in ## TokenizationResults.`
+*   `[ ] Step 13: Trigger RULE_ITERATE_01. Since no more items, RULE_ITERATE_02 will set Status to COMPLETED_ITERATION.`
 
 ---
 

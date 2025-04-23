@@ -1,67 +1,46 @@
-# Cấu hình dự án (Bộ nhớ dài hạn - LTM)
+# Project Configuration (LTM)
 
-_Tệp này chứa ngữ cảnh ổn định, dài hạn cho dự án AIToolsHub._
-_Nó nên được cập nhật không thường xuyên, chủ yếu khi các mục tiêu cốt lõi, công nghệ hoặc mẫu thay đổi._
-
----
-
-## Mục tiêu cốt lõi
-
-AIToolsHub là một nền tảng đơn giản để khám phá, so sánh và dùng thử các công cụ AI. Dự án nhằm mục đích giúp người dùng dễ dàng tìm kiếm các công cụ AI phù hợp với nhu cầu của họ, so sánh các tính năng và chi phí, đồng thời có thể dùng thử trực tiếp các công cụ này.
+*This file contains the stable, long-term context for the project.*
+*It should be updated infrequently, primarily when core goals, tech, or patterns change.*
 
 ---
 
-## Công nghệ sử dụng
+## Core Goal
 
-- **Frontend:** Next.js 15 (App Router), React, TypeScript, Tailwind CSS, Shadcn UI
-- **Backend:** Next.js ISR, API Routes, Server Actions đơn giản
-- **Quản lý trạng thái:** React Query, nuqs cho trạng thái truy vấn URL
-- **Cơ sở dữ liệu:** PostgreSQL hoặc Supabase
-- **Xác thực:** NextAuth.js cơ bản
-- **Triển khai:** Vercel
-- **Bộ nhớ đệm:** Vercel KV
+*(Define the primary objective and purpose of this project here. E.g., "Create a web application for managing personal tasks...")*
 
 ---
 
-## Mẫu và quy ước quan trọng
+## Tech Stack
 
-- **Cấu trúc dự án:** Đơn giản, không sử dụng monorepo phức tạp
-- **Kiến trúc thành phần:** Kết hợp giữa Server Components và Client Components khi cần thiết
-- **Lấy dữ liệu:** Sử dụng ISR cho dữ liệu tĩnh, React Query cho dữ liệu động
-- **Quản lý trạng thái:** Tham số truy vấn URL với nuqs cho trạng thái có thể chia sẻ
-- **Kiểu dáng:** Tailwind CSS với cách tiếp cận ưu tiên di động
-- **Xử lý lỗi:** Xử lý lỗi đơn giản với thông báo người dùng thân thiện
-- **Quy ước đặt tên:**
-  - Chữ thường với dấu gạch nối cho thư mục (ví dụ: components/tool-card)
-  - PascalCase cho các thành phần
-  - camelCase cho biến và hàm
-- **Cấu trúc tệp:** Thành phần xuất, các thành phần con, trợ giúp, kiểu dữ liệu
+*(List the primary technologies, frameworks, and languages used. E.g.,)*
+*   **Frontend:** React, TypeScript, CSS Modules
+*   **Backend:** Node.js, Express, PostgreSQL
+*   **Testing:** Jest, React Testing Library
+*   **Linting/Formatting:** ESLint, Prettier
 
 ---
 
-## Mô hình dữ liệu chính
+## Critical Patterns & Conventions
 
-- **AITool:** Thông tin về công cụ AI (tên, mô tả, URL, repository, giá cả, kiểu giá)
-- **PricingType:** Enum phân loại kiểu giá (Free, Freemium, Paid, FreeTrial, OpenSource, API)
-- **User:** Thông tin người dùng cơ bản (id, email, tên)
-- **Category:** Phân loại công cụ AI (id, tên, slug)
-- **Alternative:** Công cụ thay thế (id, tên, slug, mô tả)
-- **Rating:** Đánh giá của người dùng (điểm số, bình luận, người dùng, công cụ)
-- **Capability:** Khả năng của công cụ AI (tên, mô tả)
+*(Document any non-standard but crucial design patterns, architectural decisions, or coding conventions specific to this project. E.g.,)*
+*   **State Management:** Redux Toolkit slices pattern.
+*   **API Design:** RESTful principles, specific endpoint naming convention `/api/v1/...`.
+*   **Error Handling:** Use custom `AppError` class for backend errors.
+*   **Commit Messages:** Follow Conventional Commits format.
 
 ---
 
-## Ràng buộc chính
+## Key Constraints
 
-- **Hiệu suất:** Tối ưu hóa cho Web Vitals (LCP, CLS, FID)
-- **Khả năng tiếp cận:** Tuân thủ hướng dẫn WCAG cơ bản
-- **Đáp ứng di động:** Đảm bảo giao diện người dùng hoạt động tốt trên thiết bị di động
-- **Tích hợp API:** Giới hạn số lượng request API để tránh chi phí cao
-- **Bộ lọc thông minh:** Cho phép lọc công cụ theo nhiều tiêu chí, bao gồm kiểu giá
+*(List any major limitations or non-negotiable requirements. E.g.,)*
+*   Must support IE11 (if applicable).
+*   Deployment target is AWS Lambda.
+*   Strict adherence to budget/performance targets.
 
 ---
 
-## Cài đặt tokenization
+## Tokenization Settings
 
-- **Phương pháp ước tính:** Dựa trên ký tự
-- **Số ký tự trên mỗi token (ước tính):** 4
+*   **Estimation Method:** Character-based
+*   **Characters Per Token (Estimate):** 4

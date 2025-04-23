@@ -21,7 +21,7 @@ type UsersTableProps = {
 }
 
 export function UsersTable({ usersPromise }: UsersTableProps) {
-  const { users, usersTotal, pageCount } = use(usersPromise)
+  const { users = [], usersTotal = 0, pageCount = 0 } = use(usersPromise) || {}
   const [{ perPage, sort }] = useQueryStates(usersTableParamsSchema)
   const [rowAction, setRowAction] = useState<DataTableRowAction<User> | null>(null)
 
@@ -38,7 +38,7 @@ export function UsersTable({ usersPromise }: UsersTableProps) {
   ]
 
   const { table } = useDataTable({
-    data: users,
+    data: users || [],
     columns,
     pageCount,
     filterFields,

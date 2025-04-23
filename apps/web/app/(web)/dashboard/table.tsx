@@ -25,7 +25,7 @@ type DashboardTableProps = {
 }
 
 export const DashboardTable = ({ toolsPromise }: DashboardTableProps) => {
-  const { tools, pageCount } = use(toolsPromise)
+  const { tools = [], pageCount = 0 } = use(toolsPromise) || {}
   const [{ perPage, sort }] = useQueryStates(toolsTableParamsSchema)
 
   // Memoize the columns so they don't re-render on every render
@@ -155,13 +155,13 @@ export const DashboardTable = ({ toolsPromise }: DashboardTableProps) => {
   const filterFields: DataTableFilterField<Tool>[] = [
     {
       id: "name",
-      label: "Tên",
-      placeholder: "Tìm kiếm theo tên...",
+      label: "Name",
+      placeholder: "Search by name...",
     },
   ]
 
   const { table } = useDataTable({
-    data: tools,
+    data: tools || [],
     columns,
     pageCount,
     filterFields,
@@ -170,10 +170,8 @@ export const DashboardTable = ({ toolsPromise }: DashboardTableProps) => {
     initialState: {
       pagination: { pageIndex: 0, pageSize: perPage },
       sorting: sort,
-      columnPinning: { right: ["actions"] },
-      columnVisibility: { createdAt: false },
     },
-    getRowId: originalRow => originalRow.slug,
+    getRowId: originalRow => originalRow?.id || '',
   })
 
   return (

@@ -25,7 +25,7 @@ type ToolsTableProps = {
 }
 
 export function ToolsTable({ toolsPromise }: ToolsTableProps) {
-  const { tools, toolsTotal, pageCount } = use(toolsPromise)
+  const { tools = [], toolsTotal = 0, pageCount = 0 } = use(toolsPromise) || {}
   const [{ perPage, sort }] = useQueryStates(toolsTableParamsSchema)
   const [rowAction, setRowAction] = useState<DataTableRowAction<Tool> | null>(null)
 
@@ -63,7 +63,7 @@ export function ToolsTable({ toolsPromise }: ToolsTableProps) {
   ]
 
   const { table } = useDataTable({
-    data: tools,
+    data: tools || [],
     columns,
     pageCount,
     filterFields,
@@ -75,7 +75,7 @@ export function ToolsTable({ toolsPromise }: ToolsTableProps) {
       columnVisibility: { status: false, submitterEmail: false },
       columnPinning: { right: ["actions"] },
     },
-    getRowId: originalRow => originalRow.id,
+    getRowId: originalRow => originalRow?.id || '',
   })
 
   return (

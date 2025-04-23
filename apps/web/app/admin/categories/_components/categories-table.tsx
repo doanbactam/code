@@ -25,7 +25,7 @@ type CategoriesTableProps = {
 }
 
 export function CategoriesTable({ categoriesPromise }: CategoriesTableProps) {
-  const { categories, categoriesTotal, pageCount } = use(categoriesPromise)
+  const { categories = [], categoriesTotal = 0, pageCount = 0 } = use(categoriesPromise) || {}
   const [{ perPage, sort }] = useQueryStates(categoriesTableParamsSchema)
   const [rowAction, setRowAction] = useState<DataTableRowAction<Category> | null>(null)
 
@@ -42,7 +42,7 @@ export function CategoriesTable({ categoriesPromise }: CategoriesTableProps) {
   ]
 
   const { table } = useDataTable({
-    data: categories,
+    data: categories || [],
     columns,
     pageCount,
     filterFields,
