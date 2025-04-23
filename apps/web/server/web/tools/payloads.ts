@@ -19,10 +19,6 @@ export const toolTopicsPayload = Prisma.validator<Prisma.Tool$topicsArgs>()({
 })
 
 
-export const toolOwnerPayload = Prisma.validator<Prisma.Tool$ownerArgs>()({
-  select: { id: true },
-})
-
 export const toolOnePayload = {
   name: true,
   slug: true,
@@ -50,7 +46,7 @@ export const toolOnePayload = {
   // Standard fields
   publishedAt: true,
   updatedAt: true,
-  owner: toolOwnerPayload,
+  ownerId: true,
   alternatives: toolAlternativesPayload,
   categories: toolCategoriesPayload,
   topics: toolTopicsPayload,
@@ -76,7 +72,7 @@ export const toolManyPayload = Prisma.validator<Prisma.ToolSelect>()({
   publishedAt: true,
   createdAt: true,
   updatedAt: true,
-  owner: toolOwnerPayload,
+  ownerId: true,
   alternatives: { ...toolAlternativesPayload, take: 1 },
 })
 
@@ -95,7 +91,7 @@ export const toolManyExtendedPayload = Prisma.validator<Prisma.ToolSelect>()({
   publishedAt: true,
   createdAt: true,
   updatedAt: true,
-  owner: toolOwnerPayload,
+  ownerId: true,
   categories: toolCategoriesPayload,
 })
 

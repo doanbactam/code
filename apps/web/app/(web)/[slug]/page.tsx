@@ -4,20 +4,23 @@ import { Suspense, cache } from "react"
 import type { ImageObject } from "schema-dts"
 import { FeaturedTools } from "~/app/(web)/[slug]/featured-tools"
 import { RelatedTools } from "~/app/(web)/[slug]/related-tools"
+import { Badge } from "~/components/common/badge"
 import { Button } from "~/components/common/button"
-import { H2, H4 } from "~/components/common/heading"
+import { H2, H4, H5 } from "~/components/common/heading"
 import { Icon } from "~/components/common/icon"
+import { Link } from "~/components/common/link"
+import { Note } from "~/components/common/note"
 import { Stack } from "~/components/common/stack"
 import { AdCard, AdCardSkeleton } from "~/components/web/ads/ad-card"
 import { ExternalLink } from "~/components/web/external-link"
 import { Listing } from "~/components/web/listing"
 import { Markdown } from "~/components/web/markdown"
 import { OverlayImage } from "~/components/web/overlay-image"
-import { WebsiteDetails } from "~/components/web/website-details"
 import { ShareButtons } from "~/components/web/share-buttons"
 import { ToolActions } from "~/components/web/tools/tool-actions"
 import { ToolAlternatives } from "~/components/web/tools/tool-alternatives"
 import { ToolListSkeleton } from "~/components/web/tools/tool-list"
+import { WebsiteDetails } from "~/components/web/website-details"
 import { FaviconImage } from "~/components/web/ui/favicon"
 import { IntroDescription } from "~/components/web/ui/intro"
 import { Section } from "~/components/web/ui/section"
@@ -107,7 +110,7 @@ export default async function ToolPage(props: PageProps) {
                     {tool.name}
                   </H2>
 
-                  {tool.owner && <VerifiedBadge size="lg" />}
+                  {tool.ownerId && <VerifiedBadge size="lg" />}
                 </Stack>
 
                 <ToolActions tool={tool} />
@@ -116,7 +119,11 @@ export default async function ToolPage(props: PageProps) {
               {tool.description && <IntroDescription>{tool.description}</IntroDescription>}
             </div>
 
-            <ToolAlternatives alternatives={tool.alternatives} />
+            <Stack size="lg" direction="column">
+              <Note>Lựa chọn AI thay thế cho:</Note>
+
+              <ToolAlternatives alternatives={tool.alternatives} />
+            </Stack>
 
             <Stack className="w-full">
               <Button
@@ -175,7 +182,7 @@ export default async function ToolPage(props: PageProps) {
           {/* Categories */}
           {!!tool.categories.length && (
             <Stack size="lg" direction="column" className="w-full max-md:order-7">
-              <H4 as="strong">Categories:</H4>
+              <H4 as="strong">Danh mục:</H4>
 
               <Stack>
                 {tool.categories?.map(({ name, slug, fullPath }) => (
@@ -226,7 +233,7 @@ export default async function ToolPage(props: PageProps) {
       {/* Related */}
       <Suspense
         fallback={
-          <Listing title={`Open source alternatives similar to ${tool.name}:`}>
+          <Listing title={`Lựa chọn AI thay thế cho ${tool.name}:`}>
             <ToolListSkeleton count={3} />
           </Listing>
         }

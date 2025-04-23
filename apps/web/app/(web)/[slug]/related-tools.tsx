@@ -11,7 +11,7 @@ export const RelatedTools = async ({ tool }: { tool: ToolOne }) => {
   }
 
   return (
-    <Listing title={`Open source alternatives similar to ${tool.name}:`}>
+    <Listing title={`Lựa chọn AI thay thế cho ${tool.name}:`}>
       <ToolList tools={tools} showAd={false} />
     </Listing>
   )

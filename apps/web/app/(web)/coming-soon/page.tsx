@@ -13,8 +13,8 @@ type PageProps = {
 }
 
 export const metadata: Metadata = {
-  title: "Open Source alternatives coming soon!",
-  description: `Below is a list of open source tools that are scheduled to be published on ${config.site.name} soon. They are not visible anywhere else on the site.`,
+  title: "Công cụ AI sắp ra mắt!",
+  description: `Dưới đây là danh sách các công cụ AI đang được lên kế hoạch để được đăng tải trên ${config.site.name}. Chúng không được hiển thị ở bất kỳ đâu khác trên trang web.`,
   openGraph: { ...metadataConfig.openGraph, url: "/coming-soon" },
   alternates: { ...metadataConfig.alternates, canonical: "/coming-soon" },
 }
@@ -26,13 +26,13 @@ export default async function ComingSoonPage(props: PageProps) {
         items={[
           {
             href: "/coming-soon",
-            name: "Coming Soon",
+            name: "Sắp ra mắt",
           },
         ]}
       />
 
       <Intro>
-        <IntroTitle>{`Browse ${metadata.title}`}</IntroTitle>
+        <IntroTitle>{`Xem ${metadata.title}`}</IntroTitle>
         <IntroDescription>{metadata.description}</IntroDescription>
       </Intro>
 

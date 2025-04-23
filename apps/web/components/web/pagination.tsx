@@ -47,15 +47,15 @@ export const Pagination = ({
         prefix={<Icon name="lucide/arrow-left" />}
         rel="prev"
       >
-        Prev
+        Trang trước
       </PaginationLink>
 
       <Note className="md:hidden">
-        Page {currentPage} of {pageCount}
+        Trang {currentPage} của {pageCount}
       </Note>
 
       <div className="flex items-center flex-wrap gap-3 max-md:hidden">
-        <Note>Page:</Note>
+        <Note>Trang:</Note>
 
         {paginationRange.map((page, index) => (
           <div key={`page-${index}`}>
@@ -80,7 +80,7 @@ export const Pagination = ({
         suffix={<Icon name="lucide/arrow-right" />}
         rel="prev"
       >
-        Next
+        Trang tiếp
       </PaginationLink>
     </nav>
   )
