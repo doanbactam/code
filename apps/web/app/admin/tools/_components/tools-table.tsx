@@ -75,7 +75,10 @@ export function ToolsTable({ toolsPromise }: ToolsTableProps) {
       columnVisibility: { status: false, submitterEmail: false },
       columnPinning: { right: ["actions"] },
     },
-    getRowId: originalRow => originalRow?.id || '',
+    getRowId: (originalRow) => {
+      if (!originalRow) return ''
+      return originalRow.id || ''
+    },
   })
 
   return (

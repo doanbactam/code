@@ -18,59 +18,124 @@ export const createTool = adminProcedure
   .createServerAction()
   .input(toolSchema)
   .handler(async ({ input: { alternatives, categories, topics, ...input } }) => {
-    // Nếu có website URL và không có nội dung, tạo nội dung tự động
-    let contentData = {}
-    if (input.websiteUrl && (!input.tagline || !input.description || !input.content)) {
-      try {
-        const { categories: detectedCategories, alternatives: detectedAlternatives, topics: detectedTopics, pricingType, ...content } = await generateContentWithRelations(
-          input.websiteUrl
-        )
-        
-        // Sử dụng nội dung được tạo nếu không có nội dung tương ứng
-        contentData = {
-          tagline: input.tagline || content.tagline,
-          description: input.description || content.description,
-          content: input.content || content.content,
-          pricingType: input.pricingType || pricingType
-        }
-        
-        // Sử dụng danh mục, alternatives và topics được phát hiện nếu chưa được cung cấp
-        if (!categories?.length) {
-          categories = detectedCategories.map(c => c.id)
-        }
-        
-        if (!alternatives?.length) {
-          alternatives = detectedAlternatives.map(a => a.id)
-        }
-        
-        if (!topics?.length) {
-          topics = detectedTopics
-        }
-      } catch (error) {
-        console.error("Error generating content:", error)
+    try {
+      // Đảm bảo tạo slug nếu không có
+      const slug = input.slug || slugify(input.name)
+      
+      // Tạo hoặc kết nối topics nếu đã được cung cấp
+      const topicConnections = topics ? await connectOrCreateTopics(topics) : undefined
+
+      // Tạo tool với dữ liệu cơ bản
+      const tool = await db.tool.create({
+        data: {
+          ...input,
+          slug,
+          alternatives: alternatives?.length ? { connect: alternatives.map(id => ({ id })) } : undefined,
+          categories: categories?.length ? { connect: categories.map(id => ({ id })) } : undefined,
+          topics: topics?.length ? { connectOrCreate: topicConnections } : undefined,
+        },
+      })
+
+      // Send an event to the Inngest pipeline
+      if (tool.publishedAt) {
+        isProd && (await inngest.send({ name: "tool.scheduled", data: { slug: tool.slug } }))
       }
+
+      // Generate content và cập nhật tài sản bất đồng bộ
+      after(async () => {
+        try {
+          // Chỉ generate content nếu có website URL và thiếu nội dung
+          if (input.websiteUrl && (!input.tagline || !input.description || !input.content)) {
+            try {
+              console.log(`Generating content for tool ${tool.id} from ${input.websiteUrl}...`)
+              const { categories: detectedCategories, alternatives: detectedAlternatives, topics: detectedTopics, pricingType, ...content } = await generateContentWithRelations(
+                input.websiteUrl
+              )
+              
+              // Dữ liệu cập nhật cho tool
+              const contentData: any = {}
+              
+              // Chỉ cập nhật các trường còn thiếu
+              if (!input.tagline) contentData.tagline = content.tagline
+              if (!input.description) contentData.description = content.description
+              if (!input.content) contentData.content = content.content
+              if (!input.pricingType) contentData.pricingType = pricingType
+              
+              // Mảng các quan hệ cần cập nhật
+              const relationUpdates: any = {}
+              
+              // Chỉ cập nhật danh mục nếu chưa được cung cấp
+              if (!categories?.length && detectedCategories.length) {
+                relationUpdates.categories = { 
+                  connect: detectedCategories.map(({ id }) => ({ id })) 
+                }
+              }
+              
+              // Chỉ cập nhật alternatives nếu chưa được cung cấp
+              if (!alternatives?.length && detectedAlternatives.length) {
+                relationUpdates.alternatives = { 
+                  connect: detectedAlternatives.map(({ id }) => ({ id })) 
+                }
+              }
+              
+              // Chỉ cập nhật topics nếu chưa được cung cấp
+              if (!topics?.length && detectedTopics.length) {
+                const topicConnections = await connectOrCreateTopics(detectedTopics)
+                relationUpdates.topics = { 
+                  connectOrCreate: topicConnections 
+                }
+              }
+              
+              // Cập nhật tool với nội dung mới
+              await db.tool.update({
+                where: { id: tool.id },
+                data: {
+                  ...contentData,
+                  ...relationUpdates
+                },
+              })
+              
+              console.log(`Content generated and updated for tool ${tool.id}`)
+            } catch (error) {
+              console.error("Error generating content:", error)
+            }
+          }
+
+          // Tải favicon và screenshot nếu cần
+          if (input.websiteUrl && (!input.faviconUrl || !input.screenshotUrl)) {
+            try {
+              console.log(`Uploading assets for tool ${tool.id} from ${input.websiteUrl}...`)
+              const [faviconUrl, screenshotUrl] = await Promise.all([
+                !input.faviconUrl ? uploadFavicon(input.websiteUrl, `tools/${slug}/favicon`) : Promise.resolve(input.faviconUrl),
+                !input.screenshotUrl ? uploadScreenshot(input.websiteUrl, `tools/${slug}/screenshot`) : Promise.resolve(input.screenshotUrl),
+              ])
+
+              await db.tool.update({
+                where: { id: tool.id },
+                data: { faviconUrl, screenshotUrl },
+              })
+              
+              console.log(`Assets uploaded for tool ${tool.id}`)
+            } catch (error) {
+              console.error(`Error uploading assets for tool ${tool.id}:`, error)
+            }
+          }
+          
+          // Revalidate cache cho tool
+          revalidateTag("tools")
+          revalidateTag(`tool-${tool.slug}`)
+          revalidateTag("topics")
+          
+        } catch (error) {
+          console.error(`Error in background processing for tool ${tool.id}:`, error)
+        }
+      })
+
+      return tool
+    } catch (error) {
+      console.error("Error creating tool:", error)
+      throw new Error(`Không thể tạo công cụ: ${error instanceof Error ? error.message : 'Lỗi không xác định'}`)
     }
-
-    // Tạo hoặc kết nối topics
-    const topicConnections = topics ? await connectOrCreateTopics(topics) : undefined
-
-    const tool = await db.tool.create({
-      data: {
-        ...input,
-        ...contentData,
-        slug: input.slug || slugify(input.name),
-        alternatives: alternatives?.length ? { connect: alternatives.map(id => ({ id })) } : undefined,
-        categories: categories?.length ? { connect: categories.map(id => ({ id })) } : undefined,
-        topics: topics?.length ? { connectOrCreate: topicConnections } : undefined,
-      },
-    })
-
-    // Send an event to the Inngest pipeline
-    if (tool.publishedAt) {
-      isProd && (await inngest.send({ name: "tool.scheduled", data: { slug: tool.slug } }))
-    }
-
-    return tool
   })
 
 export const updateTool = adminProcedure

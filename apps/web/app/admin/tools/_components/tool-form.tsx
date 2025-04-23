@@ -40,7 +40,7 @@ import type { findAlternativeList } from "~/server/admin/alternatives/queries"
 import type { findCategoryList } from "~/server/admin/categories/queries"
 import { createTool, updateTool } from "~/server/admin/tools/actions"
 import type { findToolBySlug } from "~/server/admin/tools/queries"
-import { toolSchema } from "~/server/admin/tools/schemas"
+import { toolSchema, type ToolSchema } from "~/server/admin/tools/schemas"
 import { cx } from "~/utils/cva"
 
 // Định nghĩa type cho Topic
@@ -68,7 +68,7 @@ export function ToolForm({
 }: ToolFormProps) {
   const [isPreviewing, setIsPreviewing] = useState(false)
 
-  const form = useForm<FormSchema>({
+  const form = useForm<ToolSchema>({
     resolver: zodResolver(toolSchema),
     defaultValues: {
       name: tool?.name ?? "",
@@ -82,8 +82,6 @@ export function ToolForm({
       tagline: tool?.tagline ?? "",
       description: tool?.description ?? "",
       content: tool?.content ?? "",
-      stars: tool?.stars ?? 0,
-      forks: tool?.forks ?? 0,
       faviconUrl: tool?.faviconUrl ?? "",
       screenshotUrl: tool?.screenshotUrl ?? "",
       isFeatured: tool?.isFeatured ?? false,
@@ -117,19 +115,22 @@ export function ToolForm({
   // Create tool
   const { execute: createToolAction, isPending: isCreatingTool } = useServerAction(createTool, {
     onSuccess: ({ data }) => {
-      toast.success("Đã tạo công cụ thành công")
+      toast.success(
+        "Đã tạo công cụ thành công. Nội dung và hình ảnh sẽ được tạo tự động trong nền.", 
+        { id: "tool-submit" }
+      )
       redirect(`/admin/tools/${data.slug}`)
     },
 
     onError: ({ err }) => {
-      toast.error(err.message)
+      toast.error(err.message, { id: "tool-submit" })
     },
   })
 
   // Update tool
   const { execute: updateToolAction, isPending: isUpdatingTool } = useServerAction(updateTool, {
     onSuccess: ({ data }) => {
-      toast.success("Đã cập nhật công cụ thành công")
+      toast.success("Đã cập nhật công cụ thành công", { id: "tool-submit" })
 
       if (data.slug !== tool?.slug) {
         redirect(`/admin/tools/${data.slug}`)
@@ -137,12 +138,36 @@ export function ToolForm({
     },
 
     onError: ({ err }) => {
-      toast.error(err.message)
+      toast.error(err.message, { id: "tool-submit" })
     },
   })
 
   const onSubmit = form.handleSubmit(data => {
-    tool ? updateToolAction({ id: tool.id, ...data }) : createToolAction(data)
+    try {
+      // Kiểm tra websiteUrl có hợp lệ không
+      if (data.websiteUrl && !data.websiteUrl.startsWith('http')) {
+        toast.error("Website URL phải bắt đầu bằng http:// hoặc https://")
+        return
+      }
+      
+      // Hiển thị thông báo đang xử lý
+      toast.loading(tool ? "Đang cập nhật công cụ..." : "Đang tạo công cụ...", {
+        id: "tool-submit",
+        duration: 10000,
+      })
+      
+      // Thực hiện tạo hoặc cập nhật
+      if (tool) {
+        updateToolAction({ id: tool.id, ...data })
+      } else {
+        createToolAction(data)
+      }
+    } catch (error) {
+      console.error("Lỗi khi gửi form:", error)
+      toast.error(`Có lỗi xảy ra: ${error instanceof Error ? error.message : 'Lỗi không xác định'}`, {
+        id: "tool-submit"
+      })
+    }
   })
 
   const isPending = isCreatingTool || isUpdatingTool
@@ -492,7 +517,7 @@ export function ToolForm({
               <FormControl>
                 <RelationSelector
                   promise={alternatives}
-                  selectedIds={field.value}
+                  selectedIds={field.value || []}
                   prompt={websiteUrl}
                   onChange={field.onChange}
                 />
@@ -511,7 +536,7 @@ export function ToolForm({
               <FormControl>
                 <RelationSelector
                   promise={categories}
-                  selectedIds={field.value}
+                  selectedIds={field.value || []}
                   prompt={`${name}\n${description}`}
                   onChange={field.onChange}
                 />
@@ -529,7 +554,7 @@ export function ToolForm({
               <FormLabel>Topics</FormLabel>
               <FormControl>
                 <TopicSelector
-                  selectedSlugs={field.value}
+                  selectedSlugs={field.value || []}
                   websiteUrl={websiteUrl}
                   onChange={field.onChange}
                 />
