@@ -42,7 +42,8 @@
   --tracking-micro: -0.0125em;
 
   --text-5xl: 2.75rem;
-
+  --text-6xl: 3.25rem;
+  
   --scale-flip: -1;
 
   --grid-template-columns-2xs: repeat(auto-fill, minmax(10rem, 1fr));
