@@ -22,13 +22,11 @@ export const FeaturedTools = async ({ ...props }: ComponentProps<typeof Card>) =
     <Card hover={false} focus={false} {...props}>
       <Stack direction="column">
         <Stack size="sm">
-        <VerifiedBadge size="md" className="m-0" />
+          <VerifiedBadge size="md" className="m-0" />
           <H5 as="strong">Công cụ được đề xuất</H5>
         </Stack>
 
-        <Note>
-          {siteConfig.name} được tài trợ bởi các nhà tài trợ sau:
-        </Note>
+        <Note>{siteConfig.name} được tài trợ bởi các nhà tài trợ sau:</Note>
       </Stack>
 
       <Stack className="gap-2">

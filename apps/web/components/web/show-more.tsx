@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, type ReactNode } from "react"
+import { type ReactNode, useState } from "react"
 import { Button } from "~/components/common/button"
 import { Stack } from "~/components/common/stack"
 import { navLinkVariants } from "~/components/web/ui/nav-link"
@@ -12,12 +12,7 @@ export type ShowMoreProps<T> = {
   className?: string
 }
 
-export const ShowMore = <T,>({
-  items,
-  renderItem,
-  limit = 4,
-  className,
-}: ShowMoreProps<T>) => {
+export const ShowMore = <T,>({ items, renderItem, limit = 4, className }: ShowMoreProps<T>) => {
   const [showAll, setShowAll] = useState(false)
 
   const shouldShowAll = showAll || items.length <= limit + 1
@@ -39,4 +34,4 @@ export const ShowMore = <T,>({
       )}
     </Stack>
   )
-} 
+}

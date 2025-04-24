@@ -105,7 +105,11 @@ const ToolCard = ({ className, tool, isRelated, ...props }: ToolCardProps) => {
 
 const ToolCardSkeleton = () => {
   const insights = [
-    { label: "Lượt truy cập", value: <Skeleton className="h-4 w-16" />, icon: <Icon name="lucide/hash" /> },
+    {
+      label: "Lượt truy cập",
+      value: <Skeleton className="h-4 w-16" />,
+      icon: <Icon name="lucide/hash" />,
+    },
     {
       label: "Xếp hạng thế giới",
       value: <Skeleton className="h-4 w-14" />,

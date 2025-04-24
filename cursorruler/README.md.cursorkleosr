@@ -1,0 +1,63 @@
+# Quy Trình Làm Việc Tự Động cho OpenAlternative
+
+Dự án này đã tích hợp một hệ thống quy trình làm việc tự động dựa trên [cursorkleosr](https://github.com/kleosr/cursorkleosr) để cải thiện hiệu quả phát triển với AI trong Cursor IDE.
+
+## Tổng Quan
+
+Hệ thống này giúp trợ lý AI:
+- Duy trì ngữ cảnh về dự án OpenAlternative
+- Tuân theo một quy trình có cấu trúc trong suốt quá trình phát triển
+- Làm việc một cách tự động và nhất quán, ngay cả giữa các phiên làm việc khác nhau
+
+## Tập Tin Chính
+
+Hệ thống bao gồm hai tập tin chính:
+
+1. **`project_config.md`**: Lưu trữ thông tin dài hạn về dự án, bao gồm:
+   - Mục tiêu dự án
+   - Tech stack
+   - Mẫu và quy ước mã hóa quan trọng
+   - Ràng buộc chính
+   - Thiết lập tokenization
+
+2. **`workflow_state.md`**: Điều khiển quy trình làm việc động, bao gồm:
+   - Trạng thái hiện tại (giai đoạn và tình trạng)
+   - Kế hoạch chi tiết cho nhiệm vụ hiện tại
+   - Quy tắc định nghĩa quy trình
+   - Nhật ký hoạt động
+   - Theo dõi mục lặp lại (nếu có)
+
+## Quy Trình Làm Việc
+
+AI tuân theo một quy trình có cấu trúc gồm bốn giai đoạn:
+
+1. **ANALYZE**: Hiểu nhiệm vụ và ngữ cảnh dự án liên quan
+2. **BLUEPRINT**: Phát triển một kế hoạch chi tiết cần phê duyệt từ người dùng
+3. **CONSTRUCT**: Thực hiện kế hoạch bằng cách viết mã và tài liệu
+4. **VALIDATE**: Kiểm tra kết quả và xác nhận chất lượng
+
+## Cách Sử Dụng
+
+1. Hướng dẫn AI sử dụng hệ thống: "Hãy sử dụng hệ thống quy trình tự động từ project_config.md và workflow_state.md."
+2. Mô tả nhiệm vụ của bạn một cách rõ ràng
+3. AI sẽ phân tích nhiệm vụ, tạo kế hoạch, và đợi sự phê duyệt của bạn
+4. Sau khi phê duyệt, AI sẽ thực hiện kế hoạch và xác thực kết quả
+
+Để biết thêm chi tiết, xem tập tin `Instructions.md`.
+
+## Lợi Ích
+
+- **Nhất quán**: Quy trình chuẩn hóa cho phát triển
+- **Dễ theo dõi**: Theo dõi tiến trình thông qua trạng thái quy trình
+- **Tự động**: Giảm nhu cầu cho hướng dẫn lặp lại
+- **Lặp lại**: Hỗ trợ xử lý nhiều nhiệm vụ tương tự
+
+## Chỉnh Sửa và Cấu Hình
+
+- Cập nhật `project_config.md` khi dự án phát triển hoặc quy ước thay đổi
+- Điều chỉnh quy tắc trong `workflow_state.md` để thay đổi quy trình làm việc
+- Thêm mục vào phần `## Items` để xử lý nhiều nhiệm vụ tương tự
+
+---
+
+*Hệ thống quy trình tự động này được phát triển dựa trên khái niệm từ [cursorkleosr](https://github.com/kleosr/cursorkleosr), được thiết kế để cải thiện trải nghiệm phát triển với Cursor IDE.* 

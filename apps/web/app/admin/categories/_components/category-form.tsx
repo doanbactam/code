@@ -232,9 +232,9 @@ export function CategoryForm({
               <FormControl>
                 <Select
                   disabled={!!category?.subcategories.length}
-                  onValueChange={(val) => {
+                  onValueChange={val => {
                     // Xử lý giá trị "_none" để đặt thành chuỗi rỗng
-                    form.setValue("parentId", val === "_none" ? "" : val);
+                    form.setValue("parentId", val === "_none" ? "" : val)
                   }}
                   value={field.value || "_none"}
                 >
@@ -248,28 +248,35 @@ export function CategoryForm({
                         <span className="font-medium">Không (Cấp cao nhất)</span>
                       </div>
                     </SelectItem>
-                    
+
                     {/* Hiển thị các top-level categories */}
                     {parents
                       .filter(parent => !parent.parentId)
                       .map(topParent => (
                         <SelectGroup key={topParent.id} className="mt-2 border-t pt-2">
-                          <SelectItem value={topParent.id} className="font-semibold text-foreground">
-                            <div className="flex items-center">
-                              {topParent.name}
-                            </div>
+                          <SelectItem
+                            value={topParent.id}
+                            className="font-semibold text-foreground"
+                          >
+                            <div className="flex items-center">{topParent.name}</div>
                           </SelectItem>
 
                           {/* Hiển thị subcategories cấp 1 */}
                           {parents
                             .filter(cat => cat.parentId === topParent.id)
                             .map(subCat => (
-                              <SelectItem key={subCat.id} value={subCat.id} disabled={subCat.id === category?.id}>
+                              <SelectItem
+                                key={subCat.id}
+                                value={subCat.id}
+                                disabled={subCat.id === category?.id}
+                              >
                                 <div className="flex items-center pl-6">
                                   {subCat.name}
-                                  {subCat.id === category?.id && 
-                                    <span className="ml-2 text-xs text-muted-foreground italic">(hiện tại)</span>
-                                  }
+                                  {subCat.id === category?.id && (
+                                    <span className="ml-2 text-xs text-muted-foreground italic">
+                                      (hiện tại)
+                                    </span>
+                                  )}
                                 </div>
                               </SelectItem>
                             ))}
@@ -281,7 +288,8 @@ export function CategoryForm({
               <FormMessage />
               {category?.subcategories?.length > 0 && (
                 <p className="text-sm text-muted-foreground mt-1">
-                  Không thể thay đổi danh mục cha vì danh mục này có {category.subcategories.length} danh mục con
+                  Không thể thay đổi danh mục cha vì danh mục này có {category.subcategories.length}{" "}
+                  danh mục con
                 </p>
               )}
             </FormItem>
@@ -308,12 +316,10 @@ export function CategoryForm({
             <Button size="md" variant="secondary" asChild>
               <Link href="/admin/categories">Hủy</Link>
             </Button>
-            
+
             {category && (
               <Button size="md" variant="secondary" asChild>
-                <Link href="/admin/categories/new">
-                  Tạo mới
-                </Link>
+                <Link href="/admin/categories/new">Tạo mới</Link>
               </Button>
             )}
           </div>

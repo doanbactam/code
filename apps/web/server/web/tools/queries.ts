@@ -1,7 +1,7 @@
 import { performance } from "node:perf_hooks"
 import { getRandomElement } from "@curiousleaf/utils"
 import { db } from "@m4v/db"
-import { type Prisma, ToolStatus, PricingType } from "@m4v/db/client"
+import { type PricingType, type Prisma, ToolStatus } from "@m4v/db/client"
 import { unstable_cacheLife as cacheLife, unstable_cacheTag as cacheTag } from "next/cache"
 import type { FilterSchema } from "~/server/web/shared/schemas"
 import {
@@ -26,7 +26,9 @@ export const searchTools = async (search: FilterSchema, where?: Prisma.ToolWhere
     status: ToolStatus.Published,
     ...(!!alternative.length && { alternatives: { some: { slug: { in: alternative } } } }),
     ...(!!category.length && { categories: { some: { slug: { in: category } } } }),
-    ...(!!pricingType.length && { pricingType: { in: pricingType.map(p => p.toUpperCase() as PricingType) } }),
+    ...(!!pricingType.length && {
+      pricingType: { in: pricingType.map(p => p.toUpperCase() as PricingType) },
+    }),
   }
 
   // Use full-text search when query exists

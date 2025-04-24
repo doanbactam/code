@@ -15,18 +15,18 @@ const RadioGroupItem = ({
 }: ComponentProps<typeof RadioGroupPrimitive.Item>) => {
   return (
     <Box focusWithin>
-       <RadioGroupPrimitive.Item
-         className={cx(
-           "size-4 rounded-full border-foreground/50! text-foreground shadow disabled:cursor-not-allowed disabled:opacity-50",
-           className,
-         )}
-         {...props}
-       >
-         <RadioGroupPrimitive.Indicator className="grid place-items-center">
-           <span className="size-2.5 rounded-full bg-primary" />
-         </RadioGroupPrimitive.Indicator>
-       </RadioGroupPrimitive.Item>
-     </Box>
+      <RadioGroupPrimitive.Item
+        className={cx(
+          "size-4 rounded-full border-foreground/50! text-foreground shadow disabled:cursor-not-allowed disabled:opacity-50",
+          className,
+        )}
+        {...props}
+      >
+        <RadioGroupPrimitive.Indicator className="grid place-items-center">
+          <span className="size-2.5 rounded-full bg-primary" />
+        </RadioGroupPrimitive.Indicator>
+      </RadioGroupPrimitive.Item>
+    </Box>
   )
 }
 

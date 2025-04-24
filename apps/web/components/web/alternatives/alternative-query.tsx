@@ -22,7 +22,7 @@ const AlternativeQuery = ({
   placeholder,
 }: AlternativeQueryProps) => {
   return (
-    <>
+    <div className="flex flex-col gap-8">
       <FiltersProvider>
         <div className="flex flex-col gap-5">
           <AlternativeSearch placeholder={placeholder} />
@@ -31,7 +31,7 @@ const AlternativeQuery = ({
       </FiltersProvider>
 
       <Pagination pageSize={perPage} totalCount={totalCount} />
-    </>
+    </div>
   )
 }
 

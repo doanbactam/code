@@ -45,7 +45,9 @@ export const Footer = ({ children, className, hideNewsletter, ...props }: Footer
             </H5>
 
             <p className="-mt-2 px-0.5 text-xs text-muted-foreground first:mt-0">
-              Tham gia cùng {formatNumber(config.stats.subscribers + config.stats.stars, "standard")}+ thành viên khác và nhận thông tin cập nhật về các công cụ AI mới.
+              Tham gia cùng{" "}
+              {formatNumber(config.stats.subscribers + config.stats.stars, "standard")}+ thành viên
+              khác và nhận thông tin cập nhật về các công cụ AI mới.
             </p>
 
             <NewsletterForm medium="footer_form" />
@@ -164,11 +166,7 @@ export const Footer = ({ children, className, hideNewsletter, ...props }: Footer
           </ExternalLink>
         </Stack>
 
-        <p>
-          &copy; {new Date().getFullYear()}{" "}
-Syr
-          . Trang web có thể chứa các liên kết liên kết.
-        </p>
+        <p>&copy; {new Date().getFullYear()} Syr . Trang web có thể chứa các liên kết liên kết.</p>
       </div>
 
       {children}

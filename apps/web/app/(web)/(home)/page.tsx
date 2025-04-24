@@ -21,12 +21,13 @@ export default function Home({ searchParams }: PageProps) {
     <>
       <section className="flex flex-col gap-y-6 w-full mb-[2vh]">
         <Intro alignment="center">
-        <IntroTitle className="max-w-[15em] sm:text-4xl md:text-5xl lg:text-6xl">
+          <IntroTitle className="max-w-[15em] sm:text-4xl md:text-5xl lg:text-6xl">
             Khám Phá Công Cụ AI Hữu Ích Cho Công Việc Hàng Ngày
           </IntroTitle>
 
           <IntroDescription className="lg:mt-2">
-            Bộ sưu tập các công cụ AI tốt nhất cho công việc và cuộc sống hàng ngày. Tiết kiệm thời gian với các công cụ AI đáng tin cậy được chọn lọc cho bạn.
+            Bộ sưu tập các công cụ AI tốt nhất cho công việc và cuộc sống hàng ngày. Tiết kiệm thời
+            gian với các công cụ AI đáng tin cậy được chọn lọc cho bạn.
           </IntroDescription>
 
           <Suspense fallback={<CountBadgeSkeleton />}>

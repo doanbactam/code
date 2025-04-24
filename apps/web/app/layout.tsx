@@ -4,8 +4,8 @@ import { NuqsAdapter } from "nuqs/adapters/next/app"
 import type { PropsWithChildren } from "react"
 import { Toaster } from "~/components/common/toaster"
 import { TooltipProvider } from "~/components/common/tooltip"
-import { config } from "~/config"
 import { ThemeProvider, ThemeScript } from "~/components/theme-provider"
+import { config } from "~/config"
 
 export const metadata: Metadata = {
   metadataBase: new URL(config.site.url),

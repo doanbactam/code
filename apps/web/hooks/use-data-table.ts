@@ -151,7 +151,7 @@ export function useDataTable<TData>({
 }: UseDataTableProps<TData>) {
   // Đảm bảo data luôn là mảng, không phải undefined hoặc null
   const safeData = useMemo(() => (props.data || []) as TData[], [props.data])
-  
+
   const queryStateOptions = useMemo<Omit<UseQueryStateOptions<string>, "parse">>(
     () => ({
       history,

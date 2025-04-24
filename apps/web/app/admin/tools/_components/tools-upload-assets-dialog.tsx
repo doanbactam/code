@@ -58,7 +58,8 @@ export const ToolsUploadAssetsDialog = ({
           <DialogDescription>
             Thao tác này sẽ tải lại favicon và screenshot cho{" "}
             <span className="font-medium">{tools.length}</span>
-            {tools.length === 1 ? " công cụ" : " công cụ"} đã chọn. Quá trình này có thể mất một lúc.
+            {tools.length === 1 ? " công cụ" : " công cụ"} đã chọn. Quá trình này có thể mất một
+            lúc.
           </DialogDescription>
         </DialogHeader>
 
@@ -81,4 +82,4 @@ export const ToolsUploadAssetsDialog = ({
       </DialogContent>
     </Dialog>
   )
-} 
+}

@@ -1,5 +1,5 @@
 import axios from "axios"
-import type { WebsiteData, SimilarWebResponse } from "./types"
+import type { SimilarWebResponse, WebsiteData } from "./types"
 import { getDomain, prepareWebsiteData } from "./utils"
 
 export const createSimilarWebClient = (apiKey: string) => {

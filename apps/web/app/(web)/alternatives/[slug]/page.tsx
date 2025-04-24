@@ -55,8 +55,8 @@ const getMetadata = (alternative: AlternativeOne): Metadata => {
   const displayCount = count > 10 ? "10+" : count > 1 ? count : ""
 
   return {
-    title: `${displayCount ? `${displayCount} ` : ""}Best Open Source ${alternative.name} Alternatives in ${year}`,
-    description: `A curated collection of the best open source alternatives to ${alternative.name}. Each listing includes a website screenshot along with a detailed review of its features.`,
+    title: `${displayCount ? `${displayCount} ` : ""}Giải pháp công cụ AI thay thế ${alternative.name} tốt nhất năm ${year}`,
+    description: `Bộ sưu tập các giải pháp công cụ AI thay thế cho ${alternative.name}. Mỗi giải pháp đều có ảnh chụp màn hình kèm theo đánh giá chi tiết về tính năng.`,
   }
 }
 
@@ -118,26 +118,26 @@ export default async function AlternativePage(props: PageProps) {
 
   return (
     <>
-      <Breadcrumbs
+      {/* <Breadcrumbs
         items={[
           {
             href: "/alternatives",
-            name: "Alternatives",
+            name: "Công cụ thay thế",
           },
           {
             href: `/alternatives/${alternative.slug}`,
             name: alternative.name,
           },
         ]}
-      />
+      /> */}
 
       <Intro>
-        <IntroTitle>Open Source {alternative.name} Alternatives</IntroTitle>
+        <IntroTitle>Công cụ AI tốt nhất thay thế {alternative.name}</IntroTitle>
 
         <IntroDescription className="max-w-4xl">
           {alternative._count.tools
-            ? `A curated collection of the ${alternative._count.tools} best open source alternatives to ${alternative.name}.`
-            : `No open source ${alternative.name} alternatives found yet.`}
+            ? `Bộ sưu tập ${alternative._count.tools} công cụ AI thay thế tốt nhất cho ${alternative.name}.`
+            : `Chưa tìm thấy công cụ AI thay thế nào cho ${alternative.name}.`}
         </IntroDescription>
       </Intro>
 
@@ -146,21 +146,21 @@ export default async function AlternativePage(props: PageProps) {
           <Section.Content className="gap-12 md:gap-14 lg:gap-16">
             <Prose>
               <p>
-                The best open source alternative to {alternative.name} is {bestTools.shift()}. If
-                that doesn't suit you, we've compiled a{" "}
-                <Link href="/about#how-are-rankings-calculated">ranked list</Link> of other open
-                source {alternative.name} alternatives to help you find a suitable replacement.
+                Công cụ AI thay thế tốt nhất cho {alternative.name} là {bestTools.shift()}. Nếu
+                không phù hợp, chúng tôi đã tổng hợp một {" "}
+                <Link href="/about#how-are-rankings-calculated">danh sách xếp hạng</Link> các công cụ AI
+                thay thế cho {alternative.name} để giúp bạn tìm thấy phương án phù hợp.
                 {!!bestTools.length && (
                   <>
                     {" "}
-                    Other interesting open source
+                    Các công cụ AI thay thế
                     {bestTools.length === 1
-                      ? ` alternative to ${alternative.name} is `
-                      : ` alternatives to ${alternative.name} are: `}
+                      ? ` thú vị khác cho ${alternative.name} là `
+                      : ` thú vị khác cho ${alternative.name} bao gồm: `}
                     {bestTools.map((alt, index) => (
                       <Fragment key={index}>
                         {index > 0 && index !== bestTools.length - 1 && ", "}
-                        {index > 0 && index === bestTools.length - 1 && " and "}
+                        {index > 0 && index === bestTools.length - 1 && " và "}
                         {alt}
                       </Fragment>
                     ))}
@@ -171,17 +171,17 @@ export default async function AlternativePage(props: PageProps) {
 
               {!!bestCategories.length && (
                 <p>
-                  {alternative.name} alternatives are mainly {bestCategories.shift()}
-                  {!!bestCategories.length && " but may also be "}
+                  Các giải pháp thay thế cho {alternative.name} chủ yếu thuộc {bestCategories.shift()}
+                  {!!bestCategories.length && " nhưng cũng có thể thuộc "}
                   {bestCategories.map((category, index) => (
                     <Fragment key={index}>
                       {index > 0 && index !== bestCategories.length - 1 && ", "}
-                      {index > 0 && index === bestCategories.length - 1 && " or "}
+                      {index > 0 && index === bestCategories.length - 1 && " hoặc "}
                       {category}
                     </Fragment>
                   ))}
-                  . Browse these if you want a narrower list of alternatives or looking for a
-                  specific functionality of {alternative.name}.
+                  . Duyệt qua các danh mục này nếu bạn muốn danh sách các giải pháp thay thế cụ thể hơn hoặc
+                  đang tìm kiếm một chức năng cụ thể của {alternative.name}.
                 </p>
               )}
 
@@ -215,7 +215,7 @@ export default async function AlternativePage(props: PageProps) {
                 className="font-normal text-muted-foreground hover:ring-transparent! focus-visible:ring-transparent"
                 asChild
               >
-                <Link href="/submit">Suggest an alternative</Link>
+                <Link href="/submit">Đề xuất giải pháp thay thế</Link>
               </Button>
             </InlineMenu>
           </Section.Sidebar>

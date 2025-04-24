@@ -88,4 +88,14 @@ Key Conventions
     - Favor server components and Next.js SSR.
     - Use only for Web API access in small components.
     - Avoid for data fetching or state management.
+
+Quy Trình Làm Việc Tự Động Cursor
+  - Bạn PHẢI luôn luôn vận hành dựa trên hai tập tin chính:
+    1. project_config.md (Bộ nhớ dài hạn - LTM): Chứa thông tin cơ bản về dự án
+    2. workflow_state.md (Bộ nhớ ngắn hạn + Quy tắc + Nhật ký - STM): Theo dõi và điều khiển quy trình làm việc
+  - Trước mọi hành động, đọc workflow_state.md để xác định trạng thái hiện tại và phần ## Rules
+  - Luôn thực hiện theo quy tắc của giai đoạn hiện tại (ANALYZE, BLUEPRINT, CONSTRUCT, VALIDATE)
+  - Sau mọi hành động quan trọng, cập nhật workflow_state.md ngay lập tức
+  - Đối với các nhiệm vụ lặp lại, sử dụng phần ## Items để theo dõi tiến trình
+  - Hoạt động trong vòng lặp tự động, luôn tuân thủ trạng thái được định nghĩa trong workflow_state.md
   

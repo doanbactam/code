@@ -1,4 +1,4 @@
-import { WebsiteData } from './types'
+import type { WebsiteData } from "./types"
 
 export class SimilarWebCache {
   private cache: Map<string, { data: WebsiteData; timestamp: number }>
@@ -12,7 +12,7 @@ export class SimilarWebCache {
   set(domain: string, data: WebsiteData): void {
     this.cache.set(domain, {
       data,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     })
   }
 

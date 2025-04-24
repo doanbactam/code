@@ -50,16 +50,16 @@ export function ThemeProvider({
   storageKey = "ui-theme",
 }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(defaultTheme)
-  
+
   // Khôi phục theme từ localStorage khi component mount
   useEffect(() => {
     const savedTheme = localStorage.getItem(storageKey) as Theme | null
-    
+
     if (savedTheme) {
       setTheme(savedTheme)
     }
   }, [storageKey])
-  
+
   // Lưu theme vào localStorage khi theme thay đổi
   useEffect(() => {
     localStorage.setItem(storageKey, theme)
@@ -67,13 +67,13 @@ export function ThemeProvider({
 
   useEffect(() => {
     const root = window.document.documentElement
-    
+
     // Xóa tất cả các class theme hiện tại
     root.classList.remove("light", "dark")
 
     if (disableTransitionOnChange) {
       root.classList.add("[&_*]:!transition-none")
-      
+
       setTimeout(() => {
         root.classList.remove("[&_*]:!transition-none")
       }, 0)
@@ -96,12 +96,12 @@ export function ThemeProvider({
     if (!enableSystem) return
 
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
-    
+
     const handleChange = () => {
       if (theme === "system") {
         const root = window.document.documentElement
         const systemTheme = mediaQuery.matches ? "dark" : "light"
-        
+
         root.classList.remove("light", "dark")
         root.classList.add(systemTheme)
       }
@@ -116,18 +116,13 @@ export function ThemeProvider({
     setTheme: (theme: Theme) => setTheme(theme),
   }
 
-  return (
-    <ThemeProviderContext.Provider value={value}>
-      {children}
-    </ThemeProviderContext.Provider>
-  )
+  return <ThemeProviderContext.Provider value={value}>{children}</ThemeProviderContext.Provider>
 }
 
 export const useTheme = () => {
   const context = useContext(ThemeProviderContext)
 
-  if (context === undefined)
-    throw new Error("useTheme must be used within a ThemeProvider")
+  if (context === undefined) throw new Error("useTheme must be used within a ThemeProvider")
 
   return context
 }
@@ -137,8 +132,8 @@ export const ThemeScript = () => {
   return (
     <script
       dangerouslySetInnerHTML={{
-        __html: THEME_SCRIPT
+        __html: THEME_SCRIPT,
       }}
     />
   )
-} 
+}

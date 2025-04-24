@@ -7,6 +7,7 @@ import { ToolScheduleDialog } from "~/app/admin/tools/_components/tool-schedule-
 import { ToolsDeleteDialog } from "~/app/admin/tools/_components/tools-delete-dialog"
 import { DateRangePicker } from "~/components/admin/date-range-picker"
 import { Button } from "~/components/common/button"
+import { Icon } from "~/components/common/icon"
 import { Link } from "~/components/common/link"
 import { DataTable } from "~/components/data-table/data-table"
 import { DataTableHeader } from "~/components/data-table/data-table-header"
@@ -18,7 +19,6 @@ import { toolsTableParamsSchema } from "~/server/admin/tools/schemas"
 import type { DataTableFilterField, DataTableRowAction } from "~/types"
 import { getColumns } from "./tools-table-columns"
 import { ToolsTableToolbarActions } from "./tools-table-toolbar-actions"
-import { Icon } from "~/components/common/icon"
 
 type ToolsTableProps = {
   toolsPromise: ReturnType<typeof findTools>
@@ -75,9 +75,9 @@ export function ToolsTable({ toolsPromise }: ToolsTableProps) {
       columnVisibility: { status: false, submitterEmail: false },
       columnPinning: { right: ["actions"] },
     },
-    getRowId: (originalRow) => {
-      if (!originalRow) return ''
-      return originalRow.id || ''
+    getRowId: originalRow => {
+      if (!originalRow) return ""
+      return originalRow.id || ""
     },
   })
 

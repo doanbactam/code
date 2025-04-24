@@ -23,7 +23,7 @@ export function DataTablePagination<TData>({
   const filteredRowCount = table.getFilteredRowModel()?.rows?.length || 0
   const currentPage = table.getState()?.pagination?.pageIndex + 1 || 1
   const totalPages = table.getPageCount() || 1
-  
+
   return (
     <div className="flex flex-row flex-wrap items-center justify-between gap-4 tabular-nums sm:gap-6 lg:gap-8">
       <div className="grow whitespace-nowrap text-sm text-muted-foreground max-sm:hidden">
@@ -40,7 +40,9 @@ export function DataTablePagination<TData>({
           }}
         >
           <SelectTrigger className="w-auto tabular-nums">
-            <SelectValue placeholder={table.getState()?.pagination?.pageSize || pageSizeOptions[0]} />
+            <SelectValue
+              placeholder={table.getState()?.pagination?.pageSize || pageSizeOptions[0]}
+            />
           </SelectTrigger>
 
           <SelectContent side="top" className="tabular-nums">

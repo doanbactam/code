@@ -14,26 +14,26 @@ export const findPricingTypes = async () => {
 
   // Lấy danh sách các giá trị enum PricingType
   const pricingTypes = Object.values(PricingType) as PricingType[]
-  
+
   // Đếm số lượng công cụ cho mỗi loại giá
   const results = await Promise.all(
     pricingTypes.map(async (type: PricingType) => {
       const count = await db.tool.count({
-        where: { 
+        where: {
           // Ghi chú: pricingType sẽ hoạt động sau khi migration được áp dụng
           // @ts-ignore - Sẽ hoạt động sau khi migration
           pricingType: type,
-          status: ToolStatus.Published 
+          status: ToolStatus.Published,
         },
       })
-      
+
       return {
         slug: type.toLowerCase(),
         name: type,
         _count: { tools: count },
       }
-    })
+    }),
   )
 
   return results
-} 
+}

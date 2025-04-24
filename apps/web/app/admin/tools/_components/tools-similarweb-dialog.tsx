@@ -31,9 +31,11 @@ export const ToolsSimilarWebDialog = ({
   ...props
 }: ToolsSimilarWebDialogProps) => {
   const { execute, isPending } = useServerAction(batchFetchSimilarWebData, {
-    onSuccess: (result) => {
+    onSuccess: result => {
       props.onOpenChange?.(false)
-      toast.success(`Đã lấy dữ liệu SimilarWeb cho ${result.successCount}/${result.totalCount} công cụ`)
+      toast.success(
+        `Đã lấy dữ liệu SimilarWeb cho ${result.successCount}/${result.totalCount} công cụ`,
+      )
       onSuccess?.()
     },
 
@@ -58,7 +60,8 @@ export const ToolsSimilarWebDialog = ({
           <DialogDescription>
             Thao tác này sẽ lấy dữ liệu lượt truy cập từ SimilarWeb cho{" "}
             <span className="font-medium">{tools.length}</span>
-            {tools.length === 1 ? " công cụ" : " công cụ"} đã chọn. Quá trình này có thể mất một lúc.
+            {tools.length === 1 ? " công cụ" : " công cụ"} đã chọn. Quá trình này có thể mất một
+            lúc.
           </DialogDescription>
         </DialogHeader>
 
@@ -81,4 +84,4 @@ export const ToolsSimilarWebDialog = ({
       </DialogContent>
     </Dialog>
   )
-} 
+}

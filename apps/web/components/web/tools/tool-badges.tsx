@@ -1,12 +1,12 @@
 import { formatDate } from "@curiousleaf/utils"
 import { differenceInDays } from "date-fns"
 import type { ComponentProps } from "react"
+import { Badge } from "~/components/common/badge"
 import { Icon } from "~/components/common/icon"
 import { Stack } from "~/components/common/stack"
 import { Tooltip } from "~/components/common/tooltip"
 import type { ToolMany, ToolManyExtended, ToolOne } from "~/server/web/tools/payloads"
 import { cx } from "~/utils/cva"
-import { Badge } from "~/components/common/badge"
 
 type ToolBadgesProps = ComponentProps<typeof Stack> & {
   tool: ToolOne | ToolMany | ToolManyExtended
@@ -25,43 +25,43 @@ export const ToolBadges = ({ tool, children, className, ...props }: ToolBadgesPr
   // Map pricingType to appropriate colors, badges, and icons
   const getPricingTypeDetails = () => {
     if (!pricingType) return null
-    
+
     switch (pricingType) {
-      case 'Free':
-        return { 
-          label: 'Free', 
-          variant: 'success' as const,
-          tooltip: 'Hoàn toàn miễn phí'
+      case "Free":
+        return {
+          label: "Free",
+          variant: "success" as const,
+          tooltip: "Hoàn toàn miễn phí",
         }
-      case 'Freemium':
-        return { 
-          label: 'Freemium', 
-          variant: 'info' as const,
-          tooltip: 'Bản miễn phí có giới hạn + bản trả phí'
+      case "Freemium":
+        return {
+          label: "Freemium",
+          variant: "info" as const,
+          tooltip: "Bản miễn phí có giới hạn + bản trả phí",
         }
-      case 'Paid':
-        return { 
-          label: 'Paid', 
-          variant: 'primary' as const,
-          tooltip: 'Chỉ có phiên bản trả phí'
+      case "Paid":
+        return {
+          label: "Paid",
+          variant: "primary" as const,
+          tooltip: "Chỉ có phiên bản trả phí",
         }
-      case 'FreeTrial':
-        return { 
-          label: 'Free Trial', 
-          variant: 'warning' as const,
-          tooltip: 'Dùng thử miễn phí, sau đó trả phí'
+      case "FreeTrial":
+        return {
+          label: "Free Trial",
+          variant: "warning" as const,
+          tooltip: "Dùng thử miễn phí, sau đó trả phí",
         }
-      case 'OpenSource':
-        return { 
-          label: 'Open Source', 
-          variant: 'soft' as const,
-          tooltip: 'Mã nguồn mở và miễn phí'
+      case "OpenSource":
+        return {
+          label: "Open Source",
+          variant: "soft" as const,
+          tooltip: "Mã nguồn mở và miễn phí",
         }
-      case 'API':
-        return { 
-          label: 'API', 
-          variant: 'outline' as const,
-          tooltip: 'Cung cấp API, thường tính phí theo sử dụng'
+      case "API":
+        return {
+          label: "API",
+          variant: "outline" as const,
+          tooltip: "Cung cấp API, thường tính phí theo sử dụng",
         }
       default:
         return null

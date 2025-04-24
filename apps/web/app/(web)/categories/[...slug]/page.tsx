@@ -5,9 +5,9 @@ import type { SearchParams } from "nuqs/server"
 import { Suspense, cache } from "react"
 import { CategoryToolListing } from "~/app/(web)/categories/[...slug]/listing"
 import { Badge } from "~/components/common/badge"
- import { H6 } from "~/components/common/heading"
- import { Link } from "~/components/common/link"
- import { Stack } from "~/components/common/stack"
+import { H6 } from "~/components/common/heading"
+import { Link } from "~/components/common/link"
+import { Stack } from "~/components/common/stack"
 import { ToolQuerySkeleton } from "~/components/web/tools/tool-query"
 import { Breadcrumbs } from "~/components/web/ui/breadcrumbs"
 import { Intro, IntroDescription, IntroTitle } from "~/components/web/ui/intro"
@@ -92,18 +92,18 @@ export default async function CategoryPage(props: PageProps) {
         <IntroTitle>{`${title}`}</IntroTitle>
         <IntroDescription className="max-w-2xl">{description}</IntroDescription>
         {!!category.subcategories.length && (
-           <Stack className="mt-4 max-w-3xl gap-2">
-             <H6 as="strong" className="text-secondary-foreground">
-               Subcategories:
-             </H6>
- 
-             {category.subcategories?.map(({ name, slug, fullPath }) => (
-               <Badge key={slug} asChild>
-                 <Link href={`/categories/${fullPath}`}>{name}</Link>
-               </Badge>
-             ))}
-           </Stack>
-         )}
+          <Stack className="mt-4 max-w-3xl gap-2">
+            <H6 as="strong" className="text-secondary-foreground">
+              Subcategories:
+            </H6>
+
+            {category.subcategories?.map(({ name, slug, fullPath }) => (
+              <Badge key={slug} asChild>
+                <Link href={`/categories/${fullPath}`}>{name}</Link>
+              </Badge>
+            ))}
+          </Stack>
+        )}
       </Intro>
 
       <Suspense fallback={<ToolQuerySkeleton />}>

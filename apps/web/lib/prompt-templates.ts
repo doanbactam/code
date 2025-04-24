@@ -55,4 +55,4 @@ Hãy tạo nội dung theo cấu trúc tương tự GPT Store:
 Phân loại mô hình giá:
 - Free: Có thể sử dụng mà không cần đăng ký ChatGPT Plus
 - Paid: Yêu cầu ChatGPT Plus để sử dụng
-` 
+`

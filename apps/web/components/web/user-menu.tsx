@@ -56,7 +56,8 @@ const UserMenu = (props: { session: Session | null }) => {
         {session.user.role === "admin" && (
           <DropdownMenuItem asChild>
             <NavLink href="/admin">
-              <Icon name="lucide/shield-half" className="shrink-0 size-4 opacity-75" /> Bảng quản trị
+              <Icon name="lucide/shield-half" className="shrink-0 size-4 opacity-75" /> Bảng quản
+              trị
             </NavLink>
           </DropdownMenuItem>
         )}

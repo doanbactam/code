@@ -7,12 +7,16 @@ import { revalidatePath, revalidateTag } from "next/cache"
 import { after } from "next/server"
 import { z } from "zod"
 import { isProd } from "~/env"
-import { generateContent, generateContentWithRelations, connectOrCreateTopics } from "~/lib/generate-content"
+import { env } from "~/env"
+import {
+  connectOrCreateTopics,
+  generateContent,
+  generateContentWithRelations,
+} from "~/lib/generate-content"
 import { removeS3Directories, uploadFavicon, uploadScreenshot } from "~/lib/media"
 import { adminProcedure } from "~/lib/safe-actions"
 import { toolSchema } from "~/server/admin/tools/schemas"
 import { inngest } from "~/services/inngest"
-import { env } from "~/env"
 
 export const createTool = adminProcedure
   .createServerAction()
@@ -21,7 +25,7 @@ export const createTool = adminProcedure
     try {
       // Đảm bảo tạo slug nếu không có
       const slug = input.slug || slugify(input.name)
-      
+
       // Tạo hoặc kết nối topics nếu đã được cung cấp
       const topicConnections = topics ? await connectOrCreateTopics(topics) : undefined
 
@@ -30,7 +34,9 @@ export const createTool = adminProcedure
         data: {
           ...input,
           slug,
-          alternatives: alternatives?.length ? { connect: alternatives.map(id => ({ id })) } : undefined,
+          alternatives: alternatives?.length
+            ? { connect: alternatives.map(id => ({ id })) }
+            : undefined,
           categories: categories?.length ? { connect: categories.map(id => ({ id })) } : undefined,
           topics: topics?.length ? { connectOrCreate: topicConnections } : undefined,
         },
@@ -48,53 +54,57 @@ export const createTool = adminProcedure
           if (input.websiteUrl && (!input.tagline || !input.description || !input.content)) {
             try {
               console.log(`Generating content for tool ${tool.id} from ${input.websiteUrl}...`)
-              const { categories: detectedCategories, alternatives: detectedAlternatives, topics: detectedTopics, pricingType, ...content } = await generateContentWithRelations(
-                input.websiteUrl
-              )
-              
+              const {
+                categories: detectedCategories,
+                alternatives: detectedAlternatives,
+                topics: detectedTopics,
+                pricingType,
+                ...content
+              } = await generateContentWithRelations(input.websiteUrl)
+
               // Dữ liệu cập nhật cho tool
               const contentData: any = {}
-              
+
               // Chỉ cập nhật các trường còn thiếu
               if (!input.tagline) contentData.tagline = content.tagline
               if (!input.description) contentData.description = content.description
               if (!input.content) contentData.content = content.content
               if (!input.pricingType) contentData.pricingType = pricingType
-              
+
               // Mảng các quan hệ cần cập nhật
               const relationUpdates: any = {}
-              
+
               // Chỉ cập nhật danh mục nếu chưa được cung cấp
               if (!categories?.length && detectedCategories.length) {
-                relationUpdates.categories = { 
-                  connect: detectedCategories.map(({ id }) => ({ id })) 
+                relationUpdates.categories = {
+                  connect: detectedCategories.map(({ id }) => ({ id })),
                 }
               }
-              
+
               // Chỉ cập nhật alternatives nếu chưa được cung cấp
               if (!alternatives?.length && detectedAlternatives.length) {
-                relationUpdates.alternatives = { 
-                  connect: detectedAlternatives.map(({ id }) => ({ id })) 
+                relationUpdates.alternatives = {
+                  connect: detectedAlternatives.map(({ id }) => ({ id })),
                 }
               }
-              
+
               // Chỉ cập nhật topics nếu chưa được cung cấp
               if (!topics?.length && detectedTopics.length) {
                 const topicConnections = await connectOrCreateTopics(detectedTopics)
-                relationUpdates.topics = { 
-                  connectOrCreate: topicConnections 
+                relationUpdates.topics = {
+                  connectOrCreate: topicConnections,
                 }
               }
-              
+
               // Cập nhật tool với nội dung mới
               await db.tool.update({
                 where: { id: tool.id },
                 data: {
                   ...contentData,
-                  ...relationUpdates
+                  ...relationUpdates,
                 },
               })
-              
+
               console.log(`Content generated and updated for tool ${tool.id}`)
             } catch (error) {
               console.error("Error generating content:", error)
@@ -106,26 +116,29 @@ export const createTool = adminProcedure
             try {
               console.log(`Uploading assets for tool ${tool.id} from ${input.websiteUrl}...`)
               const [faviconUrl, screenshotUrl] = await Promise.all([
-                !input.faviconUrl ? uploadFavicon(input.websiteUrl, `tools/${slug}/favicon`) : Promise.resolve(input.faviconUrl),
-                !input.screenshotUrl ? uploadScreenshot(input.websiteUrl, `tools/${slug}/screenshot`) : Promise.resolve(input.screenshotUrl),
+                !input.faviconUrl
+                  ? uploadFavicon(input.websiteUrl, `tools/${slug}/favicon`)
+                  : Promise.resolve(input.faviconUrl),
+                !input.screenshotUrl
+                  ? uploadScreenshot(input.websiteUrl, `tools/${slug}/screenshot`)
+                  : Promise.resolve(input.screenshotUrl),
               ])
 
               await db.tool.update({
                 where: { id: tool.id },
                 data: { faviconUrl, screenshotUrl },
               })
-              
+
               console.log(`Assets uploaded for tool ${tool.id}`)
             } catch (error) {
               console.error(`Error uploading assets for tool ${tool.id}:`, error)
             }
           }
-          
+
           // Revalidate cache cho tool
           revalidateTag("tools")
           revalidateTag(`tool-${tool.slug}`)
           revalidateTag("topics")
-          
         } catch (error) {
           console.error(`Error in background processing for tool ${tool.id}:`, error)
         }
@@ -134,7 +147,9 @@ export const createTool = adminProcedure
       return tool
     } catch (error) {
       console.error("Error creating tool:", error)
-      throw new Error(`Không thể tạo công cụ: ${error instanceof Error ? error.message : 'Lỗi không xác định'}`)
+      throw new Error(
+        `Không thể tạo công cụ: ${error instanceof Error ? error.message : "Lỗi không xác định"}`,
+      )
     }
   })
 
@@ -231,9 +246,8 @@ export const regenerateToolContent = adminProcedure
   .input(z.object({ id: z.string() }))
   .handler(async ({ input: { id } }) => {
     const tool = await db.tool.findUniqueOrThrow({ where: { id } })
-    const { categories, alternatives, topics, pricingType, ...content } = await generateContentWithRelations(
-      tool.websiteUrl
-    )
+    const { categories, alternatives, topics, pricingType, ...content } =
+      await generateContentWithRelations(tool.websiteUrl)
 
     // Tạo hoặc kết nối topics
     const topicConnections = await connectOrCreateTopics(topics)
@@ -261,16 +275,16 @@ export const fetchSimilarWebData = adminProcedure
   .input(z.object({ id: z.string() }))
   .handler(async ({ input: { id } }) => {
     const tool = await db.tool.findUniqueOrThrow({ where: { id } })
-    
+
     // Kiểm tra xem API key có tồn tại không
     if (!env.SIMILARWEB_API_KEY) {
       throw new Error("Chưa cấu hình SIMILARWEB_API_KEY trong biến môi trường")
     }
-    
+
     // Import needed here to avoid circular dependencies
     const { getToolWebsiteData } = await import("~/lib/websites")
     const data = await getToolWebsiteData(tool.websiteUrl)
-    
+
     if (!data) {
       throw new Error("Không thể lấy dữ liệu từ SimilarWeb")
     }
@@ -296,7 +310,7 @@ export const batchReuploadToolAssets = adminProcedure
     })
 
     const results = await Promise.all(
-      tools.map(async (tool) => {
+      tools.map(async tool => {
         try {
           const [faviconUrl, screenshotUrl] = await Promise.all([
             uploadFavicon(tool.websiteUrl, `tools/${tool.slug}/favicon`),
@@ -313,18 +327,18 @@ export const batchReuploadToolAssets = adminProcedure
           console.error(`Error reuploading assets for tool ${tool.id}:`, error)
           return { id: tool.id, success: false, error: String(error) }
         }
-      })
+      }),
     )
 
     revalidateTag("tools")
-    results.forEach((result) => {
+    for (const result of results) {
       if (result.success) {
-        const tool = tools.find((t) => t.id === result.id)
+        const tool = tools.find(t => t.id === result.id)
         if (tool) revalidateTag(`tool-${tool.slug}`)
       }
-    })
+    }
 
-    const successCount = results.filter((r) => r.success).length
+    const successCount = results.filter(r => r.success).length
     if (successCount === 0) {
       throw new Error("Không thể tải lại hình ảnh cho bất kỳ công cụ nào")
     }
@@ -347,11 +361,10 @@ export const batchRegenerateToolContent = adminProcedure
     })
 
     const results = await Promise.all(
-      tools.map(async (tool) => {
+      tools.map(async tool => {
         try {
-          const { categories, alternatives, topics, pricingType, ...content } = await generateContentWithRelations(
-            tool.websiteUrl
-          )
+          const { categories, alternatives, topics, pricingType, ...content } =
+            await generateContentWithRelations(tool.websiteUrl)
 
           // Tạo hoặc kết nối topics
           const topicConnections = await connectOrCreateTopics(topics)
@@ -372,19 +385,19 @@ export const batchRegenerateToolContent = adminProcedure
           console.error(`Error regenerating content for tool ${tool.id}:`, error)
           return { id: tool.id, success: false, error: String(error) }
         }
-      })
+      }),
     )
 
     revalidateTag("tools")
     revalidateTag("topics")
-    results.forEach((result) => {
+    for (const result of results) {
       if (result.success) {
-        const tool = tools.find((t) => t.id === result.id)
+        const tool = tools.find(t => t.id === result.id)
         if (tool) revalidateTag(`tool-${tool.slug}`)
       }
-    })
+    }
 
-    const successCount = results.filter((r) => r.success).length
+    const successCount = results.filter(r => r.success).length
     if (successCount === 0) {
       throw new Error("Không thể tạo lại nội dung cho bất kỳ công cụ nào")
     }
@@ -405,7 +418,7 @@ export const batchFetchSimilarWebData = adminProcedure
     if (!env.SIMILARWEB_API_KEY) {
       throw new Error("Chưa cấu hình SIMILARWEB_API_KEY trong biến môi trường")
     }
-    
+
     const tools = await db.tool.findMany({
       where: { id: { in: ids } },
       select: { id: true, slug: true, websiteUrl: true },
@@ -415,10 +428,10 @@ export const batchFetchSimilarWebData = adminProcedure
     const { getToolWebsiteData } = await import("~/lib/websites")
 
     const results = await Promise.all(
-      tools.map(async (tool) => {
+      tools.map(async tool => {
         try {
           const data = await getToolWebsiteData(tool.websiteUrl)
-          
+
           if (!data) {
             return { id: tool.id, success: false, error: "Không thể lấy dữ liệu từ SimilarWeb" }
           }
@@ -433,18 +446,18 @@ export const batchFetchSimilarWebData = adminProcedure
           // Tĩnh lặng khi có lỗi
           return { id: tool.id, success: false, error: String(error) }
         }
-      })
+      }),
     )
 
     revalidateTag("tools")
-    results.forEach((result) => {
+    for (const result of results) {
       if (result.success) {
-        const tool = tools.find((t) => t.id === result.id)
+        const tool = tools.find(t => t.id === result.id)
         if (tool) revalidateTag(`tool-${tool.slug}`)
       }
-    })
+    }
 
-    const successCount = results.filter((r) => r.success).length
+    const successCount = results.filter(r => r.success).length
     if (successCount === 0) {
       throw new Error("Không thể lấy dữ liệu SimilarWeb cho bất kỳ công cụ nào")
     }
@@ -456,4 +469,3 @@ export const batchFetchSimilarWebData = adminProcedure
       failedCount: ids.length - successCount,
     }
   })
-

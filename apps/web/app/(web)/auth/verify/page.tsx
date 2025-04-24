@@ -44,8 +44,9 @@ export default async function VerifyPage({ searchParams }: PageProps) {
       <Intro>
         <IntroTitle size="h3">{`${metadata.title}`}</IntroTitle>
         <IntroDescription className="md:text-sm">
-          Chúng tôi đã gửi cho bạn một liên kết mã hóa đến <strong className="text-foreground">{email}</strong>.
-          Vui lòng nhấp vào liên kết để xác nhận địa chỉ của bạn.
+          Chúng tôi đã gửi cho bạn một liên kết mã hóa đến{" "}
+          <strong className="text-foreground">{email}</strong>. Vui lòng nhấp vào liên kết để xác
+          nhận địa chỉ của bạn.
         </IntroDescription>
       </Intro>
 

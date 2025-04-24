@@ -84,7 +84,8 @@ export const Header = ({ children, className, session, ...props }: HeaderProps) 
             <DropdownMenuContent align="start">
               <DropdownMenuItem asChild>
                 <NavLink href="/latest">
-                  <Icon name="lucide/calendar-days" className="shrink-0 size-4 opacity-75" /> Mới nhất
+                  <Icon name="lucide/calendar-days" className="shrink-0 size-4 opacity-75" /> Mới
+                  nhất
                 </NavLink>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>

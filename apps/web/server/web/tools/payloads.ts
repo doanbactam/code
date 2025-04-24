@@ -18,7 +18,6 @@ export const toolTopicsPayload = Prisma.validator<Prisma.Tool$topicsArgs>()({
   orderBy: { slug: "asc" },
 })
 
-
 export const toolOnePayload = {
   name: true,
   slug: true,
@@ -68,7 +67,7 @@ export const toolManyPayload = Prisma.validator<Prisma.ToolSelect>()({
   pricingType: true,
   firstCommitDate: true,
   lastCommitDate: true,
-  lastUpdated : true,
+  lastUpdated: true,
   publishedAt: true,
   createdAt: true,
   updatedAt: true,
@@ -94,8 +93,6 @@ export const toolManyExtendedPayload = Prisma.validator<Prisma.ToolSelect>()({
   ownerId: true,
   categories: toolCategoriesPayload,
 })
-
-
 
 export type ToolOne = Prisma.ToolGetPayload<{ select: typeof toolOnePayload }>
 export type ToolMany = Prisma.ToolGetPayload<{ select: typeof toolManyPayload }>

@@ -38,7 +38,7 @@ export const Pagination = ({
 
   return (
     <nav
-      className={cx("-mt-px flex w-full items-start justify-between md:w-auto", className)}
+      className={cx("mt-8 flex w-full items-start justify-between md:w-auto", className)}
       {...props}
     >
       <PaginationLink
@@ -51,7 +51,7 @@ export const Pagination = ({
       </PaginationLink>
 
       <Note className="md:hidden">
-        Trang {currentPage} của {pageCount}
+        Trang {currentPage} / {pageCount}
       </Note>
 
       <div className="flex items-center flex-wrap gap-3 max-md:hidden">

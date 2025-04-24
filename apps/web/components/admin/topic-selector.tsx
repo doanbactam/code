@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react"
 import { useCompletion } from "@ai-sdk/react"
 import { slugify } from "@curiousleaf/utils"
 import { kebabCase } from "change-case"
+import { useEffect, useState } from "react"
 import { AnimatedContainer } from "~/components/common/animated-container"
 import { Badge } from "~/components/common/badge"
 import { Button } from "~/components/common/button"
@@ -108,7 +108,11 @@ export const TopicSelector = ({ selectedSlugs, websiteUrl, onChange }: TopicSele
 
         <PopoverContent className="p-0" align="start">
           <Command>
-            <CommandInput placeholder="Tìm hoặc tạo topic mới..." value={newTopic} onValueChange={setNewTopic} />
+            <CommandInput
+              placeholder="Tìm hoặc tạo topic mới..."
+              value={newTopic}
+              onValueChange={setNewTopic}
+            />
             <CommandList>
               <CommandEmpty>
                 {newTopic ? (
@@ -125,11 +129,7 @@ export const TopicSelector = ({ selectedSlugs, websiteUrl, onChange }: TopicSele
               </CommandEmpty>
               <CommandGroup>
                 {selectedSlugs.map(slug => (
-                  <CommandItem
-                    key={slug}
-                    onSelect={() => removeTopic(slug)}
-                    className="gap-2"
-                  >
+                  <CommandItem key={slug} onSelect={() => removeTopic(slug)} className="gap-2">
                     <input
                       type="checkbox"
                       checked={true}
@@ -150,13 +150,15 @@ export const TopicSelector = ({ selectedSlugs, websiteUrl, onChange }: TopicSele
                   addTopic(newTopic)
                 }}
               >
-                <Input 
-                  placeholder="Thêm topic mới" 
-                  value={newTopic} 
+                <Input
+                  placeholder="Thêm topic mới"
+                  value={newTopic}
                   onChange={e => setNewTopic(e.target.value)}
                   className="flex-1"
                 />
-                <Button type="submit" disabled={!newTopic}>Thêm</Button>
+                <Button type="submit" disabled={!newTopic}>
+                  Thêm
+                </Button>
               </form>
             </div>
 
@@ -203,4 +205,4 @@ export const TopicSelector = ({ selectedSlugs, websiteUrl, onChange }: TopicSele
       </AnimatedContainer>
     </Stack>
   )
-} 
+}

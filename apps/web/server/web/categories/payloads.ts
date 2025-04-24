@@ -1,6 +1,5 @@
 import { Prisma, ToolStatus } from "@m4v/db/client"
 
-
 export const categoryWithTools = Prisma.validator<Prisma.CategoryWhereInput>()({
   OR: [
     { tools: { some: { status: ToolStatus.Published } } },

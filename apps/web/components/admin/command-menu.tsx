@@ -1,6 +1,6 @@
 import { getUrlHostname } from "@curiousleaf/utils"
-import { useDebouncedState } from "@mantine/hooks"
 import type { Alternative, Category, Tool } from "@m4v/db/client"
+import { useDebouncedState } from "@mantine/hooks"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import { toast } from "sonner"

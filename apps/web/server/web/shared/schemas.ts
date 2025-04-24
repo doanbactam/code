@@ -4,7 +4,8 @@ import { z } from "zod"
 import { config } from "~/config"
 
 // GitHub regex được định nghĩa trực tiếp thay vì import từ @m4v/github
-const githubRegex = /^(?:https?:\/\/)?github\.com\/(?<owner>[^/]+)\/(?<n>[a-zA-Z0-9._-]+?)(?:[/?#]|$)/
+const githubRegex =
+  /^(?:https?:\/\/)?github\.com\/(?<owner>[^/]+)\/(?<n>[a-zA-Z0-9._-]+?)(?:[/?#]|$)/
 
 export const filterParamsSchema = {
   q: parseAsString.withDefault(""),

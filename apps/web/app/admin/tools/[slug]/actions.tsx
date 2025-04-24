@@ -5,18 +5,17 @@ import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { toast } from "sonner"
 import { useServerAction } from "zsa-react"
-import { Button } from "~/components/common/button"
-import { Icon } from "~/components/common/icon"
 import { ToolActions } from "~/app/admin/tools/_components/tool-actions"
 import { ToolScheduleDialog } from "~/app/admin/tools/_components/tool-schedule-dialog"
 import { ToolsDeleteDialog } from "~/app/admin/tools/_components/tools-delete-dialog"
+import { Button } from "~/components/common/button"
+import { Icon } from "~/components/common/icon"
 import { fetchSimilarWebData } from "~/server/admin/tools/actions"
 import type { DataTableRowAction } from "~/types"
 
 type UpdateToolActionProps = {
   tool: Tool
 }
-
 
 export const UpdateToolActions = ({ tool }: UpdateToolActionProps) => {
   const router = useRouter()

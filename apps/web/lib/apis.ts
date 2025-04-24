@@ -19,7 +19,6 @@ export type AnalyzerAPIResult = {
   repository: RepositoryData
 }
 
-
 export type BrandLinkAPIResult = Record<string, Array<Record<string, string> & { url: string }>>
 
 export const brandLinkApi = wretch("https://brandlink.piotr-f64.workers.dev/api")

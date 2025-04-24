@@ -12,8 +12,8 @@ type PageProps = {
 }
 
 export const metadata: Metadata = {
-  title: "Open Source Software Alternatives",
-  description: "Discover top open source alternatives to popular proprietary software tools.",
+  title: "Công cụ AI tốt nhất thay thế",
+  description: "Khám phá các công cụ AI tốt nhất thay thế hàng đầu cho các công cụ AI độc quyền phổ biến.",
   openGraph: { ...metadataConfig.openGraph, url: "/alternatives" },
   alternates: { ...metadataConfig.alternates, canonical: "/alternatives" },
 }
@@ -25,13 +25,13 @@ export default function Alternatives({ searchParams }: PageProps) {
         items={[
           {
             href: "/alternatives",
-            name: "Alternatives",
+            name: "Công cụ AI thay thế",
           },
         ]}
       />
 
       <Intro>
-        <IntroTitle>{`Browse ${metadata.title}`}</IntroTitle>
+        <IntroTitle>{`Khám phá ${metadata.title}`}</IntroTitle>
         <IntroDescription>{metadata.description}</IntroDescription>
       </Intro>
 

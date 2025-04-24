@@ -74,7 +74,8 @@ export const SubmitForm = ({ className, ...props }: ComponentProps<"form">) => {
         <div className="text-center space-y-2">
           <h2 className="text-xl font-medium">Bạn cần đăng nhập để gửi công cụ</h2>
           <p className="text-muted-foreground max-w-md">
-            Để đảm bảo chất lượng và quản lý nội dung, chúng tôi yêu cầu người dùng phải đăng nhập trước khi gửi công cụ AI mới.
+            Để đảm bảo chất lượng và quản lý nội dung, chúng tôi yêu cầu người dùng phải đăng nhập
+            trước khi gửi công cụ AI mới.
           </p>
         </div>
         <Button asChild variant="primary" size="lg">
@@ -127,7 +128,12 @@ export const SubmitForm = ({ className, ...props }: ComponentProps<"form">) => {
             <FormItem>
               <FormLabel isRequired>URL Hướng dẫn sử dụng:</FormLabel>
               <FormControl>
-                <Input type="url" size="lg" placeholder="https://help.openai.com/en/collections/3742473-chatgpt" {...field} />
+                <Input
+                  type="url"
+                  size="lg"
+                  placeholder="https://help.openai.com/en/collections/3742473-chatgpt"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -161,7 +167,9 @@ export const SubmitForm = ({ className, ...props }: ComponentProps<"form">) => {
               <FormControl>
                 <Checkbox checked={field.value} onCheckedChange={field.onChange} />
               </FormControl>
-              <FormLabel className="font-normal">Tôi muốn nhận các cập nhật về công cụ AI mới qua email</FormLabel>
+              <FormLabel className="font-normal">
+                Tôi muốn nhận các cập nhật về công cụ AI mới qua email
+              </FormLabel>
               <FormMessage />
             </FormItem>
           )}

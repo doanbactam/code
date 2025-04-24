@@ -7,6 +7,7 @@ import { useMemo, useState } from "react"
 import { CategoriesDeleteDialog } from "~/app/admin/categories/_components/categories-delete-dialog"
 import { DateRangePicker } from "~/components/admin/date-range-picker"
 import { Button } from "~/components/common/button"
+import { Icon } from "~/components/common/icon"
 import { Link } from "~/components/common/link"
 import { DataTable } from "~/components/data-table/data-table"
 import { DataTableHeader } from "~/components/data-table/data-table-header"
@@ -18,7 +19,6 @@ import { categoriesTableParamsSchema } from "~/server/admin/categories/schemas"
 import type { DataTableFilterField, DataTableRowAction } from "~/types"
 import { getColumns } from "./categories-table-columns"
 import { CategoriesTableToolbarActions } from "./categories-table-toolbar-actions"
-import { Icon } from "~/components/common/icon"
 
 type CategoriesTableProps = {
   categoriesPromise: ReturnType<typeof findCategories>

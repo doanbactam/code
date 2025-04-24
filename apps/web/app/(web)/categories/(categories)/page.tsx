@@ -7,8 +7,8 @@ import { Intro, IntroDescription, IntroTitle } from "~/components/web/ui/intro"
 import { metadataConfig } from "~/config/metadata"
 
 export const metadata: Metadata = {
-  title: "Open Source Software Categories",
-  description: "Browse top categories to find your best Open Source software options.",
+  title: "Danh mục công cụ AI",
+  description: "Duyệt các danh mục hàng đầu để tìm các lựa chọn công cụ AI tốt nhất.",
   openGraph: { ...metadataConfig.openGraph, url: "/categories" },
   alternates: { ...metadataConfig.alternates, canonical: "/categories" },
 }
@@ -20,7 +20,7 @@ export default function Categories() {
         items={[
           {
             href: "/categories",
-            name: "Categories",
+            name: "Danh mục",
           },
         ]}
       />

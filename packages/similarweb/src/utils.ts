@@ -56,6 +56,6 @@ export const prepareWebsiteData = (response: SimilarWebResponse): WebsiteData =>
     globalRank: response.GlobalRank?.Rank || 0,
     categoryRank: Number(response.CategoryRank?.Rank) || 0,
     monthlyVisits: Number.parseInt(cleanVisits, 10),
-    lastWebUpdate: response.SnapshotDate ? new Date(response.SnapshotDate) : new Date(),
+    lastUpdated: response.SnapshotDate ? new Date(response.SnapshotDate) : new Date(),
   }
 }

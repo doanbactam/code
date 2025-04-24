@@ -3,9 +3,9 @@
 import type { Tool } from "@m4v/db/client"
 import type { Table } from "@tanstack/react-table"
 import { ToolsDeleteDialog } from "./tools-delete-dialog"
-import { ToolsUploadAssetsDialog } from "./tools-upload-assets-dialog"
 import { ToolsGenerateContentDialog } from "./tools-generate-content-dialog"
 import { ToolsSimilarWebDialog } from "./tools-similarweb-dialog"
+import { ToolsUploadAssetsDialog } from "./tools-upload-assets-dialog"
 
 interface ToolsTableToolbarActionsProps {
   table: Table<Tool>
@@ -23,17 +23,17 @@ export function ToolsTableToolbarActions({ table }: ToolsTableToolbarActionsProp
             tools={selectedTools}
             onSuccess={() => table.toggleAllRowsSelected(false)}
           />
-          
+
           <ToolsUploadAssetsDialog
             tools={selectedTools}
             onSuccess={() => table.toggleAllRowsSelected(false)}
           />
-          
+
           <ToolsGenerateContentDialog
             tools={selectedTools}
             onSuccess={() => table.toggleAllRowsSelected(false)}
           />
-          
+
           <ToolsDeleteDialog
             tools={selectedTools}
             onSuccess={() => table.toggleAllRowsSelected(false)}

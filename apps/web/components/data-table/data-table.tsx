@@ -47,7 +47,7 @@ export function DataTable<TData>({
 }: DataTableProps<TData>) {
   // Kiểm tra an toàn khi truy cập rows
   const hasRows = table.getRowModel()?.rows?.length > 0
-  
+
   return (
     <>
       {children}

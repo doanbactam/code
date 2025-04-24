@@ -2,7 +2,7 @@
 
 import { slugify } from "@curiousleaf/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ToolStatus, PricingType } from "@m4v/db/client"
+import { PricingType, ToolStatus } from "@m4v/db/client"
 import { formatDate } from "date-fns"
 import { redirect } from "next/navigation"
 import type { ComponentProps } from "react"
@@ -40,7 +40,7 @@ import type { findAlternativeList } from "~/server/admin/alternatives/queries"
 import type { findCategoryList } from "~/server/admin/categories/queries"
 import { createTool, updateTool } from "~/server/admin/tools/actions"
 import type { findToolBySlug } from "~/server/admin/tools/queries"
-import { toolSchema, type ToolSchema } from "~/server/admin/tools/schemas"
+import { type ToolSchema, toolSchema } from "~/server/admin/tools/schemas"
 import { cx } from "~/utils/cva"
 
 // Định nghĩa type cho Topic
@@ -116,8 +116,8 @@ export function ToolForm({
   const { execute: createToolAction, isPending: isCreatingTool } = useServerAction(createTool, {
     onSuccess: ({ data }) => {
       toast.success(
-        "Đã tạo công cụ thành công. Nội dung và hình ảnh sẽ được tạo tự động trong nền.", 
-        { id: "tool-submit" }
+        "Đã tạo công cụ thành công. Nội dung và hình ảnh sẽ được tạo tự động trong nền.",
+        { id: "tool-submit" },
       )
       redirect(`/admin/tools/${data.slug}`)
     },
@@ -145,17 +145,17 @@ export function ToolForm({
   const onSubmit = form.handleSubmit(data => {
     try {
       // Kiểm tra websiteUrl có hợp lệ không
-      if (data.websiteUrl && !data.websiteUrl.startsWith('http')) {
+      if (data.websiteUrl && !data.websiteUrl.startsWith("http")) {
         toast.error("Website URL phải bắt đầu bằng http:// hoặc https://")
         return
       }
-      
+
       // Hiển thị thông báo đang xử lý
       toast.loading(tool ? "Đang cập nhật công cụ..." : "Đang tạo công cụ...", {
         id: "tool-submit",
         duration: 10000,
       })
-      
+
       // Thực hiện tạo hoặc cập nhật
       if (tool) {
         updateToolAction({ id: tool.id, ...data })
@@ -164,9 +164,12 @@ export function ToolForm({
       }
     } catch (error) {
       console.error("Lỗi khi gửi form:", error)
-      toast.error(`Có lỗi xảy ra: ${error instanceof Error ? error.message : 'Lỗi không xác định'}`, {
-        id: "tool-submit"
-      })
+      toast.error(
+        `Có lỗi xảy ra: ${error instanceof Error ? error.message : "Lỗi không xác định"}`,
+        {
+          id: "tool-submit",
+        },
+      )
     }
   })
 
@@ -485,8 +488,8 @@ export function ToolForm({
             <FormItem>
               <FormLabel>Pricing Type</FormLabel>
               <FormControl>
-                <Select 
-                  onValueChange={value => field.onChange(value === "none" ? undefined : value)} 
+                <Select
+                  onValueChange={value => field.onChange(value === "none" ? undefined : value)}
                   value={field.value || "none"}
                 >
                   <SelectTrigger className="w-full">

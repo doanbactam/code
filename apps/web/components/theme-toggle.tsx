@@ -1,20 +1,20 @@
 "use client"
 
+import { Monitor, Moon, Sun } from "lucide-react"
 import { useEffect, useState } from "react"
-import { Moon, Sun, Monitor } from "lucide-react"
-import { useTheme } from "~/components/theme-provider"
 import { Button } from "~/components/common/button"
-import { 
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger
+  DropdownMenuTrigger,
 } from "~/components/common/dropdown-menu"
+import { useTheme } from "~/components/theme-provider"
 
 export function ThemeToggle({ className }: { className?: string }) {
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
-  
+
   // Đảm bảo component chỉ render ở client side
   useEffect(() => {
     setMounted(true)
@@ -49,4 +49,4 @@ export function ThemeToggle({ className }: { className?: string }) {
       </DropdownMenuContent>
     </DropdownMenu>
   )
-} 
+}

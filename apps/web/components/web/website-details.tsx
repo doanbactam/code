@@ -66,7 +66,7 @@ export const WebsiteDetails = ({ className, tool, ...props }: WebsiteDetailsProp
         )}
 
         <p className="text-muted-foreground/75 text-[11px]">
-          Dữ liệu được cập nhật từ SimilarWeb 
+          Dữ liệu được cập nhật từ SimilarWeb
           {tool.lastUpdated && (
             <time
               dateTime={tool.lastUpdated.toISOString()}

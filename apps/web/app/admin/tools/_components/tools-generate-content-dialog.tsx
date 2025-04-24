@@ -56,9 +56,10 @@ export const ToolsGenerateContentDialog = ({
         <DialogHeader>
           <DialogTitle>Xác nhận tạo nội dung</DialogTitle>
           <DialogDescription>
-            Thao tác này sẽ tạo lại hoàn toàn nội dung (tiêu đề, mô tả, nội dung) và phân loại (danh mục, giá cả) cho{" "}
-            <span className="font-medium">{tools.length}</span>
-            {tools.length === 1 ? " công cụ" : " công cụ"} đã chọn bằng AI. Quá trình này có thể mất một lúc.
+            Thao tác này sẽ tạo lại hoàn toàn nội dung (tiêu đề, mô tả, nội dung) và phân loại (danh
+            mục, giá cả) cho <span className="font-medium">{tools.length}</span>
+            {tools.length === 1 ? " công cụ" : " công cụ"} đã chọn bằng AI. Quá trình này có thể mất
+            một lúc.
           </DialogDescription>
         </DialogHeader>
 
@@ -81,4 +82,4 @@ export const ToolsGenerateContentDialog = ({
       </DialogContent>
     </Dialog>
   )
-} 
+}

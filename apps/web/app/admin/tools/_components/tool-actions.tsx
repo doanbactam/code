@@ -15,9 +15,9 @@ import {
 } from "~/components/common/dropdown-menu"
 import { Link } from "~/components/common/link"
 import {
+  fetchSimilarWebData,
   regenerateToolContent,
   reuploadToolAssets,
-  fetchSimilarWebData,
 } from "~/server/admin/tools/actions"
 import type { DataTableRowAction } from "~/types"
 import { cx } from "~/utils/cva"
@@ -32,7 +32,7 @@ export const ToolActions = ({ className, tool, setRowAction, ...props }: ToolAct
     {
       action: fetchSimilarWebData,
       label: "Lấy dữ liệu SimilarWeb",
-      successMessage: "Đã lấy dữ liệu SimilarWeb thành công", 
+      successMessage: "Đã lấy dữ liệu SimilarWeb thành công",
       show: () => !!tool.websiteUrl,
     },
     {

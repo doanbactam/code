@@ -1,15 +1,15 @@
 "use client"
 
-import { useEffect, useRef, PropsWithChildren } from "react"
+import { type PropsWithChildren, useEffect, useRef } from "react"
 import { cx } from "~/utils/cva"
 
-type AnimationType = 
-  | "fade-in" 
-  | "slide-in-up" 
-  | "slide-in-down" 
-  | "slide-in-left" 
-  | "slide-in-right" 
-  | "zoom-in" 
+type AnimationType =
+  | "fade-in"
+  | "slide-in-up"
+  | "slide-in-down"
+  | "slide-in-left"
+  | "slide-in-right"
+  | "zoom-in"
   | "zoom-out"
 
 interface AnimatedContainerProps extends PropsWithChildren {
@@ -28,22 +28,22 @@ export function AnimatedContainer({
   delay = 0,
   duration = 300,
   threshold = 0.1,
-  once = true
+  once = true,
 }: AnimatedContainerProps) {
   const ref = useRef<HTMLDivElement>(null)
   const observerRef = useRef<IntersectionObserver | null>(null)
 
   useEffect(() => {
     const currentRef = ref.current
-    
+
     if (!currentRef) return
-    
+
     // Khởi tạo với opacity 0
     currentRef.style.opacity = "0"
-    
+
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        for (const entry of entries) {
           if (entry.isIntersecting) {
             // Áp dụng delay nếu có
             setTimeout(() => {
@@ -54,7 +54,7 @@ export function AnimatedContainer({
                 currentRef.style.animationDuration = `${duration}ms`
               }
             }, delay)
-            
+
             // Ngừng theo dõi phần tử nếu chỉ muốn chạy animation một lần
             if (once) {
               observer.unobserve(currentRef)
@@ -65,21 +65,21 @@ export function AnimatedContainer({
               currentRef.style.opacity = "0"
             }
           }
-        })
+        }
       },
-      { threshold }
+      { threshold },
     )
-    
+
     observer.observe(currentRef)
     observerRef.current = observer
-    
+
     return () => {
       if (currentRef && observerRef.current) {
         observerRef.current.unobserve(currentRef)
       }
     }
   }, [animation, delay, duration, once, threshold])
-  
+
   return (
     <div
       ref={ref}
@@ -89,4 +89,4 @@ export function AnimatedContainer({
       {children}
     </div>
   )
-} 
+}

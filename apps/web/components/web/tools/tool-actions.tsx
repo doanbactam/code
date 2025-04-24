@@ -56,7 +56,7 @@ export const ToolActions = ({ tool, children, className, ...props }: ToolActions
         </Tooltip>
       )}
 
-{!tool.ownerId && (
+      {!tool.ownerId && (
         <Tooltip tooltip="Claim this tool to get a verified badge and be able to edit it.">
           <Button
             size="md"

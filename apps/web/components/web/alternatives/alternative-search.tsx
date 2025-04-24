@@ -20,11 +20,11 @@ export const AlternativeSearch = ({ placeholder }: AlternativeSearchProps) => {
   const { filters, isLoading, updateFilters } = useFilters()
 
   const sortOptions = [
-    { value: "default.desc", label: "Default" },
-    { value: "pageviews.desc", label: "Most Popular" },
-    { value: "createdAt.desc", label: "Latest" },
-    { value: "name.asc", label: "Name A-Z" },
-    { value: "name.desc", label: "Name Z-A" },
+    { value: "default.desc", label: "Mặc định" },
+    { value: "pageviews.desc", label: "Phổ biến nhất" },
+    { value: "createdAt.desc", label: "Mới nhất" },
+    { value: "name.asc", label: "Tên A-Z" },
+    { value: "name.desc", label: "Tên Z-A" },
   ]
 
   return (
@@ -42,14 +42,14 @@ export const AlternativeSearch = ({ placeholder }: AlternativeSearchProps) => {
           size="lg"
           value={filters.q || ""}
           onChange={e => updateFilters({ q: e.target.value })}
-          placeholder={placeholder || "Search alternatives..."}
+          placeholder={placeholder || "Tìm kiếm giải pháp thay thế..."}
           className="pl-10"
         />
       </div>
 
       <Select value={filters.sort} onValueChange={value => updateFilters({ sort: value })}>
         <SelectTrigger size="lg" className="w-auto min-w-36 max-sm:flex-1">
-          <SelectValue placeholder="Order by" />
+          <SelectValue placeholder="Sắp xếp theo" />
         </SelectTrigger>
 
         <SelectContent align="end">

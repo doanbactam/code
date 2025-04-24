@@ -6,6 +6,7 @@ import { use, useMemo, useState } from "react"
 import { AlternativesDeleteDialog } from "~/app/admin/alternatives/_components/alternatives-delete-dialog"
 import { DateRangePicker } from "~/components/admin/date-range-picker"
 import { Button } from "~/components/common/button"
+import { Icon } from "~/components/common/icon"
 import { Link } from "~/components/common/link"
 import { DataTable } from "~/components/data-table/data-table"
 import { DataTableHeader } from "~/components/data-table/data-table-header"
@@ -17,7 +18,6 @@ import { alternativesTableParamsSchema } from "~/server/admin/alternatives/schem
 import type { DataTableFilterField, DataTableRowAction } from "~/types"
 import { getColumns } from "./alternatives-table-columns"
 import { AlternativesTableToolbarActions } from "./alternatives-table-toolbar-actions"
-import { Icon } from "~/components/common/icon"
 
 type AlternativesTableProps = {
   alternativesPromise: ReturnType<typeof findAlternatives>

@@ -171,11 +171,14 @@ export const DashboardTable = ({ toolsPromise }: DashboardTableProps) => {
       pagination: { pageIndex: 0, pageSize: perPage },
       sorting: sort,
     },
-    getRowId: originalRow => originalRow?.id || '',
+    getRowId: originalRow => originalRow?.id || "",
   })
 
   return (
-    <DataTable table={table} emptyState="Không tìm thấy công cụ. Đăng ký hoặc xác minh công cụ để bắt đầu.">
+    <DataTable
+      table={table}
+      emptyState="Không tìm thấy công cụ. Đăng ký hoặc xác minh công cụ để bắt đầu."
+    >
       <DataTableToolbar table={table} filterFields={filterFields}>
         <Button size="md" variant="primary" prefix={<Icon name="lucide/plus" />} asChild>
           <Link href="/submit">Đăng ký công cụ</Link>

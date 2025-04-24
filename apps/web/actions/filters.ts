@@ -13,11 +13,7 @@ interface FilterResult {
 }
 
 export const findFilterOptions = createServerAction().handler(async () => {
-  const filters = await Promise.all([
-    findAlternatives({}),
-    findCategories({}),
-    findPricingTypes(),
-  ])
+  const filters = await Promise.all([findAlternatives({}), findCategories({}), findPricingTypes()])
 
   // Map the filters to the expected format
   const [alternative, category, pricingType] = filters.map((r: FilterResult[]) =>

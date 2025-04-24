@@ -3,12 +3,12 @@ import { isTruthy } from "@curiousleaf/utils"
 import { db } from "@m4v/db"
 import { PricingType } from "@m4v/db/client"
 import { generateObject } from "ai"
+import { kebabCase } from "change-case"
 import { z } from "zod"
 import { env } from "~/env"
 import { getErrorMessage } from "~/lib/handle-error"
 import { firecrawlClient } from "~/services/firecrawl"
 import { tryCatch } from "~/utils/helpers"
-import { kebabCase } from "change-case"
 
 /**
  * The system prompt for the content generator.
@@ -115,8 +115,8 @@ const formatTopicSlugs = (topics: string[]): string[] => {
  */
 export const createSpecializedPrompt = (url: string, context?: string) => {
   // Extract domain name for quick reference
-  const domain = new URL(url).hostname.replace('www.', '')
-  
+  const domain = new URL(url).hostname.replace("www.", "")
+
   return `
 # YÊU CẦU PHÂN TÍCH VÀ TẠO NỘI DUNG CHO ${domain.toUpperCase()}
 
@@ -130,7 +130,7 @@ Hãy phân tích kỹ trang web ${url} (domain: ${domain}) để tạo nội dun
 4. Kiểm tra có yêu cầu thanh toán ngay hay có dùng thử miễn phí
 5. Xác minh xem đây có phải dự án mã nguồn mở trên GitHub không
 
-${context ? `## THÔNG TIN BỔ SUNG\n${context}\n` : ''}
+${context ? `## THÔNG TIN BỔ SUNG\n${context}\n` : ""}
 
 ## HƯỚNG DẪN PHÂN LOẠI GIÁ
 Xác định chính xác mô hình giá theo các tiêu chí sau:
@@ -230,9 +230,7 @@ export const generateContentWithRelations = async (url: string, prompt?: string)
         Đảm bảo các topics đại diện cho các khía cạnh khác nhau của công cụ.
         Mỗi topic nên ngắn gọn, tối đa 2-3 từ, tốt nhất là 1 từ.
       `),
-    pricingType: z
-      .nativeEnum(PricingType)
-      .describe(`
+    pricingType: z.nativeEnum(PricingType).describe(`
         Phân tích kỹ lưỡng mô hình giá của công cụ và gán loại giá phù hợp nhất từ các loại sau:
         - Free: Hoàn toàn miễn phí, không có phiên bản trả phí hay giới hạn đáng kể
         - Freemium: Cung cấp phiên bản miễn phí có giới hạn và phiên bản trả phí có tính năng nâng cao
@@ -249,7 +247,7 @@ export const generateContentWithRelations = async (url: string, prompt?: string)
         5. Xác định xem có API riêng với cấu trúc giá khác không
         
         Chú ý: Nếu một công cụ có nhiều mô hình giá (ví dụ: cả bản Freemium và API), hãy chọn mô hình chính phù hợp nhất với đa số người dùng.
-      `)
+      `),
   })
 
   const { data, error } = await tryCatch(
