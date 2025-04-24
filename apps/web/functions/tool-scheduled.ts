@@ -37,6 +37,7 @@ export const toolScheduled = inngest.createFunction(
             categories: { connect: categories.map(({ id }) => ({ id })) },
             alternatives: { connect: alternatives.map(({ id }) => ({ id })) },
             topics: { connectOrCreate: topicConnections },
+            lastUpdated: new Date(),
           },
         })
       }),
@@ -47,7 +48,10 @@ export const toolScheduled = inngest.createFunction(
 
         return await db.tool.update({
           where: { id },
-          data: { faviconUrl },
+          data: { 
+            faviconUrl,
+            lastUpdated: new Date(),
+          },
         })
       }),
 
@@ -57,7 +61,10 @@ export const toolScheduled = inngest.createFunction(
 
         return await db.tool.update({
           where: { id },
-          data: { screenshotUrl },
+          data: { 
+            screenshotUrl,
+            lastUpdated: new Date(),
+          },
         })
       }),
     ])

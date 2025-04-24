@@ -46,6 +46,7 @@ export const env = createEnv({
     MASTODON_ACCESS_TOKEN: z.string().optional(),
     GOOGLE_GENERATIVE_AI_API_KEY: z.string().min(1),
     ANTHROPIC_API_KEY: z.string().min(1),
+    XAI_API_KEY: z.string().min(1),
     FIRECRAWL_API_KEY: z.string().min(1),
     LOGTAIL_SOURCE_TOKEN: z.string().min(1),
     SIMILARWEB_API_KEY: z.string().optional(),

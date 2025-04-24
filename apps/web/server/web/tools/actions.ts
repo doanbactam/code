@@ -126,7 +126,10 @@ export const verifyToolClaimOtp = userProcedure
     // Claim tool
     await db.tool.update({
       where: { id: tool.id },
-      data: { ownerId: user.id },
+      data: { 
+        ownerId: user.id,
+        lastUpdated: new Date(),
+      },
     })
 
     // Revalidate tools

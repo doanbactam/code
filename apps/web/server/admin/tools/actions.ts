@@ -167,6 +167,7 @@ export const updateTool = adminProcedure
         alternatives: alternatives ? { set: alternatives.map(id => ({ id })) } : undefined,
         categories: categories ? { set: categories.map(id => ({ id })) } : undefined,
         topics: topics ? { set: [], connectOrCreate: topicConnections } : undefined,
+        lastUpdated: new Date(),
       },
     })
 
@@ -207,7 +208,11 @@ export const scheduleTool = adminProcedure
   .handler(async ({ input: { id, publishedAt } }) => {
     const tool = await db.tool.update({
       where: { id },
-      data: { status: ToolStatus.Scheduled, publishedAt },
+      data: { 
+        status: ToolStatus.Scheduled, 
+        publishedAt,
+        lastUpdated: new Date(),
+      },
     })
 
     revalidateTag("schedule")
@@ -232,7 +237,11 @@ export const reuploadToolAssets = adminProcedure
 
     await db.tool.update({
       where: { id: tool.id },
-      data: { faviconUrl, screenshotUrl },
+      data: { 
+        faviconUrl, 
+        screenshotUrl,
+        lastUpdated: new Date(),
+      },
     })
 
     revalidateTag("tools")
@@ -260,6 +269,7 @@ export const regenerateToolContent = adminProcedure
         categories: { connect: categories.map(({ id }) => ({ id })) },
         alternatives: { connect: alternatives.map(({ id }) => ({ id })) },
         topics: { connectOrCreate: topicConnections },
+        lastUpdated: new Date(),
       },
     })
 
@@ -291,7 +301,10 @@ export const fetchSimilarWebData = adminProcedure
 
     await db.tool.update({
       where: { id: tool.id },
-      data,
+      data: {
+        ...data,
+        lastUpdated: new Date(),
+      },
     })
 
     revalidateTag("tools")
@@ -319,7 +332,11 @@ export const batchReuploadToolAssets = adminProcedure
 
           await db.tool.update({
             where: { id: tool.id },
-            data: { faviconUrl, screenshotUrl },
+            data: { 
+              faviconUrl, 
+              screenshotUrl,
+              lastUpdated: new Date(),
+            },
           })
 
           return { id: tool.id, success: true }
@@ -438,7 +455,10 @@ export const batchFetchSimilarWebData = adminProcedure
 
           await db.tool.update({
             where: { id: tool.id },
-            data,
+            data: {
+              ...data,
+              lastUpdated: new Date(),
+            },
           })
 
           return { id: tool.id, success: true }

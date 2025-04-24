@@ -34,7 +34,13 @@ export const fetchData = inngest.createFunction(
           pathPrefix: "/",
           logger,
           onSuccess: async (id, data) => {
-            await db.tool.update({ where: { id }, data })
+            await db.tool.update({ 
+              where: { id }, 
+              data: {
+                ...data,
+                lastUpdated: new Date(),
+              } 
+            })
           },
         })
       }),

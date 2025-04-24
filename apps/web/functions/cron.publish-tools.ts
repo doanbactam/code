@@ -28,7 +28,10 @@ export const publishTools = inngest.createFunction(
         await step.run(`update-tool-status-${tool.slug}`, async () => {
           const updatedTool = await db.tool.update({
             where: { id: tool.id },
-            data: { status: ToolStatus.Published },
+            data: { 
+              status: ToolStatus.Published,
+              lastUpdated: new Date(),
+            },
           })
 
           // Revalidate cache

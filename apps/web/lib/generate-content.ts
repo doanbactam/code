@@ -1,4 +1,4 @@
-import { createAnthropic } from "@ai-sdk/anthropic"
+import { createXai } from "@ai-sdk/xai"
 import { isTruthy } from "@curiousleaf/utils"
 import { db } from "@m4v/db"
 import { PricingType } from "@m4v/db/client"
@@ -153,8 +153,8 @@ Nếu công cụ có nhiều mô hình giá, hãy chọn mô hình chính phù h
  * @returns The generated content.
  */
 export const generateContent = async (url: string, prompt?: string) => {
-  const anthropic = createAnthropic({ apiKey: env.ANTHROPIC_API_KEY })
-  const model = anthropic("claude-3-5-sonnet-latest")
+  const xai = createXai({ apiKey: env.XAI_API_KEY })
+  const model = xai("grok-3")
   const scrapedData = await scrapeWebsiteData(url)
 
   const { data, error } = await tryCatch(
@@ -188,8 +188,8 @@ export const generateContent = async (url: string, prompt?: string) => {
  * @returns The generated content.
  */
 export const generateContentWithRelations = async (url: string, prompt?: string) => {
-  const anthropic = createAnthropic({ apiKey: env.ANTHROPIC_API_KEY })
-  const model = anthropic("claude-3-5-sonnet-latest")
+  const xai = createXai({ apiKey: env.XAI_API_KEY })
+  const model = xai("grok-3")
   const scrapedData = await scrapeWebsiteData(url)
 
   // Add specialized prompt if none is provided
@@ -215,7 +215,7 @@ export const generateContentWithRelations = async (url: string, prompt?: string)
       .transform(a => a.map(name => alternatives.find(alt => alt.name === name)).filter(isTruthy))
       .describe(`
         Gán công cụ AI này cho các sản phẩm phần mềm độc quyền tương tự.
-        Cố gắng gán công cụ với nhiều phần mềm thay thế để người dùng Việt Nam có nhiều lựa chọn.
+        Cố gắng gán công cụ với nhiều phần mềm thay thế để người dùng Việt Nam có nhiều lựa chọn, **nhưng không quá 10 cái**.
         Nếu công cụ không có phần mềm thay thế, hãy trả về mảng trống.
         Ưu tiên các phần mềm thay thế phổ biến ở Việt Nam nếu có.
       `),

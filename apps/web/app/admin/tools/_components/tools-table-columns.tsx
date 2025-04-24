@@ -111,6 +111,26 @@ export const getColumns = ({ setRowAction }: GetColumnsProps): ColumnDef<Tool>[]
       size: 0,
     },
     {
+      accessorKey: "globalRank",
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Global Rank" />,
+      cell: ({ row }) => (
+        <span className="text-muted-foreground">
+          {row.original.globalRank ? row.original.globalRank.toLocaleString() : "—"}
+        </span>
+      ),
+      size: 0,
+    },
+    {
+      accessorKey: "monthlyVisits",
+      header: ({ column }) => <DataTableColumnHeader column={column} title="Monthly Traffic" />,
+      cell: ({ row }) => (
+        <span className="text-muted-foreground">
+          {row.original.monthlyVisits ? row.original.monthlyVisits.toLocaleString() : "—"}
+        </span>
+      ),
+      size: 0,
+    },
+    {
       id: "actions",
       cell: ({ row }) => (
         <ToolActions

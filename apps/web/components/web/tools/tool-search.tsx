@@ -34,9 +34,9 @@ export const ToolSearch = ({ placeholder }: ToolSearchProps) => {
     { value: "name.asc", label: "Tên (A to Z)" },
     { value: "name.desc", label: "Tên (Z to A)" },
     { value: "score.desc", label: "Điểm số" },
-    { value: "globalRank.desc", label: "Xếp hạng thế giới" },
+    { value: "globalRank.asc", label: "Xếp hạng thế giới" },
     { value: "lastUpdated.desc", label: "Cập nhật gần đây" },
-    { value: "createdAt.desc", label: "Đăng ký gần đây" },
+    // { value: "createdAt.desc", label: "Đăng ký gần đây" },
   ]
 
   return (

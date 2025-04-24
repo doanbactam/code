@@ -141,8 +141,6 @@ model Tool {
   tagline         String?
   description     String?
   content         String?
-  stars           Int                      @default(0)
-  forks           Int                      @default(0)
   score           Int                      @default(0)
   faviconUrl      String?
   screenshotUrl   String?
@@ -154,8 +152,6 @@ model Tool {
   discountCode    String?
   discountAmount  String?
   pricingType     PricingType?
-  firstCommitDate DateTime?
-  lastCommitDate  DateTime?
   pageviews       Int?                     @default(0)
   status          ToolStatus               @default(Draft)
   globalRank      Int?         @default(0)

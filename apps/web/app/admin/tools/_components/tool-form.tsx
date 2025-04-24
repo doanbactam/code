@@ -92,7 +92,7 @@ export function ToolForm({
       discountCode: tool?.discountCode ?? "",
       discountAmount: tool?.discountAmount ?? "",
       pricingType: tool?.pricingType ?? undefined,
-      publishedAt: tool?.publishedAt,
+      publishedAt: tool?.publishedAt ?? new Date(),
     },
   })
 
@@ -322,52 +322,57 @@ export function ToolForm({
           />
         </div>
 
-        <div className="flex flex-row gap-4 max-sm:contents">
-          <FormField
-            control={form.control}
-            name="publishedAt"
-            render={({ field }) => (
+        <FormField
+          control={form.control}
+          name="publishedAt"
+          render={({ field }) => {
+            // Đảm bảo luôn có giá trị hợp lệ
+            const formattedValue = field.value 
+              ? new Date(field.value).toISOString().slice(0, 16) 
+              : new Date().toISOString().slice(0, 16);
+              
+            return (
               <FormItem>
                 <FormLabel>Thời gian đăng</FormLabel>
                 <FormControl>
                   <Input
                     type="datetime-local"
                     {...field}
-                    value={field.value ? formatDate(field.value, "yyyy-MM-dd HH:mm") : undefined}
-                    onChange={e => field.onChange(e.target.value ? new Date(e.target.value) : null)}
+                    value={formattedValue}
+                    onChange={e => field.onChange(e.target.value ? new Date(e.target.value) : new Date())}
                   />
                 </FormControl>
                 <FormMessage />
               </FormItem>
-            )}
-          />
+            );
+          }}
+        />
 
-          <FormField
-            control={form.control}
-            name="status"
-            render={({ field }) => (
-              <FormItem className="flex-1">
-                <FormLabel>Trạng thái</FormLabel>
-                <FormControl>
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <SelectTrigger className="w-full">
-                      <SelectValue />
-                    </SelectTrigger>
+        <FormField
+          control={form.control}
+          name="status"
+          render={({ field }) => (
+            <FormItem className="flex-1">
+              <FormLabel>Trạng thái</FormLabel>
+              <FormControl>
+                <Select onValueChange={field.onChange} value={field.value || ''}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
 
-                    <SelectContent>
-                      {Object.values(ToolStatus).map(status => (
-                        <SelectItem key={status} value={status}>
-                          {status}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
+                  <SelectContent>
+                    {Object.values(ToolStatus).map(status => (
+                      <SelectItem key={status} value={status}>
+                        {status}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <FormField
           control={form.control}
