@@ -3,7 +3,7 @@
 import { formatDate } from "@curiousleaf/utils"
 import { type Tool, ToolStatus } from "@m4v/db/client"
 import type { ColumnDef } from "@tanstack/react-table"
-import { differenceInDays, formatDistanceToNowStrict } from "date-fns"
+import { differenceInDays } from "date-fns"
 import { useQueryStates } from "nuqs"
 import { use, useMemo } from "react"
 import { Button } from "~/components/common/button"
@@ -19,6 +19,7 @@ import { useDataTable } from "~/hooks/use-data-table"
 import type { findTools } from "~/server/admin/tools/queries"
 import { toolsTableParamsSchema } from "~/server/admin/tools/schemas"
 import type { DataTableFilterField } from "~/types"
+import { formatTimeToNow } from "~/utils/date"
 
 type DashboardTableProps = {
   toolsPromise: ReturnType<typeof findTools>
@@ -78,10 +79,9 @@ export const DashboardTable = ({ toolsPromise }: DashboardTableProps) => {
                   />
                   <span className="text-muted-foreground font-medium">
                     Scheduled{" "}
-                    {formatDistanceToNowStrict(publishedAt!, {
+                    {formatTimeToNow(publishedAt!, {
                       unit: "day",
                       roundingMethod: "ceil",
-                      addSuffix: true,
                     })}
                   </span>
                 </Stack>

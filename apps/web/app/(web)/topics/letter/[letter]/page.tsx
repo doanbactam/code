@@ -13,8 +13,8 @@ type PageProps = {
 }
 
 const metadata: Metadata = {
-  title: "Open Source Software Topics",
-  description: "Discover top topics to find your best Open Source software options.",
+  title: "Công cụ AI Topics",
+  description: "Khám phá các chủ đề tốt nhất để tìm các tùy chọn công cụ AI tốt nhất.",
 }
 
 export const generateStaticParams = async () => {
@@ -38,18 +38,20 @@ export default async function Topics(props: PageProps) {
 
   return (
     <>
-      <Breadcrumbs
-        items={[
-          {
-            href: "/topics",
-            name: "Topics",
-          },
-          {
-            href: `/topics/letter/${letter}`,
-            name: letter.toUpperCase(),
-          },
-        ]}
-      />
+      <div className="mb-8 md:mb-10 lg:mb-12">
+        <Breadcrumbs
+          items={[
+            {
+              href: "/topics",
+              name: "Topics",
+            },
+            {
+              href: `/topics/letter/${letter}`,
+              name: letter.toUpperCase(),
+            },
+          ]}
+        />
+      </div>
 
       <Intro>
         <IntroTitle>{`Browse ${metadata.title}`}</IntroTitle>

@@ -7,7 +7,7 @@ import { Intro, IntroDescription, IntroTitle } from "~/components/web/ui/intro"
 import { metadataConfig } from "~/config/metadata"
 
 export const metadata: Metadata = {
-  title: "Open Source Blog",
+  title: "Blog AI",
   description:
     "A collection of useful articles for developers and open source enthusiasts. Learn about the latest trends and technologies in the open source community.",
   openGraph: { ...metadataConfig.openGraph, url: "/blog" },
@@ -19,14 +19,16 @@ export default function BlogPage() {
 
   return (
     <>
-      <Breadcrumbs
-        items={[
-          {
-            href: "/blog",
-            name: "Open Source Blog",
-          },
-        ]}
-      />
+      <div className="mb-8 md:mb-10 lg:mb-12">
+        <Breadcrumbs
+          items={[
+            {
+              href: "/blog",
+              name: "Open Source Blog",
+            },
+          ]}
+        />
+      </div>
 
       <Intro>
         <IntroTitle>{`${metadata.title}`}</IntroTitle>
@@ -40,7 +42,7 @@ export default function BlogPage() {
           ))}
         </Grid>
       ) : (
-        <p>No posts found.</p>
+        <p>Không có bài viết nào.</p>
       )}
     </>
   )

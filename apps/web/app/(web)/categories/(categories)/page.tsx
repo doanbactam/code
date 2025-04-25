@@ -16,14 +16,16 @@ export const metadata: Metadata = {
 export default function Categories() {
   return (
     <>
-      <Breadcrumbs
-        items={[
-          {
-            href: "/categories",
-            name: "Danh mục",
-          },
-        ]}
-      />
+      <div className="mb-8 md:mb-10 lg:mb-12">
+        <Breadcrumbs
+          items={[
+            {
+              href: "/categories",
+              name: "Danh mục",
+            },
+          ]}
+        />
+      </div>
 
       <Intro>
         <IntroTitle>{`${metadata.title}`}</IntroTitle>

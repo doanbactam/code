@@ -49,7 +49,7 @@ const getMetadata = (post: Post): Metadata => {
   }
 }
 
-export const generateMetadata = async (props: PageProps) => {
+export const generateMetadata = async (props: PageProps): Promise<Metadata> => {
   const post = await findPostBySlug(props)
   const url = `/blog/${post._meta.path}`
 
@@ -66,18 +66,20 @@ export default async function BlogPostPage(props: PageProps) {
 
   return (
     <>
-      <Breadcrumbs
-        items={[
-          {
-            href: "/blog",
-            name: "Open Source Blog",
-          },
-          {
-            href: `/blog/${post._meta.path}`,
-            name: post.title,
-          },
-        ]}
-      />
+      <div className="mb-8 md:mb-10 lg:mb-12">
+        <Breadcrumbs
+          items={[
+            {
+              href: "/blog",
+              name: "Open Source Blog",
+            },
+            {
+              href: `/blog/${post._meta.path}`,
+              name: post.title,
+            },
+          ]}
+        />
+      </div>
 
       <div className="flex flex-col gap-8 md:gap-10 lg:gap-12">
         <Intro>

@@ -1,10 +1,11 @@
 import type { Tool } from "@m4v/db/client"
 import { Text } from "@react-email/components"
-import { addHours, differenceInDays, format, formatDistanceToNowStrict } from "date-fns"
+import { addHours, differenceInDays, format } from "date-fns"
 import type { Jsonify } from "inngest/helpers/jsonify"
 import { config } from "~/config"
 import { EmailExpediteNudge } from "~/emails/components/expedite-nudge"
 import { EmailWrapper, type EmailWrapperProps } from "~/emails/components/wrapper"
+import { formatTimeToNow } from "~/utils/date"
 
 type EmailProps = EmailWrapperProps & {
   tool: Tool | Jsonify<Tool>
@@ -13,7 +14,7 @@ type EmailProps = EmailWrapperProps & {
 const EmailToolScheduled = ({ tool, ...props }: EmailProps) => {
   const publishedAt = addHours(tool.publishedAt || new Date(), 2)
   const isLongQueue = differenceInDays(publishedAt, new Date()) > 7
-  const dateRelative = formatDistanceToNowStrict(publishedAt, { addSuffix: true })
+  const dateRelative = formatTimeToNow(publishedAt)
   const dateFormatted = format(publishedAt, "MMMM do, yyyy")
 
   return (

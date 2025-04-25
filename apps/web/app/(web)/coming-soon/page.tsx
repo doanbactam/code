@@ -22,14 +22,16 @@ export const metadata: Metadata = {
 export default async function ComingSoonPage(props: PageProps) {
   return (
     <>
-      <Breadcrumbs
-        items={[
-          {
-            href: "/coming-soon",
-            name: "Sắp ra mắt",
-          },
-        ]}
-      />
+      <div className="mb-8 md:mb-10 lg:mb-12">
+        <Breadcrumbs
+          items={[
+            {
+              href: "/coming-soon",
+              name: "Sắp ra mắt",
+            },
+          ]}
+        />
+      </div>
 
       <Intro>
         <IntroTitle>{`Xem ${metadata.title}`}</IntroTitle>

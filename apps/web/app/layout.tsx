@@ -30,11 +30,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <head>
-        <ThemeScript />
-        <script async custom-element="amp-ad" src="https://cdn.ampproject.org/v0/amp-ad-0.1.js" />
-      </head>
+    <html lang="vi" className="scroll-smooth" suppressHydrationWarning>
       <body className="min-h-dvh flex flex-col bg-background text-foreground">
         <ThemeProvider
           attribute="class"

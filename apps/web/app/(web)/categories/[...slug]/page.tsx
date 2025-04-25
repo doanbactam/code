@@ -86,7 +86,9 @@ export default async function CategoryPage(props: PageProps) {
 
   return (
     <>
-      <Breadcrumbs items={breadcrumbItems} />
+      <div className="mb-8 md:mb-10 lg:mb-12">
+        <Breadcrumbs items={breadcrumbItems} />
+      </div>
 
       <Intro>
         <IntroTitle>{`${title}`}</IntroTitle>

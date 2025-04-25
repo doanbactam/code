@@ -1,12 +1,12 @@
 import { formatNumber } from "@curiousleaf/utils"
 import type { Tool } from "@m4v/db/client"
-import { formatDistanceToNowStrict } from "date-fns"
 import type { Jsonify } from "inngest/helpers/jsonify"
 import { config } from "~/config"
 import { brandLinkApi } from "~/lib/apis"
 import { sendBlueskyPost } from "~/services/bluesky"
 import { sendMastodonPost } from "~/services/mastodon"
 import { sendTwitterPost } from "~/services/twitter"
+import { formatTimeToNow } from "~/utils/date"
 import { tryCatch } from "~/utils/helpers"
 
 const socialHandle = "{social handle}"
@@ -77,7 +77,7 @@ export const getPostLaunchTemplate = (tool: Tool | Jsonify<Tool>) => {
  * @returns Post template with tool stats and metrics
  */
 export const getPostTemplate = async (tool: Tool | Jsonify<Tool>) => {
-  const formatDate = (date: Date) => formatDistanceToNowStrict(date, { addSuffix: true })
+  const formatDate = (date: Date) => formatTimeToNow(date)
 
   const insights = [
     { label: "Stars", value: formatNumber(tool.stars, "standard"), icon: "⭐" },

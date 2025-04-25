@@ -26,8 +26,8 @@ export const NewsletterProof = ({ className, ...props }: ComponentProps<"div">) 
       ))}
 
       <p className="w-full text-xs text-muted-foreground">
-        Tham gia cùng {formatNumber(config.stats.subscribers + config.stats.stars, "standard")}+
-        người yêu thích mã nguồn mở
+        Được tin tưởng bởi {formatNumber(config.stats.subscribers + config.stats.stars, "standard")}+
+        người yêu thích các công cụ AI
       </p>
     </div>
   )

@@ -1,6 +1,5 @@
 import { formatNumber } from "@curiousleaf/utils"
 import { cx } from "cva"
-import { formatDistanceToNowStrict } from "date-fns"
 import type { ComponentProps } from "react"
 import { Card, CardDescription, CardHeader } from "~/components/common/card"
 import { H4 } from "~/components/common/heading"
@@ -13,6 +12,7 @@ import { Favicon } from "~/components/web/ui/favicon"
 import { Insights } from "~/components/web/ui/insights"
 import { VerifiedBadge } from "~/components/web/verified-badge"
 import type { ToolMany } from "~/server/web/tools/payloads"
+import { formatTimeToNow } from "~/utils/date"
 
 type ToolCardProps = ComponentProps<typeof Card> & {
   tool: ToolMany
@@ -25,8 +25,7 @@ type ToolCardProps = ComponentProps<typeof Card> & {
 
 const ToolCard = ({ className, tool, isRelated, ...props }: ToolCardProps) => {
   const hasMoreInfo = tool.description || !!tool.alternatives.length
-  const lastUpdated =
-    tool.lastUpdated && formatDistanceToNowStrict(tool.lastUpdated, { addSuffix: true })
+  const lastUpdated = tool.lastUpdated && formatTimeToNow(tool.lastUpdated)
 
   const insights = [
     {

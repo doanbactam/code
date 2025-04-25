@@ -31,7 +31,7 @@ const getMetadata = (topic: TopicOne): Metadata => {
   const name = capitalCase(topic.slug)
 
   return {
-    title: `Open Source Projects tagged "${name}"`,
+    title: ` Tools tagged "${name}"`,
     description: `A curated collection of the ${topic._count.tools} best open source projects tagged "${name}". Each listing includes a website screenshot along with a detailed review of its features.`,
   }
 }
@@ -58,18 +58,20 @@ export default async function TopicPage(props: PageProps) {
 
   return (
     <>
-      <Breadcrumbs
-        items={[
-          {
-            href: "/topics",
-            name: "Topics",
-          },
-          {
-            href: `/topics/${topic.slug}`,
-            name: capitalCase(topic.slug),
-          },
-        ]}
-      />
+      <div className="mb-8 md:mb-10 lg:mb-12">
+        <Breadcrumbs
+          items={[
+            {
+              href: "/topics",
+              name: "Topics",
+            },
+            {
+              href: `/topics/${topic.slug}`,
+              name: capitalCase(topic.slug),
+            },
+          ]}
+        />
+      </div>
 
       <Intro>
         <IntroTitle>{`${title}`}</IntroTitle>

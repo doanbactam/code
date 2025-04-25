@@ -21,14 +21,16 @@ export const metadata: Metadata = {
 export default function Alternatives({ searchParams }: PageProps) {
   return (
     <>
-      <Breadcrumbs
-        items={[
-          {
-            href: "/alternatives",
-            name: "Công cụ AI thay thế",
-          },
-        ]}
-      />
+      <div className="mb-8 md:mb-10 lg:mb-12">
+        <Breadcrumbs
+          items={[
+            {
+              href: "/alternatives",
+              name: "Công cụ AI thay thế",
+            },
+          ]}
+        />
+      </div>
 
       <Intro>
         <IntroTitle>{`Khám phá ${metadata.title}`}</IntroTitle>

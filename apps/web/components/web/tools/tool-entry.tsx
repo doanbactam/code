@@ -61,7 +61,7 @@ const ToolEntry = ({ children, className, tool, ...props }: ToolEntryProps) => {
           alt={`Screenshot of ${tool.name} website`}
           className="not-prose"
         >
-          Read more
+          Xem thêm
         </OverlayImage>
       )}
 
@@ -78,7 +78,7 @@ const ToolEntry = ({ children, className, tool, ...props }: ToolEntryProps) => {
       )}
 
       <Button suffix={<Icon name="lucide/arrow-right" />} className="not-prose self-start" asChild>
-        <Link href={href}>Read more</Link>
+        <Link href={href}>Xem thêm</Link>
       </Button>
     </div>
   )
