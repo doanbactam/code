@@ -64,7 +64,7 @@ Hệ thống sử dụng một hệ thống prompt phức tạp với 3 thành p
 
 ```typescript
 export const generateContent = async (url: string, prompt?: string) => {
-  const xai = createXai({ apiKey: env.XAI_API_KEY })
+  const xai = createXai({ apiKey: env.X_XAI_API_KEY})
   const model = xai("grok-3")
   const scrapedData = await scrapeWebsiteData(url)
 

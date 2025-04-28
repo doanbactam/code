@@ -153,7 +153,7 @@ Nếu công cụ có nhiều mô hình giá, hãy chọn mô hình chính phù h
  * @returns The generated content.
  */
 export const generateContent = async (url: string, prompt?: string) => {
-  const xai = createXai({ apiKey: env.XAI_API_KEY })
+  const xai = createXai({ apiKey: env.X_XAI_API_KEY })
   const model = xai("grok-3")
   const scrapedData = await scrapeWebsiteData(url)
 
@@ -188,7 +188,7 @@ export const generateContent = async (url: string, prompt?: string) => {
  * @returns The generated content.
  */
 export const generateContentWithRelations = async (url: string, prompt?: string) => {
-  const xai = createXai({ apiKey: env.XAI_API_KEY })
+  const xai = createXai({ apiKey: env.X_XAI_API_KEY })
   const model = xai("grok-3")
   const scrapedData = await scrapeWebsiteData(url)
 
